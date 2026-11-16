@@ -1,0 +1,93 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Samo glavni. radnje je spisak dozvoljenih radnji u tom stanju (server ih i dalje proverava); forme su po radnji. #}
+{# prefiks u _polje.html daje svakom polju svoj id, jer vise formi na strani ima polje moja_lozinka. #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg><bdi>{{ nalog.ime }}</bdi></h1>
+
+  {% if odbijeno %}
+  <p class="mod-poruka mod-poruka-greska" role="alert">{% if odbijeno == "ne_sebe" %}{% translate "Не можете деактивирати свој налог." %}{% elif odbijeno == "poslednji_glavni" %}{% translate "Мора остати бар један активан главни модератор." %}{% else %}{% translate "Радња није дозвољена." %}{% endif %}</p>
+  {% endif %}
+
+  <p class="mod-znacke">
+    {% if nalog.aktivan %}<span class="mod-znacka mod-znacka-ok">{% translate "активан" %}</span>{% else %}<span class="mod-znacka mod-znacka-stop">{% translate "неактиван" %}</span>{% endif %}
+    {% if nalog.glavni %}<span class="mod-znacka">{% translate "Главни модератор" %}</span>{% endif %}
+    {% if nalog.mora_promeniti %}<span class="mod-znacka mod-znacka-pazi">{% translate "мора да промени лозинку" %}</span>{% endif %}
+    {% if nalog.ja %}<span class="mod-bez">({% translate "ваш налог" %})</span>{% endif %}
+  </p>
+  <dl class="mod-meta">
+    <div><dt>{% translate "Последња пријава" %}</dt><dd>{% if nalog.poslednja_prijava %}{{ nalog.poslednja_prijava }}{% else %}{% translate "никад" %}{% endif %}</dd></div>
+  </dl>
+  <a class="btn dugme dugme-sporedno mod-odustani" href="{% url 'moderator_nalozi' %}">{% translate "Назад на модераторе" %}</a>
+</section>
+
+{% if "deaktiviraj" in radnje %}{% with f=forme.deaktiviraj %}
+<section class="mod-karta" aria-labelledby="mod-deaktiviraj">
+  <h2 id="mod-deaktiviraj" class="mod-naslov">{% translate "Деактивирај" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="radnja" value="deaktiviraj">
+    {% for greska in f.non_field_errors %}<p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>{% endfor %}
+    {% include "igra/_polje.html" with polje=f.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" prefiks="deaktiviraj-" %}
+    <button type="submit" class="btn dugme dugme-opasno">{% translate "Деактивирај" %}</button>
+  </form>
+</section>
+{% endwith %}{% endif %}
+
+{% if "aktiviraj" in radnje %}{% with f=forme.aktiviraj %}
+<section class="mod-karta" aria-labelledby="mod-aktiviraj">
+  <h2 id="mod-aktiviraj" class="mod-naslov">{% translate "Активирај" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="radnja" value="aktiviraj">
+    {% for greska in f.non_field_errors %}<p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>{% endfor %}
+    {% include "igra/_polje.html" with polje=f.lozinka1 oznaka=_("Нова лозинка") autocomplete="new-password" prefiks="aktiviraj-" %}
+    {% include "igra/_polje.html" with polje=f.lozinka2 oznaka=_("Лозинка поново") autocomplete="new-password" prefiks="aktiviraj-" %}
+    {% include "igra/_polje.html" with polje=f.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" prefiks="aktiviraj-" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Активирај" %}</button>
+  </form>
+</section>
+{% endwith %}{% endif %}
+
+{% if "lozinka" in radnje %}{% with f=forme.lozinka %}
+<section class="mod-karta" aria-labelledby="mod-lozinka">
+  <h2 id="mod-lozinka" class="mod-naslov">{% translate "Постави лозинку" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="radnja" value="lozinka">
+    {% for greska in f.non_field_errors %}<p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>{% endfor %}
+    {% include "igra/_polje.html" with polje=f.lozinka1 oznaka=_("Нова лозинка") autocomplete="new-password" prefiks="lozinka-" %}
+    {% include "igra/_polje.html" with polje=f.lozinka2 oznaka=_("Лозинка поново") autocomplete="new-password" prefiks="lozinka-" %}
+    {% include "igra/_polje.html" with polje=f.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" prefiks="lozinka-" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Постави лозинку" %}</button>
+  </form>
+</section>
+{% endwith %}{% endif %}
+
+{% if "dodeli_ulogu" in radnje %}{% with f=forme.dodeli_ulogu %}
+<section class="mod-karta" aria-labelledby="mod-dodeli">
+  <h2 id="mod-dodeli" class="mod-naslov">{% translate "Додели улогу главног" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="radnja" value="dodeli_ulogu">
+    {% for greska in f.non_field_errors %}<p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>{% endfor %}
+    {% include "igra/_polje.html" with polje=f.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" prefiks="dodeli-" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Додели улогу главног" %}</button>
+  </form>
+</section>
+{% endwith %}{% endif %}
+
+{% if "oduzmi_ulogu" in radnje %}{% with f=forme.oduzmi_ulogu %}
+<section class="mod-karta" aria-labelledby="mod-oduzmi">
+  <h2 id="mod-oduzmi" class="mod-naslov">{% translate "Одузми улогу главног" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="radnja" value="oduzmi_ulogu">
+    {% for greska in f.non_field_errors %}<p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>{% endfor %}
+    {% include "igra/_polje.html" with polje=f.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" prefiks="oduzmi-" %}
+    <button type="submit" class="btn dugme dugme-opasno">{% translate "Одузми улогу главног" %}</button>
+  </form>
+</section>
+{% endwith %}{% endif %}
+{% endblock %}

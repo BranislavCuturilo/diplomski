@@ -1,0 +1,132 @@
+# Orkestrator na serveru (plan 15.3). Postavljanje, isporuka i povratak: DEPLOY.md.
+# Promenljive dolaze iz .env pored ovog fajla (primer: deploy/env.primer).
+#
+# Internet -> web (Nginx :80/:443, TLS, statika, ogranicenje brzine) -> app (gunicorn :8000, port se NE
+# objavljuje) -> SQLite /data/db.sqlite3 na imenovanom volumenu `baza`.
+# Migracija nije u pokretanju kontejnera: `docker compose run --rm app python manage.py migrate` (DEPLOY.md).
+
+# Stalno ime projekta: isti volumeni bez obzira na direktorijum izdanja.
+name: orkestrator
+
+x-log: &log
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  app:
+    build:
+      context: .
+      target: app
+    image: orkestrator-app:${VERZIJA:?VERZIJA nije postavljena u .env}
+    restart: unless-stopped
+    # DJANGO_SECRET_KEY (i ostalo iz .env). Vrednosti ispod imaju prednost nad .env.
+    env_file: .env
+    environment:
+      DJANGO_BAZA: /data/db.sqlite3
+      DJANGO_ALLOWED_HOSTS: ${DOMEN:?DOMEN nije postavljen u .env}
+      # Poreklo sa semom (django-nginx-docker, pravilo 2), inace svaki POST daje 403.
+      DJANGO_CSRF_TRUSTED_ORIGINS: https://${DOMEN:?DOMEN nije postavljen u .env}
+      DJANGO_HSTS_SEKUNDI: "${DJANGO_HSTS_SEKUNDI:-3600}"
+      DOMEN: ${DOMEN:?DOMEN nije postavljen u .env}
+    expose:
+      - "8000"
+    volumes:
+      - type: volume
+        source: baza
+        target: /data
+      # Kopije baze na domacinu (odrzavanje.sh). Direktorijum mora da postoji, vlasnik 10001 (DEPLOY.md, 3).
+      - type: bind
+        source: ${KOPIJE_DIR:-/var/backups/orkestrator}
+        target: /kopije
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 35s
+    healthcheck:
+      # zdravlje/ cita bazu i ne pravi sesiju; nikad / (plan 15.5). Host i Proto kao iza Nginx-a, inace 400 ili 301.
+      test:
+        - CMD
+        - python
+        - -c
+        - |
+          import json, os, urllib.request
+          zahtev = urllib.request.Request(
+              "http://127.0.0.1:8000/zdravlje/",
+              headers={"Host": os.environ["DOMEN"], "X-Forwarded-Proto": "https"},
+          )
+          with urllib.request.urlopen(zahtev, timeout=5) as odgovor:
+              assert odgovor.status == 200 and json.load(odgovor)["ok"] is True
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging: *log
+
+  web:
+    build:
+      context: .
+      target: web
+    image: orkestrator-web:${VERZIJA:?VERZIJA nije postavljena u .env}
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    # Samo domen i HSTS (strana 429 prijave, ista vrednost kao app); tajne iz .env ne idu u Nginx.
+    environment:
+      DOMEN: ${DOMEN:?DOMEN nije postavljen u .env}
+      DJANGO_HSTS_SEKUNDI: "${DJANGO_HSTS_SEKUNDI:-3600}"
+    # Samo IPv4 u v1. Na [::] bi IPv6 klijenti stizali kroz docker-proxy sa adresom mreznog prolaza, pa bi svi
+    # delili isti brojac ogranicenja brzine (revizija S2). IPv6 je kasniji korak: DEPLOY.md, 13.
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    volumes:
+      - certbot_conf:/etc/letsencrypt:ro
+      - certbot_www:/var/www/certbot:ro
+      # Pristupni log sa maskiranim tokenom; rotacija i 14 dana: odrzavanje.sh logovi.
+      - nginx_log:/var/log/nginx/pristup
+    # Koren samo za citanje. Upisuje se samo u tmpfs: renderovan nginx.conf i pid (/var/run; /etc/nginx/nginx.conf
+    # je veza na /var/run/nginx.conf, Dockerfile), privremeni fajlovi Nginx-a, sertifikat (veze ili privremeni
+    # samopotpisani) i /tmp; log ide na volumen nginx_log.
+    read_only: true
+    tmpfs:
+      - /var/run:size=1m
+      - /var/cache/nginx:size=64m
+      - /etc/nginx/tls:size=1m,mode=0700
+      - /tmp:size=16m
+    # Master Nginx-a radi kao root bez ostalih ovlascenja: 80/443 (NET_BIND_SERVICE), prelaz radnika na korisnika
+    # nginx (SETUID, SETGID) i vlasnistvo privremenih direktorijuma i loga radnika (CHOWN).
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - SETUID
+      - SETGID
+      - CHOWN
+    security_opt:
+      - no-new-privileges:true
+    logging: *log
+
+  # Samo na zahtev: `docker compose run --rm certbot ...` (DEPLOY.md, korak 4). Ne radi stalno.
+  certbot:
+    image: certbot/certbot:v5.10.0@sha256:c5698da859429ccee0fcc299a8000368198222d1f9e789ab6e388b491e8ce06d
+    profiles:
+      - alati
+    volumes:
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    logging: *log
+
+volumes:
+  baza:
+  certbot_conf:
+  certbot_www:
+  nginx_log:

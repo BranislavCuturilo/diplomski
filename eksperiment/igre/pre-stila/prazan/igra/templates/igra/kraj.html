@@ -1,0 +1,47 @@
+{% extends "igra/osnova.html" %}
+{% block sadrzaj %}
+<section class="panel text-center mb-3">
+  <h1 class="h4">Завршна провера</h1>
+  <p id="poeni" class="poeni">{{ poeni }}</p>
+  <p class="mb-1">поена</p>
+  <p id="ocena" class="ocena">{{ ocena }}</p>
+</section>
+
+<div class="row g-2 mb-3">
+  <div class="col-6">
+    <div class="pokazatelj"><span>Укупна цена (буџет {{ budzet }} $)</span><strong id="ukupna-cena">{{ ukupna_cena }}</strong> <small>$</small></div>
+  </div>
+  <div class="col-6">
+    <div class="pokazatelj"><span>Укупно минута (рок {{ rok }})</span><strong id="ukupni-minuti">{{ ukupni_minuti }}</strong> <small>мин</small></div>
+  </div>
+</div>
+
+<section class="panel mb-3">
+  <h2 class="h6 oznaka-zadatka">Тихе грешке</h2>
+  {% if tihe_greske %}
+  <ul id="tihe-greske" class="mb-0">
+    {% for zadatak in tihe_greske %}<li>Круг {{ zadatak.krug }}: {{ zadatak.naziv }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  <p id="tihe-greske" class="mb-0">Нема тихих грешака.</p>
+  {% endif %}
+</section>
+
+<section class="panel mb-3">
+  <h2 class="h6 oznaka-zadatka">Лекције</h2>
+  {% if lekcije %}
+  <ul id="lekcije" class="mb-0">
+    {% for lekcija in lekcije %}<li>{{ lekcija.tekst }} <small class="text-body-secondary">Одељак {{ lekcija.odeljak }} завршног рада.</small></li>{% endfor %}
+  </ul>
+  {% else %}
+  <p id="lekcije" class="mb-0">У овој партији нема посебних лекција.</p>
+  {% endif %}
+</section>
+
+<p id="napomena" class="napomena">{{ napomena }}</p>
+
+<form method="post" action="{% url 'nova' %}" data-jednom>
+  {% csrf_token %}
+  <button id="nova-igra" type="submit" class="btn btn-lg dugme-glavno w-100">Нова игра</button>
+</form>
+{% endblock %}

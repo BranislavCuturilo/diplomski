@@ -1,0 +1,27 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="dnevnik" class="panel">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-dnevnik"/></svg>{% translate "Дневник модерације" %}</h1>
+  {% if redovi %}
+  <ol class="rang-lista">
+    {% for red in redovi %}
+    <li class="rang-red moderator-red dnevnik-red dnevnik-{{ red.vrsta }}">
+      <span class="rang-tekst">
+        <span class="rang-detalji"><time>{{ red.vreme }}</time></span>
+        <span class="rang-ime"><span class="dnevnik-ko">{% if red.moderator %}{{ red.moderator }}{% else %}{% translate "развијалац" %}{% endif %}</span> <span class="dnevnik-radnja">{{ red.radnja }}</span></span>
+        <span class="rang-detalji dnevnik-sta">
+          {% if red.vrsta == "rezultat" or red.vrsta == "zadrzan" %}„{{ red.ime_igraca }}“ · {{ red.poeni }} {% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}
+          {% elif red.vrsta == "link" %}<code class="moderator-kod">/partija/{{ red.kod }}/</code>{% if red.ime_igraca %} · „{{ red.ime_igraca }}“{% endif %}
+          {% else %}{{ red.nalog }}{% endif %}
+        </span>
+      </span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% include "igra/moderator/_strane.html" %}
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Дневник је празан." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

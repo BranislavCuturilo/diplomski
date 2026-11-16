@@ -1,0 +1,11 @@
+{% load i18n %}{# Prijava neprikladnog imena sa liste iz istog odeljka: izbor reda, pa slanje skriptom (bez method i action). Blok je skriven dok lista nema redova. Imena su tudji unos: skripta ih upisuje u opcije samo kroz textContent. oznaka cini id-jeve jedinstvenim kada strana ima dve liste. #}
+        <details class="rang-prijava" data-mesto="prijava" hidden>
+          <summary class="rang-prijava-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-granica"/></svg><span>{% translate "Пријави неприкладно име" %}</span></summary>
+          <form class="rang-forma rang-prijava-forma" data-mesto="prijava-forma" data-url-prijavi="{{ adrese.prijavi }}" novalidate>
+            <label for="{{ oznaka }}-prijava-izbor" class="rang-oznaka">{% translate "Име које пријављујете" %}</label>
+            <select id="{{ oznaka }}-prijava-izbor" class="form-select rang-prijava-izbor" data-mesto="prijava-izbor" aria-describedby="{{ oznaka }}-prijava-pomoc"></select>
+            <div id="{{ oznaka }}-prijava-pomoc" class="rang-pomoc">{% translate "Модератор ће прегледати име и одлучити да ли се резултат брише." %}</div>
+            <button type="submit" class="btn dugme dugme-sporedno" data-mesto="prijava-dugme" disabled>{% translate "Пошаљи пријаву" %}</button>
+          </form>
+          <p class="rang-poruka" data-mesto="prijava-poruka" role="status" hidden></p>
+        </details>

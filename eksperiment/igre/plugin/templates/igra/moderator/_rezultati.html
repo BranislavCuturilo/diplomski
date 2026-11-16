@@ -1,0 +1,23 @@
+{% load i18n %}<section class="mod-karta" aria-labelledby="{{ oznaka }}">
+  <h2 id="{{ oznaka }}" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#{{ ikona }}"/></svg>{{ naslov }}</h2>
+  {% if lista %}<p class="mod-izvoz"><a class="btn dugme dugme-sporedno" href="{{ izvoz }}" download>{% translate "Преузми табелу" %}<span class="visually-hidden">: {{ naslov }}</span></a></p>{% endif %}
+  {% if lista %}
+  <ul class="list-group mod-spisak">
+    {% for r in lista %}
+    <li class="list-group-item mod-stavka">
+      <div class="mod-stavka-tekst">
+        <p class="mod-stavka-ime"><span class="mod-mesto">{{ r.mesto }}.</span> <bdi>{{ r.ime }}</bdi>{% if r.javno %} <span class="mod-znacka">{% translate "јавно" %}</span>{% endif %}</p>
+        <dl class="mod-meta">
+          <div><dt>{% translate "Поени" %}</dt><dd>{{ r.poeni }}</dd></div>
+          <div><dt>{% translate "Оцена" %}</dt><dd>{{ r.ocena }}</dd></div>
+          <div><dt>{% translate "Датум" %}</dt><dd>{{ r.datum }}</dd></div>
+        </dl>
+      </div>
+      <a class="btn dugme dugme-sporedno mod-radnja mod-obrisi" href="{% url 'moderator_rezultat' r.id %}">{% translate "Обриши" %}<span class="visually-hidden">: <bdi>{{ r.ime }}</bdi></span></a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="rang-prazno">{{ prazno }}</p>
+  {% endif %}
+</section>

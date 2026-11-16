@@ -1,0 +1,8 @@
+{
+  "name": "diplomski",
+  "displayName": "Diplomski: agenti za Django",
+  "version": "1.0.0",
+  "description": "Skillovi u 4 sloja, 14 agenata, hookovi, merenje i alati za izradu Django veb aplikacija uz AI agente.",
+  "author": { "name": "Branislav Cuturilo" },
+  "skills": ["./skills/opsti-sloj/", "./skills/sloj-tehnologije/", "./skills/sloj-spoja-tehnologija/"]
+}

@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" pull" } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [
+        { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" upit" },
+        { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" ruter" }
+      ] }
+    ],
+    "PreToolUse": [
+      { "matcher": "Edit|Write",
+        "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" skill" } ] },
+      { "matcher": "Bash|PowerShell",
+        "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" git" } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Agent|Task|Skill",
+        "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" upotreba" } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" stop" } ] }
+    ],
+    "SessionEnd": [
+      { "hooks": [ { "type": "command", "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/pokreni.py\" sync" } ] }
+    ]
+  }
+}

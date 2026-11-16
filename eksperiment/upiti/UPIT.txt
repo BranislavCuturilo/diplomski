@@ -1,0 +1,1 @@
+Procitaj MVP.md i napravi detaljan plan izrade igre Orkestrator u plan.md. Ako nesto u MVP.md nije jasno, pitaj. Ne pisi kod dok ne potvrdim plan.

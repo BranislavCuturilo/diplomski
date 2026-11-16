@@ -1,0 +1,1 @@
+Klijent trazi deljenje rezultata: na zavrsnom ekranu igrac dobija link koji moze da posalje drugome, a taj link otvara stranicu sa rezultatom te partije (poeni, ocena, tihe greske, lekcije), bez mogucnosti da se igra nastavi.

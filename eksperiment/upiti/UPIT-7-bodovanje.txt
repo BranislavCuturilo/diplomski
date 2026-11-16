@@ -1,0 +1,1 @@
+Klijent menja bodovanje: tiha greska sada kosta 35 poena umesto 25, a kazna za prekoracen budzet vise nije ista za svako prekoracenje, vec iznosi 10 poena za svakih zapocetih 10% prekoracenja, najvise 50. Promena vazi od sada; igraci koji su vec na rang listi ili su vec podelili link ne smeju da se osete prevareno.

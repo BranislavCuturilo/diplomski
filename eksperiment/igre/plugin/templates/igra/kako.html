@@ -1,0 +1,130 @@
+{% load i18n static %}{% get_current_language as JEZIK %}<!doctype html>
+<html lang="{{ JEZIK }}">{# _glava.html se zavrsava novim redom, pa <body> stoji odmah iza include-a. #}
+{% translate "Како се игра · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov %}<body class="igra-telo">
+
+{# Strana samo za citanje, bez skripte: ne cita i ne pise sesiju ni partiju. Sve brojeve daje prikaz iz parametri.py i motora. Nikad sansa, oznaka tihog zadatka ni seme. #}
+{% include "igra/_ikone.html" %}
+
+<div class="container igra-okvir">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+
+      <header class="vrh">
+        <div class="vrh-naslov">
+          <span class="znak"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg></span>
+          <div class="vrh-tekst">
+            <h1 class="naslov">{% translate "Оркестратор" %}</h1>
+            <p class="krug">{% translate "Како се игра" %}</p>
+          </div>
+          {# Isti izbor jezika kao na igri: POST na set_language (kolacic jezika, ne sesija), pa nazad na ovu stranu. #}
+          <form id="jezik-forma" class="jezik" method="post" action="{% url 'jezik' %}" aria-label="{% translate 'Језик' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'kako_se_igra' %}">
+            {% if JEZIK == "sr" %}
+            <button type="submit" id="jezik-dugme" class="btn jezik-dugme dugme-sporedno" name="language" value="en" lang="en">English</button>
+            {% else %}
+            <button type="submit" id="jezik-dugme" class="btn jezik-dugme dugme-sporedno" name="language" value="sr" lang="sr">Српски</button>
+            {% endif %}
+          </form>
+        </div>
+      </header>
+
+      <section id="kako-cilj" class="dnevni" aria-labelledby="kako-cilj-naslov">
+        <h2 id="kako-cilj-naslov" class="dnevni-naslov">{% translate "Циљ игре" %}</h2>
+        <p class="dnevni-opis">{% translate "Водите израду веб апликације: за сваки задатак бирате како ће га агент урадити. Циљ је да завршите све задатке уз што мање новца и времена и да задржите што више поена." %}</p>
+      </section>
+
+      <section id="kako-krugovi" class="dnevni" aria-labelledby="kako-krugovi-naslov">
+        <h2 id="kako-krugovi-naslov" class="dnevni-naslov">{% translate "Кругови, буџет и рок" %}</h2>
+        <p class="dnevni-opis">{% blocktranslate count n=krugova trimmed %}Партија има {{ n }} круг: у сваком кругу радите један задатак.{% plural %}Партија има {{ n }} кругова: у сваком кругу радите један задатак.{% endblocktranslate %}</p>
+        <p class="dnevni-opis">{% blocktranslate trimmed %}Буџет је {{ budzet }}, а рок {{ rok }}. Прекорачење не прекида игру: игра иде до краја, а казна стиже на крају.{% endblocktranslate %}</p>
+      </section>
+
+      <section id="kako-izbori" class="dnevni" aria-labelledby="kako-izbori-naslov">
+        <h2 id="kako-izbori-naslov" class="dnevni-naslov">{% translate "Четири избора по кругу" %}</h2>
+        <p class="dnevni-opis">{% translate "У сваком кругу бирате по једну опцију из четири групе. Пре потврде игра показује процену цене и минута." %}</p>
+        <h3 class="oznaka">{% translate "Модел" %}</h3>
+        <ul class="opisi">
+          {% for o in opcije.model %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+          {% endfor %}
+        </ul>
+        <h3 class="oznaka">{% translate "Ниво размишљања" %}</h3>
+        <ul class="opisi">
+          {% for o in opcije.nivo %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+          {% endfor %}
+        </ul>
+        <h3 class="oznaka">{% translate "Контекст" %}</h3>
+        <ul class="opisi">
+          {% for o in opcije.kontekst %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+          {% endfor %}
+        </ul>
+        <h3 class="oznaka">{% translate "Подела посла" %}</h3>
+        <ul class="opisi">
+          {% for o in opcije.podela %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section id="kako-posle-kruga" class="dnevni" aria-labelledby="kako-posle-kruga-naslov">
+        <h2 id="kako-posle-kruga-naslov" class="dnevni-naslov">{% translate "Шта видите после круга" %}</h2>
+        <p class="dnevni-opis">{% translate "После сваког круга видите цену, минуте и статус." %}</p>
+        <ul class="opisi">
+          <li><strong>{{ statusi.gotovo }}</strong>: {% translate "задатак је завршен, без последица." %}</li>
+          <li><strong>{{ statusi.dorada }}</strong>: {% blocktranslate count n=kazna_dorada trimmed %}цена и минути се одмах множе са {{ mnozilac }}, а губите {{ n }} поен.{% plural %}цена и минути се одмах множе са {{ mnozilac }}, а губите {{ n }} поена.{% endblocktranslate %}</li>
+        </ul>
+      </section>
+
+      <section id="kako-tiha" class="dnevni" aria-labelledby="kako-tiha-naslov">
+        <h2 id="kako-tiha-naslov" class="dnevni-naslov">{% translate "Тиха грешка и контролни скуп" %}</h2>
+        <p class="dnevni-opis">{% translate "Неки неуспеси изгледају као успех: на екрану пише исто као да је све у реду. Такве грешке се откривају тек на контролном скупу, који се извршава сам после последњег круга." %}</p>
+        <p class="dnevni-opis">{% blocktranslate count n=kazna_tiha trimmed %}За сваку откривену тиху грешку плаћате додатну цену и време и губите {{ n }} поен.{% plural %}За сваку откривену тиху грешку плаћате додатну цену и време и губите {{ n }} поена.{% endblocktranslate %}</p>
+      </section>
+
+      <section id="kako-kazne" class="dnevni" aria-labelledby="kako-kazne-naslov">
+        <h2 id="kako-kazne-naslov" class="dnevni-naslov">{% translate "Казне за буџет и рок" %}</h2>
+        <ul class="opisi">
+          <li>{% blocktranslate with korak=budzet_korak maks=budzet_maks count n=kazna_budzet trimmed %}Буџет: за сваких започетих {{ korak }} прекорачења губите {{ n }} поен, а највише {{ maks }}.{% plural %}Буџет: за сваких започетих {{ korak }} прекорачења губите {{ n }} поена, а највише {{ maks }}.{% endblocktranslate %}</li>
+          <li>{% blocktranslate count n=kazna_rok trimmed %}Рок: ако га прекорачите, губите {{ n }} поен.{% plural %}Рок: ако га прекорачите, губите {{ n }} поена.{% endblocktranslate %}</li>
+        </ul>
+      </section>
+
+      <section id="kako-poeni" class="dnevni" aria-labelledby="kako-poeni-naslov">
+        <h2 id="kako-poeni-naslov" class="dnevni-naslov">{% translate "Поени и оцене" %}</h2>
+        <p class="dnevni-opis">{% blocktranslate count n=pocetni_poeni trimmed %}Партија почиње са {{ n }} поеном, а поени не могу пасти испод нуле.{% plural %}Партија почиње са {{ n }} поена, а поени не могу пасти испод нуле.{% endblocktranslate %}</p>
+        <table class="table">
+          <thead>
+            <tr><th scope="col">{% translate "Поени" %}</th><th scope="col">{% translate "Оцена" %}</th></tr>
+          </thead>
+          <tbody>
+            {% for o in ocene %}<tr><td>{{ o.poeni }}</td><td>{{ o.naziv }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="kako-dnevni" class="dnevni" aria-labelledby="kako-dnevni-naslov">
+        <h2 id="kako-dnevni-naslov" class="dnevni-naslov">{% translate "Дневни изазов и ранг листа" %}</h2>
+        <p class="dnevni-opis">{% translate "Дневни изазов је иста партија за све играче тог дана и игра се једном. Када партија заврши, можете да сачувате резултат под својим именом: најбољи резултати улазе на ранг листу." %}</p>
+      </section>
+
+      <section id="kako-primer" class="dnevni" aria-labelledby="kako-primer-naslov">
+        <h2 id="kako-primer-naslov" class="dnevni-naslov">{% translate "Пример једног круга" %}</h2>
+        <p class="dnevni-opis">{% blocktranslate with zadatak=primer.zadatak model=primer.izabrano.model nivo=primer.izabrano.nivo kontekst=primer.izabrano.kontekst podela=primer.izabrano.podela trimmed %}У првом кругу радите задатак „{{ zadatak }}“. Бирате: модел {{ model }}, ниво {{ nivo }}, контекст „{{ kontekst }}“, подела „{{ podela }}“.{% endblocktranslate %}</p>
+        <p class="dnevni-opis">{% blocktranslate with cena=primer.cena minuti=primer.minuti trimmed %}Процена: цена {{ cena }}, {{ minuti }}.{% endblocktranslate %}</p>
+        <ul class="opisi">
+          <li>{% blocktranslate with status=statusi.gotovo cena=primer.cena minuti=primer.minuti trimmed %}Ако прође: „{{ status }}“, плаћате {{ cena }} и {{ minuti }}.{% endblocktranslate %}</li>
+          <li>{% blocktranslate with status=statusi.dorada cena=primer.dorada_cena minuti=primer.dorada_minuti count n=kazna_dorada trimmed %}Ако се врати на дораду: „{{ status }}“, цена и минути се множе са {{ mnozilac }}, па плаћате {{ cena }} и {{ minuti }}, и губите {{ n }} поен.{% plural %}Ако се врати на дораду: „{{ status }}“, цена и минути се множе са {{ mnozilac }}, па плаћате {{ cena }} и {{ minuti }}, и губите {{ n }} поена.{% endblocktranslate %}</li>
+        </ul>
+      </section>
+
+      <p class="deljeno-napomena">{{ napomena }}</p>
+
+      <div class="nova">
+        <a id="nazad-na-igru" class="btn dugme dugme-glavno" href="{% url 'pocetna' %}"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-nova"/></svg>{% translate "Назад на игру" %}</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

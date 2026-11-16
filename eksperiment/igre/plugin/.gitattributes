@@ -1,0 +1,6 @@
+# Arhiva za server (git archive) mora imati LF krajeve redova, i kad je core.autocrlf=true:
+# bash skripte, .env iz primera i nginx.conf se lome sa CRLF (plan-isporuka.md 15.9).
+* text=auto eol=lf
+*.png binary
+*.mo binary
+*.sqlite3 binary

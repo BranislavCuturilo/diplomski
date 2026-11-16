@@ -1,0 +1,17 @@
+{% load static %}<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оркестратор</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{% static 'igra/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'igra/igra.css' %}">
+</head>
+<body>
+  <main class="sadrzaj container">
+    {% block sadrzaj %}{% endblock %}
+  </main>
+  <script src="{% static 'igra/igra.js' %}"></script>
+</body>
+</html>

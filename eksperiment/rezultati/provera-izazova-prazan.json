@@ -1,0 +1,77 @@
+{
+ "strana": "prazan",
+ "prolazi": 14,
+ "ukupno": 14,
+ "provere": [
+  {
+   "provera": "dva igraca, isti izbori: isti ishod",
+   "ok": true,
+   "detalj": "(0, 0)"
+  },
+  {
+   "provera": "dnevna partija: isto seme za dva igraca; obicna: razlicito",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana zavisi od tajnog kljuca",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana je drugacije sutra",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana nije u strani ni u odgovoru poteza",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "ponovni pocetak usred partije nastavlja istu (krug 4)",
+   "ok": true,
+   "detalj": "4"
+  },
+  {
+   "provera": "dnevni rezultat se cuva",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "posle odigrane dnevne: nova dnevna partija u istoj sesiji ne pocinje i nema drugog upisa",
+   "ok": true,
+   "detalj": "(409, 409)"
+  },
+  {
+   "provera": "vise igraca cuva rezultat iste dnevne partije",
+   "ok": true,
+   "detalj": "['Drugi', 'Prvi', 'Treci']"
+  },
+  {
+   "provera": "lista dana ima dnevne, a nema obicni rezultat",
+   "ok": true,
+   "detalj": "id=\"dnevna-lista\" class=\"panel mt-3\">\n  <h2 class=\"oznaka-zadatka\"><svg class=\"ikona\" aria-hidden=\"true\"><use href=\"#ik-pehar\"/></svg>Ранг листа дана · 12.11.2026.</h2>\n  \n  <ol class=\"rang-lista\">\n  "
+  },
+  {
+   "provera": "glavna lista ima obicni, a nema dnevne rezultate",
+   "ok": true,
+   "detalj": "id=\"rang-lista\" class=\"panel mt-3\">\n  <h2 class=\"oznaka-zadatka\"><svg class=\"ikona\" aria-hidden=\"true\"><use href=\"#ik-pehar\"/></svg>Ранг листа</h2>\n  \n  <ol class=\"rang-lista\">\n    \n    <li class=\"ran"
+  },
+  {
+   "provera": "partija zapoceta pre ponoci cuva se na listu dana pocetka (12.11.)",
+   "ok": true,
+   "detalj": "(302, datetime.date(2026, 11, 12))"
+  },
+  {
+   "provera": "posle ponoci lista dana je za novi dan (bez juce sacuvanih)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "dan se racuna po beogradskom vremenu (23:30 UTC = 13.11.)",
+   "ok": true,
+   "detalj": "2026-11-13"
+  }
+ ]
+}

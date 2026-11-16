@@ -1,0 +1,7 @@
+{% load i18n %}{% if strana.paginator.num_pages > 1 %}
+<nav class="strane mt-3" aria-label="{% translate 'Стране' %}">
+  {% if strana.has_previous %}<a class="btn dugme-sporedno" href="?strana={{ strana.previous_page_number }}">{% translate "Претходна" %}</a>{% else %}<span></span>{% endif %}
+  <span class="strane-broj">{% blocktranslate with broj=strana.number ukupno=strana.paginator.num_pages %}Страна {{ broj }} од {{ ukupno }}{% endblocktranslate %}</span>
+  {% if strana.has_next %}<a class="btn dugme-sporedno" href="?strana={{ strana.next_page_number }}">{% translate "Следећа" %}</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,15 @@
+{
+  "izvor": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "provereno": "2026-11-12",
+  "napomena": "Dolara po milion tokena, standardna brzina. Haiku 5.5 je skuplji za zahtev ciji je ceo prompt (ulaz + cache citanje + cache upis) preko 100.000 tokena. Dok su cene ili izvor null, izvestaj ispisuje tokene i 'cena nije podesena'.",
+  "modeli": {
+    "claude-fable-5-2": { "ulaz": 8, "izlaz": 40, "cache_citanje": 0.2, "cache_upis_5m": 10, "cache_upis_1h": 16 },
+    "claude-fable-5-1": { "ulaz": 10, "izlaz": 50, "cache_citanje": 0.25, "cache_upis_5m": 12.5, "cache_upis_1h": 20 },
+    "claude-opus-5-5": { "ulaz": 4, "izlaz": 20, "cache_citanje": 0.2, "cache_upis_5m": 5, "cache_upis_1h": 8 },
+    "claude-opus-4-8": { "ulaz": 5, "izlaz": 25, "cache_citanje": 0.5, "cache_upis_5m": 6.25, "cache_upis_1h": 10 },
+    "claude-sonnet-5-5": { "ulaz": 2, "izlaz": 10, "cache_citanje": 0.1, "cache_upis_5m": 2.5, "cache_upis_1h": 4 },
+    "claude-haiku-5-5": { "ulaz": 0.1, "izlaz": 0.5, "cache_citanje": 0.01, "cache_upis_5m": 0.125, "cache_upis_1h": 0.2,
+      "prag_prompta": 100000,
+      "iznad_praga": { "ulaz": 0.5, "izlaz": 2.5, "cache_citanje": 0.05, "cache_upis_5m": 0.625, "cache_upis_1h": 1 } }
+  }
+}

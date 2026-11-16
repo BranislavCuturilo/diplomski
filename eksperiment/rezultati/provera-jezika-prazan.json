@@ -1,0 +1,152 @@
+{
+ "strana": "prazan",
+ "prolazi": 29,
+ "ukupno": 29,
+ "provere": [
+  {
+   "provera": "kontrola: isti sakupljac na srpskom ekranu nalazi cirilicu",
+   "ok": true,
+   "detalj": "12 tekstova"
+  },
+  {
+   "provera": "bez izbora (Accept-Language: sr) igra je na srpskom",
+   "ok": true,
+   "detalj": "sr-Cyrl"
+  },
+  {
+   "provera": "posle izbora engleskog <html lang> je en",
+   "ok": true,
+   "detalj": "en"
+  },
+  {
+   "provera": "promena jezika usred partije ne prekida igru (kraj posle 8 krugova)",
+   "ok": true,
+   "detalj": "http://127.0.0.1:8831/kraj/"
+  },
+  {
+   "provera": "link za deljenje dobijen na engleskom",
+   "ok": true,
+   "detalj": "http://127.0.0.1:8831/partija/YFpeaZglypqkKaU19gObKw/"
+  },
+  {
+   "provera": "izbor se pamti u trajnom kolacicu (> 300 dana)",
+   "ok": true,
+   "detalj": "['jezik'], 365 dana"
+  },
+  {
+   "provera": "nov prozor sa kolacicem jezika otvara engleski",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "ista deljena strana je srpski posmatracu bez izbora",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "izbor jezika ne preusmerava van sajta",
+   "ok": true,
+   "detalj": "(302, '/')"
+  },
+  {
+   "provera": "nepostojeci jezik (de) odbijen ili zanemaren",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "srpski zavrsni ekran nema engleskih recenica iz kataloga",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "dijalozi pregledaca bez cirilice na engleskom",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "bez JS gresaka tokom cele partije",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "bez cirilice na engleskom: pocetna",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra, 1. krug",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: zavrsni ekran (lekcije, napomena)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: greska pri cuvanju praznog imena",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: rang lista posle cuvanja",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: zavrsni ekran sa linkom",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: deljena strana (posmatrac na engleskom)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: deljena strana koja ne postoji (404)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: rang lista sa zapisom sacuvanim na srpskom",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 1. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 2. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 3. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 4. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 5. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 6. kruga",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez cirilice na engleskom: igra posle 7. kruga",
+   "ok": true,
+   "detalj": ""
+  }
+ ]
+}

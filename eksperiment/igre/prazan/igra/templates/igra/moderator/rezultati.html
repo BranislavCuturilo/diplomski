@@ -1,0 +1,37 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="rezultati" class="panel">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>{% translate "Резултати на ранг листи" %}</h1>
+  <div id="izvoz" class="moderator-izvoz mb-3">
+    <a id="izvoz-glavna" class="btn dugme-sporedno" href="{% url 'moderator_izvoz' %}?lista=glavna">{% translate "Преузми ранг листу (CSV)" %}</a>
+    <form id="izvoz-dnevna" method="get" action="{% url 'moderator_izvoz' %}" class="d-inline-flex flex-wrap gap-2 align-items-center">
+      <input type="hidden" name="lista" value="dnevna">
+      <label for="izvoz-dan">{% translate "Дан" %}</label>
+      <input id="izvoz-dan" type="date" name="dan" value="{{ danas }}" class="form-control w-auto" required>
+      <button type="submit" class="btn dugme-sporedno">{% translate "Преузми листу дана (CSV)" %}</button>
+    </form>
+  </div>
+  {% if redovi %}
+  <ol class="rang-lista">
+    {% for red in redovi %}
+    <li class="rang-red moderator-red rang-mesto-{{ red.mesto }}" id="rezultat-{{ red.pk }}">
+      <span class="rang-mesto">{{ red.mesto }}</span>
+      <span class="rang-tekst">
+        <span class="rang-ime">{{ red.ime }}</span>
+        <span class="rang-detalji">{{ red.ocena }} · {{ red.datum }}</span>
+      </span>
+      <span class="rang-poeni"><strong>{{ red.poeni }}</strong><small>{% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}</small></span>
+      <span class="moderator-radnje">
+        {% if red.kod %}<a class="btn dugme-sporedno" href="{% url 'podeljeno' red.kod %}" target="_blank" rel="noopener">{% translate "Отвори линк" %}</a>{% endif %}
+        <a class="btn dugme-opasno" href="{% url 'moderator_obrisi_rezultat' red.pk %}">{% translate "Обриши резултат" %}</a>
+      </span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% include "igra/moderator/_strane.html" %}
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Још нема сачуваних резултата." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

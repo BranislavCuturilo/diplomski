@@ -1,0 +1,69 @@
+{% extends "igra/osnova.html" %}
+{% block sadrzaj %}
+<header class="d-flex justify-content-between align-items-baseline mb-2">
+  <h1 class="h4 m-0">Оркестратор</h1>
+  <span>Круг <strong id="broj-kruga">{{ krug }}</strong>/{{ broj_krugova }}</span>
+</header>
+<div class="segmenti mb-3" aria-hidden="true">
+  {% for odigran in segmenti %}<span class="segment{% if odigran %} segment-odigran{% endif %}"></span>{% endfor %}
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-6">
+    <div class="pokazatelj"><span>Преостали буџет</span>
+      <strong id="budzet" class="{% if budzet_prekoracen %}text-danger{% endif %}">{{ budzet_preostalo }}</strong> <small>$</small></div>
+  </div>
+  <div class="col-6">
+    <div class="pokazatelj"><span>Преостали рок</span>
+      <strong id="rok" class="{% if rok_prekoracen %}text-danger{% endif %}">{{ rok_preostalo }}</strong> <small>мин</small></div>
+  </div>
+</div>
+
+<section id="panel-poteza" class="panel mb-3">
+  <h2 class="h6 oznaka-zadatka">Задатак</h2>
+  <p id="naziv-zadatka" class="zadatak">{{ naziv }}</p>
+  <form id="forma-poteza" data-krug="{{ krug }}" data-adresa="{% url 'potez' %}" novalidate>
+    {% csrf_token %}
+    {% for grupa in opcije %}
+    <fieldset class="mb-3">
+      <legend class="grupa-naslov">{{ grupa.naslov }}</legend>
+      <div class="row g-2">
+        {% for opcija in grupa.opcije %}
+        <div class="col-4">
+          <input class="btn-check" type="radio" name="{{ grupa.polje }}" id="{{ grupa.polje }}-{{ opcija.kljuc }}" value="{{ opcija.kljuc }}" autocomplete="off">
+          <label class="btn izbor w-100 h-100" for="{{ grupa.polje }}-{{ opcija.kljuc }}">
+            <span class="izbor-naziv">{{ opcija.naziv }}</span>
+            {% for detalj in opcija.detalji %}<span class="izbor-detalj">{{ detalj }}</span>{% endfor %}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </fieldset>
+    {% endfor %}
+    <button id="potvrdi" type="submit" class="btn btn-lg dugme-glavno w-100" disabled>Потврди</button>
+    <p id="greska-poteza" class="text-danger mt-2 mb-0" role="alert" hidden></p>
+  </form>
+  <div id="kraj-partije" hidden>
+    <p>Свих {{ broj_krugova }} кругова је одиграно.</p>
+    <a id="pogledaj-rezultat" class="btn btn-lg dugme-glavno w-100" href="{% url 'kraj' %}">Погледај резултат</a>
+  </div>
+</section>
+
+<section id="rezultat-poteza" class="panel mb-3" aria-live="polite"{% if not poslednji %} hidden{% endif %}>
+  <h2 class="h6 oznaka-zadatka">Последњи потез</h2>
+  <p class="mb-0">
+    <span id="poslednji-status" class="status {% if poslednji.status == 'готово' %}status-gotovo{% else %}status-dorada{% endif %}">{{ poslednji.status }}</span>
+    <span class="ms-2"><span id="poslednja-cena">{{ poslednji.cena }}</span> $ · <span id="poslednji-minuti">{{ poslednji.minuti }}</span> мин</span>
+  </p>
+</section>
+
+<section id="panel-istorije" class="panel"{% if not istorija %} hidden{% endif %}>
+  <h2 class="h6 oznaka-zadatka">Одиграни кругови</h2>
+  <ol id="istorija" class="istorija">
+    {% for red in istorija %}
+    <li><span class="istorija-naziv">{{ red.krug }}. {{ red.naziv }}</span>
+      <span class="istorija-podaci">{{ red.status }} · {{ red.cena }} $ · {{ red.minuti }} мин</span></li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}

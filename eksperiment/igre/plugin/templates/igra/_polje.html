@@ -1,0 +1,17 @@
+{% comment %}
+  Polje Django forme sa Bootstrap klasama (django-ssr-bootstrap, pravilo 1).
+  Ulaz: polje (BoundField); neobavezno: oznaka (natpis, inace polje.label), autocomplete, prefiks (za id kad je vise formi na strani).
+  Greska: .is-invalid na polju i .invalid-feedback kao SLEDECI brat polja (za kvadratic je posle natpisa).
+  Lozinka (type=password) se nikad ne upisuje u value, ni kad je forma vezana.
+{% endcomment %}{% load l10n %}{% with id=prefiks|add:polje.html_name tip=polje.field.widget.input_type %}<div class="mod-grupa">
+{% if tip == "checkbox" %}  <div class="form-check">
+    <input type="checkbox" class="form-check-input mod-kvadratic{% if polje.errors %} is-invalid{% endif %}" name="{{ polje.html_name }}" id="{{ id }}"{% if polje.value %} checked{% endif %}{% if polje.errors %} aria-invalid="true" aria-describedby="{{ id }}-greska"{% endif %}>
+    <label class="form-check-label mod-oznaka" for="{{ id }}">{{ oznaka|default:polje.label }}</label>
+{% if polje.errors %}    <div class="invalid-feedback" id="{{ id }}-greska">{% for greska in polje.errors %}<div>{{ greska }}</div>{% endfor %}</div>
+{% endif %}  </div>
+{% else %}  <label class="mod-oznaka" for="{{ id }}">{{ oznaka|default:polje.label }}</label>
+  <input type="{{ tip|default:'text' }}" class="form-control mod-polje{% if polje.errors %} is-invalid{% endif %}" name="{{ polje.html_name }}" id="{{ id }}"{% if polje.field.required %} aria-required="true"{% endif %}{% if polje.field.max_length %} maxlength="{{ polje.field.max_length|unlocalize }}"{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}{% if tip != "password" and polje.value is not None %} value="{{ polje.value }}"{% endif %}{% if polje.errors or polje.help_text %} aria-describedby="{% if polje.errors %}{{ id }}-greska{% endif %}{% if polje.errors and polje.help_text %} {% endif %}{% if polje.help_text %}{{ id }}-pomoc{% endif %}"{% endif %}{% if polje.errors %} aria-invalid="true"{% endif %}>
+{% if polje.errors %}  <div class="invalid-feedback" id="{{ id }}-greska">{% for greska in polje.errors %}<div>{{ greska }}</div>{% endfor %}</div>
+{% endif %}{% endif %}{% if polje.help_text %}  <div class="form-text mod-pomoc" id="{{ id }}-pomoc">{{ polje.help_text }}</div>
+{% endif %}</div>
+{% endwith %}

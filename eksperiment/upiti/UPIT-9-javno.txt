@@ -1,0 +1,1 @@
+Klijent pusta igru javno na internetu, na adresi https://orkestrator.example, i ocekuje nekoliko hiljada igraca dnevno. Pripremi projekat za to; samo postavljanje na server radi klijentov administrator po tvom uputstvu.

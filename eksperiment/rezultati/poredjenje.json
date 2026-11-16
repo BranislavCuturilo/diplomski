@@ -1,0 +1,561 @@
+{
+ "strane": {
+  "prazan": {
+   "ukupno": {
+    "ulaz": 656,
+    "izlaz": 636022,
+    "cache_citanje": 48751002,
+    "cache_upis_5m": 0,
+    "cache_upis_1h": 2049830,
+    "zidno_s": 243700.0,
+    "rad_s": 8135.6,
+    "cekanje_coveka_s": 235564.4,
+    "aktivno_s": 7250.7,
+    "poruka": 323,
+    "pokretanja": 5,
+    "upita_coveka": 13,
+    "dodatnih_upita": 12,
+    "pitanja_alatom": 4,
+    "podpitanja_coveku": 16,
+    "tokeni_ukupno": 51437510,
+    "izlaz_po_minutu": 4690.7,
+    "cena_usd": 43.755014
+   },
+   "po_modelu": [
+    {
+     "model": "claude-sonnet-5-5",
+     "ulaz": 20,
+     "izlaz": 11664,
+     "cache_citanje": 534624,
+     "cache_upis_5m": 0,
+     "cache_upis_1h": 79350,
+     "trajanje_s": 113.0,
+     "poruka": 10,
+     "pokretanja": 1,
+     "upita": 1,
+     "cena_usd": 0.487542
+    },
+    {
+     "model": "claude-opus-5-5",
+     "ulaz": 530,
+     "izlaz": 496063,
+     "cache_citanje": 34651126,
+     "cache_upis_5m": 0,
+     "cache_upis_1h": 1619939,
+     "trajanje_s": 5957.2,
+     "poruka": 260,
+     "pokretanja": 3,
+     "upita": 11,
+     "cena_usd": 29.813117
+    },
+    {
+     "model": "claude-fable-5-2",
+     "ulaz": 106,
+     "izlaz": 128295,
+     "cache_citanje": 13565252,
+     "cache_upis_5m": 0,
+     "cache_upis_1h": 350541,
+     "trajanje_s": 1180.5,
+     "poruka": 53,
+     "pokretanja": 1,
+     "upita": 1,
+     "cena_usd": 13.454354
+    }
+   ],
+   "po_upitu": [
+    {
+     "upit": 1,
+     "tekst": "Procitaj MVP.md i napravi detaljan plan izrade igre Orkestrator u plan.md. Ako nesto u MVP.md nije jasno, pitaj. Ne pisi",
+     "trajanje_s": 400.0,
+     "cekanje_s": 163.0,
+     "poruka": 4,
+     "tokeni": 203065,
+     "cena_usd": 0.95357
+    },
+    {
+     "upit": 2,
+     "tekst": "Potvrdjeno. Izradi igru Orkestrator. Zavrseno je kada su ispunjeni svi uslovi iz odeljka \"Kada je gotovo\" u MVP.md.",
+     "trajanje_s": 725.0,
+     "cekanje_s": 0.0,
+     "poruka": 8,
+     "tokeni": 933492,
+     "cena_usd": 1.930201
+    },
+    {
+     "upit": 3,
+     "tekst": "Doradi izgled igre Orkestrator, tako da izgleda kao igra, a ne kao obrazac: jedinstvena tema (boje, slova, razmaci), sli",
+     "trajanje_s": 451.4,
+     "cekanje_s": 0.0,
+     "poruka": 9,
+     "tokeni": 1510707,
+     "cena_usd": 2.60887
+    },
+    {
+     "upit": 4,
+     "tekst": "Klijent trazi rang listu: posle zavrsene partije igrac moze da upise ime i sacuva rezultat, a pocetni ekran prikazuje 10",
+     "trajanje_s": 281.3,
+     "cekanje_s": 0.0,
+     "poruka": 6,
+     "tokeni": 1219714,
+     "cena_usd": 2.463951
+    },
+    {
+     "upit": 5,
+     "tekst": "Klijent trazi deljenje rezultata: na zavrsnom ekranu igrac dobija link koji moze da posalje drugome, a taj link otvara s",
+     "trajanje_s": 247.4,
+     "cekanje_s": 0.0,
+     "poruka": 22,
+     "tokeni": 2035606,
+     "cena_usd": 1.712246
+    },
+    {
+     "upit": 6,
+     "tekst": "Klijent trazi englesku verziju igre: igrac bira srpski ili engleski, izbor se pamti, a ceo tekst na ekranu, ukljucujuci ",
+     "trajanje_s": 691.4,
+     "cekanje_s": 0.0,
+     "poruka": 35,
+     "tokeni": 5961485,
+     "cena_usd": 4.013155
+    },
+    {
+     "upit": 7,
+     "tekst": "Klijent menja bodovanje: tiha greska sada kosta 35 poena umesto 25, a kazna za prekoracen budzet vise nije ista za svako",
+     "trajanje_s": 234.6,
+     "cekanje_s": 0.0,
+     "poruka": 20,
+     "tokeni": 1571387,
+     "cena_usd": 1.482566
+    },
+    {
+     "upit": 8,
+     "tekst": "Klijent trazi moderatora: moderator se prijavljuje imenom i lozinkom i moze da obrise rezultat sa rang liste ili deljeni",
+     "trajanje_s": 2227.8,
+     "cekanje_s": 1308.3,
+     "poruka": 36,
+     "tokeni": 5873485,
+     "cena_usd": 4.050712
+    },
+    {
+     "upit": 9,
+     "tekst": "Klijent pusta igru javno na internetu, na adresi https://orkestrator.example, i ocekuje nekoliko hiljada igraca dnevno. ",
+     "trajanje_s": 1476.9,
+     "cekanje_s": 0.0,
+     "poruka": 57,
+     "tokeni": 6479939,
+     "cena_usd": 3.849324
+    },
+    {
+     "upit": 10,
+     "tekst": "Klijent trazi dnevni izazov: svakog dana svi igraci igraju istu partiju (isti zadaci i isti ishodi), a pocetni ekran por",
+     "trajanje_s": 150.5,
+     "cekanje_s": 0.0,
+     "poruka": 10,
+     "tokeni": 625658,
+     "cena_usd": 0.487542
+    },
+    {
+     "upit": 11,
+     "tekst": "Klijent trazi da moderator moze da preuzme rang listu (glavnu i dnevnu) kao CSV datoteku koju otvara u Excel-u.",
+     "trajanje_s": 180.8,
+     "cekanje_s": 0.0,
+     "poruka": 10,
+     "tokeni": 502647,
+     "cena_usd": 0.700674
+    },
+    {
+     "upit": 12,
+     "tekst": "Klijent trazi da igrac moze da prijavi neprikladno ime sa rang liste, a moderator vidi prijavljena imena i odlucuje da l",
+     "trajanje_s": 1473.3,
+     "cekanje_s": 0.0,
+     "poruka": 53,
+     "tokeni": 14044194,
+     "cena_usd": 13.454354
+    },
+    {
+     "upit": 13,
+     "tekst": "Klijent trazi pet novih stvari: (1) stranicu \"Kako se igra\" sa pravilima i primerom jednog kruga, dostupnu sa pocetnog e",
+     "trajanje_s": 1066.5,
+     "cekanje_s": 0.0,
+     "poruka": 53,
+     "tokeni": 10476131,
+     "cena_usd": 6.047848
+    }
+   ],
+   "planiranje": {
+    "trajanje_s": 237.0,
+    "tokeni": 203065,
+    "cena_usd": 0.95357
+   },
+   "izrada": {
+    "trajanje_s": 725.0,
+    "tokeni": 933492,
+    "cena_usd": 1.930201
+   },
+   "stil": {
+    "trajanje_s": 451.4,
+    "tokeni": 1510707,
+    "cena_usd": 2.60887
+   },
+   "rang": {
+    "trajanje_s": 281.3,
+    "tokeni": 1219714,
+    "cena_usd": 2.463951
+   },
+   "deljenje": {
+    "trajanje_s": 247.4,
+    "tokeni": 2035606,
+    "cena_usd": 1.712246
+   },
+   "jezik": {
+    "trajanje_s": 691.4,
+    "tokeni": 5961485,
+    "cena_usd": 4.013155
+   },
+   "bodovanje": {
+    "trajanje_s": 234.6,
+    "tokeni": 1571387,
+    "cena_usd": 1.482566
+   },
+   "moderator": {
+    "trajanje_s": 919.5,
+    "tokeni": 5873485,
+    "cena_usd": 4.050712
+   },
+   "javno": {
+    "trajanje_s": 1476.9,
+    "tokeni": 6479939,
+    "cena_usd": 3.849324
+   },
+   "izazov": {
+    "trajanje_s": 150.5,
+    "tokeni": 625658,
+    "cena_usd": 0.487542
+   },
+   "csv": {
+    "trajanje_s": 180.8,
+    "tokeni": 502647,
+    "cena_usd": 0.700674
+   },
+   "prijava": {
+    "trajanje_s": 1473.3,
+    "tokeni": 14044194,
+    "cena_usd": 13.454354
+   },
+   "pet": {
+    "trajanje_s": 1066.5,
+    "tokeni": 10476131,
+    "cena_usd": 6.047848
+   },
+   "podpitanja_coveku": 4,
+   "cistoca": {
+    "pozivi_agenata_i_skillova": 0,
+    "upisa_hooka": 0,
+    "rad_u_maticnom_folderu": false
+   },
+   "vracanja_na_doradu": 0,
+   "testovi": {
+    "exit": 0,
+    "izlaz": "303 pokrenuto, 0 palo\nEXIT=0",
+    "pokrenuto": 303,
+    "palo": 0
+   },
+   "ocena": null
+  },
+  "plugin": {
+   "ukupno": {
+    "ulaz": 8134,
+    "izlaz": 6992383,
+    "cache_citanje": 615591904,
+    "cache_upis_5m": 20005438,
+    "cache_upis_1h": 2287693,
+    "zidno_s": 246131.7,
+    "rad_s": 69526.0,
+    "cekanje_coveka_s": 176605.7,
+    "aktivno_s": 149995.2,
+    "poruka": 3996,
+    "pokretanja": 95,
+    "upita_coveka": 14,
+    "dodatnih_upita": 13,
+    "pitanja_alatom": 48,
+    "podpitanja_coveku": 61,
+    "tokeni_ukupno": 644885552,
+    "izlaz_po_minutu": 6034.3,
+    "cena_usd": 371.88249
+   },
+   "po_modelu": [
+    {
+     "model": "claude-sonnet-5-5",
+     "ulaz": 1134,
+     "izlaz": 716858,
+     "cache_citanje": 54158590,
+     "cache_upis_5m": 2103492,
+     "cache_upis_1h": 71978,
+     "trajanje_s": 13717.7,
+     "poruka": 560,
+     "pokretanja": 19,
+     "upita": 1,
+     "cena_usd": 18.133349
+    },
+    {
+     "model": "claude-opus-5-5",
+     "ulaz": 6532,
+     "izlaz": 5814801,
+     "cache_citanje": 510396954,
+     "cache_upis_5m": 17238619,
+     "cache_upis_1h": 1618014,
+     "trajanje_s": 131174.8,
+     "poruka": 3208,
+     "pokretanja": 69,
+     "upita": 12,
+     "cena_usd": 317.538746
+    },
+    {
+     "model": "claude-fable-5-2",
+     "ulaz": 258,
+     "izlaz": 289621,
+     "cache_citanje": 46410519,
+     "cache_upis_5m": 123879,
+     "cache_upis_1h": 597701,
+     "trajanje_s": 3184.0,
+     "poruka": 123,
+     "pokretanja": 2,
+     "upita": 1,
+     "cena_usd": 31.671014
+    },
+    {
+     "model": "claude-haiku-5-5",
+     "ulaz": 172,
+     "izlaz": 101786,
+     "cache_citanje": 2958759,
+     "cache_upis_5m": 241522,
+     "cache_upis_1h": 0,
+     "trajanje_s": 875.8,
+     "poruka": 86,
+     "pokretanja": 5,
+     "upita": 0,
+     "cena_usd": 0.110688
+    },
+    {
+     "model": "claude-opus-4-8",
+     "ulaz": 38,
+     "izlaz": 69317,
+     "cache_citanje": 1667082,
+     "cache_upis_5m": 297926,
+     "cache_upis_1h": 0,
+     "trajanje_s": 1043.0,
+     "poruka": 19,
+     "pokretanja": 2,
+     "upita": 0,
+     "cena_usd": 4.428694
+    }
+   ],
+   "po_upitu": [
+    {
+     "upit": 1,
+     "tekst": "Procitaj MVP.md i napravi detaljan plan izrade igre Orkestrator u plan.md. Ako nesto u MVP.md nije jasno, pitaj. Ne pisi",
+     "trajanje_s": 1122.0,
+     "cekanje_s": 253.5,
+     "poruka": 19,
+     "tokeni": 1393378,
+     "cena_usd": 3.0542
+    },
+    {
+     "upit": 2,
+     "tekst": "Potvrdjeno. Izradi igru Orkestrator. Zavrseno je kada su ispunjeni svi uslovi iz odeljka \"Kada je gotovo\" u MVP.md.",
+     "trajanje_s": 5855.8,
+     "cekanje_s": 0.0,
+     "poruka": 168,
+     "tokeni": 17709016,
+     "cena_usd": 22.750024
+    },
+    {
+     "upit": 3,
+     "tekst": "Doradi izgled igre Orkestrator, tako da izgleda kao igra, a ne kao obrazac: jedinstvena tema (boje, slova, razmaci), sli",
+     "trajanje_s": 4296.4,
+     "cekanje_s": 0.0,
+     "poruka": 193,
+     "tokeni": 28443430,
+     "cena_usd": 14.224522
+    },
+    {
+     "upit": 4,
+     "tekst": "Klijent trazi rang listu: posle zavrsene partije igrac moze da upise ime i sacuva rezultat, a pocetni ekran prikazuje 10",
+     "trajanje_s": 6920.5,
+     "cekanje_s": 557.4,
+     "poruka": 314,
+     "tokeni": 56117589,
+     "cena_usd": 34.579065
+    },
+    {
+     "upit": 5,
+     "tekst": "Klijent trazi deljenje rezultata: na zavrsnom ekranu igrac dobija link koji moze da posalje drugome, a taj link otvara s",
+     "trajanje_s": 5205.4,
+     "cekanje_s": 606.7,
+     "poruka": 238,
+     "tokeni": 43983258,
+     "cena_usd": 28.491592
+    },
+    {
+     "upit": 6,
+     "tekst": "Klijent trazi englesku verziju igre: igrac bira srpski ili engleski, izbor se pamti, a ceo tekst na ekranu, ukljucujuci ",
+     "trajanje_s": 6446.2,
+     "cekanje_s": 338.4,
+     "poruka": 367,
+     "tokeni": 84280789,
+     "cena_usd": 43.735551
+    },
+    {
+     "upit": 7,
+     "tekst": "Klijent menja bodovanje: tiha greska sada kosta 35 poena umesto 25, a kazna za prekoracen budzet vise nije ista za svako",
+     "trajanje_s": 8033.4,
+     "cekanje_s": 938.0,
+     "poruka": 522,
+     "tokeni": 58457083,
+     "cena_usd": 33.169256
+    },
+    {
+     "upit": 8,
+     "tekst": "Klijent trazi moderatora: moderator se prijavljuje imenom i lozinkom i moze da obrise rezultat sa rang liste ili deljeni",
+     "trajanje_s": 9862.2,
+     "cekanje_s": 1167.8,
+     "poruka": 543,
+     "tokeni": 97018515,
+     "cena_usd": 49.587546
+    },
+    {
+     "upit": 9,
+     "tekst": "Klijent pusta igru javno na internetu, na adresi https://orkestrator.example, i ocekuje nekoliko hiljada igraca dnevno. ",
+     "trajanje_s": 9505.4,
+     "cekanje_s": 174.0,
+     "poruka": 601,
+     "tokeni": 109743759,
+     "cena_usd": 57.244571
+    },
+    {
+     "upit": 10,
+     "tekst": "jel gotovo?",
+     "trajanje_s": 4442.4,
+     "cekanje_s": 0.0,
+     "poruka": 220,
+     "tokeni": 33655912,
+     "cena_usd": 24.174739
+    },
+    {
+     "upit": 11,
+     "tekst": "Klijent trazi dnevni izazov: svakog dana svi igraci igraju istu partiju (isti zadaci i isti ishodi), a pocetni ekran por",
+     "trajanje_s": 3992.6,
+     "cekanje_s": 0.0,
+     "poruka": 227,
+     "tokeni": 21752850,
+     "cena_usd": 9.837259
+    },
+    {
+     "upit": 12,
+     "tekst": "Klijent trazi da moderator moze da preuzme rang listu (glavnu i dnevnu) kao CSV datoteku koju otvara u Excel-u.",
+     "trajanje_s": 1071.4,
+     "cekanje_s": 0.0,
+     "poruka": 74,
+     "tokeni": 4143504,
+     "cena_usd": 2.480213
+    },
+    {
+     "upit": 13,
+     "tekst": "Klijent trazi da igrac moze da prijavi neprikladno ime sa rang liste, a moderator vidi prijavljena imena i odlucuje da l",
+     "trajanje_s": 3376.5,
+     "cekanje_s": 0.0,
+     "poruka": 154,
+     "tokeni": 50244265,
+     "cena_usd": 33.560986
+    },
+    {
+     "upit": 14,
+     "tekst": "Klijent trazi pet novih stvari: (1) stranicu \"Kako se igra\" sa pravilima i primerom jednog kruga, dostupnu sa pocetnog e",
+     "trajanje_s": 3502.1,
+     "cekanje_s": 70.7,
+     "poruka": 356,
+     "tokeni": 37942204,
+     "cena_usd": 14.992967
+    }
+   ],
+   "planiranje": {
+    "trajanje_s": 868.5,
+    "tokeni": 1393378,
+    "cena_usd": 3.0542
+   },
+   "izrada": {
+    "trajanje_s": 5855.8,
+    "tokeni": 17709016,
+    "cena_usd": 22.750024
+   },
+   "stil": {
+    "trajanje_s": 4296.4,
+    "tokeni": 28443430,
+    "cena_usd": 14.224522
+   },
+   "rang": {
+    "trajanje_s": 6363.1,
+    "tokeni": 56117589,
+    "cena_usd": 34.579065
+   },
+   "deljenje": {
+    "trajanje_s": 4598.7,
+    "tokeni": 43983258,
+    "cena_usd": 28.491592
+   },
+   "jezik": {
+    "trajanje_s": 6107.8,
+    "tokeni": 84280789,
+    "cena_usd": 43.735551
+   },
+   "bodovanje": {
+    "trajanje_s": 7095.4,
+    "tokeni": 58457083,
+    "cena_usd": 33.169256
+   },
+   "moderator": {
+    "trajanje_s": 8694.4,
+    "tokeni": 97018515,
+    "cena_usd": 49.587546
+   },
+   "javno": {
+    "trajanje_s": 13773.8,
+    "tokeni": 143399671,
+    "cena_usd": 81.41931
+   },
+   "izazov": {
+    "trajanje_s": 3992.6,
+    "tokeni": 21752850,
+    "cena_usd": 9.837259
+   },
+   "csv": {
+    "trajanje_s": 1071.4,
+    "tokeni": 4143504,
+    "cena_usd": 2.480213
+   },
+   "prijava": {
+    "trajanje_s": 3376.5,
+    "tokeni": 50244265,
+    "cena_usd": 33.560986
+   },
+   "pet": {
+    "trajanje_s": 3431.4,
+    "tokeni": 37942204,
+    "cena_usd": 14.992967
+   },
+   "podpitanja_coveku": 49,
+   "cistoca": {
+    "pozivi_agenata_i_skillova": 142,
+    "upisa_hooka": 112,
+    "rad_u_maticnom_folderu": false
+   },
+   "vracanja_na_doradu": 25,
+   "testovi": {
+    "exit": 0,
+    "izlaz": "703 pokrenuto, 0 palo\nEXIT=0",
+    "pokrenuto": 703,
+    "palo": 0
+   },
+   "ocena": null
+  }
+ }
+}

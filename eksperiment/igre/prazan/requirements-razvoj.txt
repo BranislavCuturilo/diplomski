@@ -1,0 +1,4 @@
+# Za razvoj i testove (ne treba serveru).
+-r requirements.txt
+polib==1.2.0
+playwright==1.60.0

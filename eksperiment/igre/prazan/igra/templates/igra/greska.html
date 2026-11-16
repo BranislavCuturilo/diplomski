@@ -1,0 +1,11 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% comment %}Zajednicka stranica greske (400, 404, 500). Ne prikazuje nikakve tehnicke detalje.{% endcomment %}
+{% block glava %}<meta name="robots" content="noindex">{% endblock %}
+{% block sadrzaj %}
+<section id="greska-stranice" class="text-center">
+  <h1 class="oznaka-zadatka justify-content-center">{% block naslov_greske %}{% endblock %}</h1>
+  <p class="napomena">{% block opis_greske %}{% endblock %}</p>
+  <a class="btn btn-lg dugme-glavno w-100" href="/"><svg class="ikona" aria-hidden="true"><use href="#ik-palica"/></svg>{% translate "На почетну" %}</a>
+</section>
+{% endblock %}

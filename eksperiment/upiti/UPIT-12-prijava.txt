@@ -1,0 +1,1 @@
+Klijent trazi da igrac moze da prijavi neprikladno ime sa rang liste, a moderator vidi prijavljena imena i odlucuje da li brise rezultat.

@@ -1,0 +1,25 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block glava %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block sadrzaj %}
+<header class="panel mb-3 moderator-zaglavlje">
+  <div class="moderator-ko">
+    <span class="oznaka-zadatka mb-0"><svg class="ikona" aria-hidden="true"><use href="#ik-stit"/></svg>{% translate "Модерација" %}</span>
+    <span id="prijavljen" class="moderator-ime">{{ moderator.get_username }}</span>
+  </div>
+  <form method="post" action="{% url 'moderator_odjava' %}">
+    {% csrf_token %}
+    <button id="odjava" type="submit" class="btn dugme-sporedno">{% translate "Одјави се" %}</button>
+  </form>
+  <nav class="moderator-meni" aria-label="{% translate 'Модерација' %}">
+    <a class="jezik{% if odeljak == 'rezultati' %} jezik-tekuci{% endif %}" href="{% url 'moderator_rezultati' %}"{% if odeljak == 'rezultati' %} aria-current="page"{% endif %}>{% translate "Резултати" %}</a>
+    <a class="jezik{% if odeljak == 'prijave' %} jezik-tekuci{% endif %}" href="{% url 'moderator_prijavljena_imena' %}"{% if odeljak == 'prijave' %} aria-current="page"{% endif %}>{% translate "Пријаве" %}{% if broj_prijava %} <span id="broj-prijava" class="moderator-broj">{{ broj_prijava }}</span>{% endif %}</a>
+    <a class="jezik{% if odeljak == 'linkovi' %} jezik-tekuci{% endif %}" href="{% url 'moderator_linkovi' %}"{% if odeljak == 'linkovi' %} aria-current="page"{% endif %}>{% translate "Линкови" %}</a>
+    <a class="jezik{% if odeljak == 'statistika' %} jezik-tekuci{% endif %}" href="{% url 'moderator_statistika' %}"{% if odeljak == 'statistika' %} aria-current="page"{% endif %}>{% translate "Статистика" %}</a>
+    <a class="jezik{% if odeljak == 'dnevnik' %} jezik-tekuci{% endif %}" href="{% url 'moderator_dnevnik' %}"{% if odeljak == 'dnevnik' %} aria-current="page"{% endif %}>{% translate "Дневник" %}</a>
+    <a class="jezik{% if odeljak == 'nalozi' %} jezik-tekuci{% endif %}" href="{% url 'moderator_nalozi' %}"{% if odeljak == 'nalozi' %} aria-current="page"{% endif %}>{% translate "Модератори" %}</a>
+  </nav>
+</header>
+{% if poruka %}<p id="poruka" class="bez-gresaka panel mb-3" role="status"><svg class="ikona" aria-hidden="true"><use href="#ik-gotovo"/></svg><span>{{ poruka }}</span></p>{% endif %}
+{% block moderacija %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,1 @@
+Klijent trazi dnevni izazov: svakog dana svi igraci igraju istu partiju (isti zadaci i isti ishodi), a pocetni ekran pored glavne prikazuje i rang listu dana. Obicna igra ostaje kakva je.

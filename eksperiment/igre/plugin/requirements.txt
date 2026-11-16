@@ -1,0 +1,8 @@
+# Server (plan 15.9). Tacne verzije iz cistog venv-a, Python 3.14, 2026-11-11; svaka nadogradnja je nova odluka.
+# Django 6.0.8 i sqlparse 0.6.0: odluka P3 (CVE-2026-33033, DoS kroz multipart).
+Django==6.0.8
+asgiref==3.13.0
+sqlparse==0.6.0
+gunicorn==27.0.0
+# zoneinfo za TIME_ZONE u slim slici; Django ga sam povlaci samo na Windows-u.
+tzdata==2026.6

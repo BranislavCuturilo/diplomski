@@ -1,0 +1,493 @@
+{
+ "manifest": {
+  "napravljen": "2026-11-09T19:04:22+00:00",
+  "upit": "Procitaj MVP.md i napravi detaljan plan izrade igre Orkestrator u plan.md. Ako nesto u MVP.md nije jasno, pitaj. Ne pisi kod dok ne potvrdim plan.",
+  "upit_izrada": "Potvrdjeno. Izradi igru Orkestrator. Zavrseno je kada su ispunjeni svi uslovi iz odeljka \"Kada je gotovo\" u MVP.md.",
+  "mvp_sha256": "5a019b9743d96f2d7f9d72d5ea85f11c506be18b573cf80b993daeaa4bf357f0",
+  "plugin": {
+   "commit": "480132e3f009fb469400aed231985225c1871785",
+   "neposlate_izmene": false
+  },
+  "claude": "2.1.319 (Claude Code)",
+  "python": "3.14.0",
+  "django": "6.0",
+  "playwright": "1.60.0",
+  "podesavanja": {
+   "prazan": {
+    "syncClaudeAiSkills": false,
+    "model": "opus",
+    "effortLevel": "high",
+    "disableBundledSkills": true,
+    "skillOverrides": {
+     "doctor": "off",
+     "design": "off",
+     "plugin-authoring": "off"
+    },
+    "permissions": {
+     "defaultMode": "acceptEdits",
+     "deny": [
+      "Agent",
+      "Task",
+      "Skill",
+      "Workflow",
+      "SendMessage",
+      "ListAgents"
+     ]
+    }
+   },
+   "plugin": {
+    "syncClaudeAiSkills": false,
+    "model": "opus",
+    "effortLevel": "high",
+    "permissions": {
+     "defaultMode": "acceptEdits"
+    }
+   }
+  },
+  "upit_stil": "Doradi izgled igre Orkestrator, tako da izgleda kao igra, a ne kao obrazac: jedinstvena tema (boje, slova, razmaci), slike i ikonice koje prate zadatke, izbore i ishode, jasno istaknut izabran izbor, pregledan budzet i rok, i zavrsni ekran koji izgleda kao rezultat igre. Ne menjaj pravila, tekst ni ponasanje igre.",
+  "dopuna_pre_stila": {
+   "datum": "2026-11-10",
+   "fajl": "skills/sloj-tehnologije/ui-bootstrap/SKILL.md",
+   "sha256": "969193cecda8f9fffdeb2e0b51a7edb375c1460f4588a5dfb51d80b5534b7713",
+   "razlog": "odluka coveka: provere izgleda (telefon, konzola, slike) idu u skill, ne u upit"
+  },
+  "upiti": {
+   "UPIT.txt": "Procitaj MVP.md i napravi detaljan plan izrade igre Orkestrator u plan.md. Ako nesto u MVP.md nije jasno, pitaj. Ne pisi kod dok ne potvrdim plan.",
+   "UPIT-izrada.txt": "Potvrdjeno. Izradi igru Orkestrator. Zavrseno je kada su ispunjeni svi uslovi iz odeljka \"Kada je gotovo\" u MVP.md.",
+   "UPIT-stil.txt": "Doradi izgled igre Orkestrator, tako da izgleda kao igra, a ne kao obrazac: jedinstvena tema (boje, slova, razmaci), slike i ikonice koje prate zadatke, izbore i ishode, jasno istaknut izabran izbor, pregledan budzet i rok, i zavrsni ekran koji izgleda kao rezultat igre. Ne menjaj pravila, tekst ni ponasanje igre.",
+   "UPIT-4-rang.txt": "Klijent trazi rang listu: posle zavrsene partije igrac moze da upise ime i sacuva rezultat, a pocetni ekran prikazuje 10 najboljih rezultata (ime, poeni, ocena, datum). Ovo menja MVP: cuvanje rezultata i rang lista vise nisu van opsega.",
+   "UPIT-5-deljenje.txt": "Klijent trazi deljenje rezultata: na zavrsnom ekranu igrac dobija link koji moze da posalje drugome, a taj link otvara stranicu sa rezultatom te partije (poeni, ocena, tihe greske, lekcije), bez mogucnosti da se igra nastavi.",
+   "UPIT-6-jezik.txt": "Klijent trazi englesku verziju igre: igrac bira srpski ili engleski, izbor se pamti, a ceo tekst na ekranu, ukljucujuci lekcije i napomenu, postoji na oba jezika.",
+   "UPIT-7-bodovanje.txt": "Klijent menja bodovanje: tiha greska sada kosta 35 poena umesto 25, a kazna za prekoracen budzet vise nije ista za svako prekoracenje, vec iznosi 10 poena za svakih zapocetih 10% prekoracenja, najvise 50. Promena vazi od sada; igraci koji su vec na rang listi ili su vec podelili link ne smeju da se osete prevareno.",
+   "UPIT-8-moderator.txt": "Klijent trazi moderatora: moderator se prijavljuje imenom i lozinkom i moze da obrise rezultat sa rang liste ili deljeni link, a vidi i ko je sta obrisao i kada. Igraci i dalje igraju bez naloga. Prvog moderatora pravi razvijalac.",
+   "UPIT-9-javno.txt": "Klijent pusta igru javno na internetu, na adresi https://orkestrator.example, i ocekuje nekoliko hiljada igraca dnevno. Pripremi projekat za to; samo postavljanje na server radi klijentov administrator po tvom uputstvu.",
+   "UPIT-10-izazov.txt": "Klijent trazi dnevni izazov: svakog dana svi igraci igraju istu partiju (isti zadaci i isti ishodi), a pocetni ekran pored glavne prikazuje i rang listu dana. Obicna igra ostaje kakva je.",
+   "UPIT-11-csv.txt": "Klijent trazi da moderator moze da preuzme rang listu (glavnu i dnevnu) kao CSV datoteku koju otvara u Excel-u.",
+   "UPIT-12-prijava.txt": "Klijent trazi da igrac moze da prijavi neprikladno ime sa rang liste, a moderator vidi prijavljena imena i odlucuje da li brise rezultat.",
+   "UPIT-13-pet.txt": "Klijent trazi pet novih stvari: (1) stranicu \"Kako se igra\" sa pravilima i primerom jednog kruga, dostupnu sa pocetnog ekrana; (2) zvucne efekte za ishod kruga koje igrac moze da ukljuci ili iskljuci, a izbor se pamti; (3) da igrac vidi svojih poslednjih 10 zavrsenih partija; (4) da moderator vidi statistiku: broj odigranih partija i prosecne poene po danu za poslednjih 7 dana; (5) javnu adresu sa koje partneri preuzimaju rang listu u JSON obliku."
+  },
+  "dopuna_pre_runde_2": {
+   "datum": "2026-11-10",
+   "fajlovi": {
+    "agents/qa.md": "7079233c215b815a42798cb0f516fc155dc4e5f118ea6e1fea0336d981c663b8",
+    "agents/security.md": "6a40621a4529ef1010551a5183116f5067d659f7eb4bbfecafd649c0226a6f78",
+    "skills/opsti-sloj/craft-delegiranje/SKILL.md": "2b0c7759e50f605ea73321d960381f6f53ec083cd5baf26037694aeff908299d",
+    "scripts/novi_projekat.py": "fa3ff1ac6d58223b29940de2ac396b132f70e37679661017d04d4bf538ebdb43"
+   },
+   "claude_md_projekta": "dodat red o obimu kontrolnog skupa",
+   "razlog": "odluka coveka: qa i security posle izmene proveravaju samo ono sto je izmenom pogodjeno"
+  },
+  "runda_3": {
+   "datum": "2026-11-11",
+   "plugin_menjan": false,
+   "razlog": "na zahtev coveka: namerno izabrani zahtevi u kojima greska skupo kosta (podaci, autorizacija, javni rad)"
+  },
+  "plugin_v2": {
+   "datum": "2026-11-12",
+   "rezervna_kopija": "git oznaka plugin-v1; snimak C:\\poredjenje-orkestrator\\plugin-v1-snimak",
+   "fajlovi": {
+    "agents/backend-senior.md": "4b2377a121f9d181ea256c44d9f3b5bdde7d44007ac84ce783ce4306c2727f41",
+    "agents/planer.md": "050e69691832fc282fb416d6193b13586ec860a309c3275f3a835106c10df8d4",
+    "agents/qa.md": "e2953ac79228cd3f33b04c580e660c6240bb87654641b9320d7b2836324595e4",
+    "agents/security.md": "5aeab3e69adac516c5bbbec8ccde185a38363a976e2ea271e05131af962bcb4c",
+    "hooks/projekat.py": "f149f09969b7674a4f13ad2cc50110ab8e6dc56739ede3c541ad18f9bd70feb1",
+    "hooks/verify_before_stop.py": "10cb4d9bbc0ab9de899c26d23dcea0e5a446fbd23bf76217fd158676013d9d19",
+    "scripts/novi_projekat.py": "d2f55258a5c679940c74069be61d031ca44b50877ea9ba0eabb43d3887543cae",
+    "skills/opsti-sloj/craft-delegiranje/SKILL.md": "392875f88e257eb35d5abfefc6cac247d1dddb038e0b63d6bb5c3ac45444bb67",
+    "skills/opsti-sloj/craft-i18n/SKILL.md": "03712b50cdc8f13f962fc0a5f98e084471b8ff0863628bde5aa42bc2fcbf21b7",
+    "skills/opsti-sloj/craft-security/SKILL.md": "6c20eb9646872a6f89e4bfcfd31792fc802867040789e91609c4bb4088a51481",
+    "skills/sloj-projekta/projekat-standardi/SKILL.md": "06b36fe807d4330230684632150fe4754525d774f5944a385cd718965267f062",
+    "skills/sloj-tehnologije/stack-django/SKILL.md": "68506abaf53c4b50538958cceac505ae79e05851cdd6660d27885d2a7c4d6de6"
+   },
+   "projekat": "CLAUDE.md (raspored, prag, pitanja) i .claude/skills/projekat-standardi (pravilo 0) dopunjeni rukom",
+   "izmene": [
+    "security max->high; qa opus->sonnet; backend-senior xhigh->high",
+    "na doradu samo visoki i srednji nalazi; najvise jedna ponovna provera",
+    "prag delegiranja: do 5 datoteka bez prijave, novca, seme sa podacima i isporuke radi glavna sesija",
+    "pravila unapred: brojac prijava u bazi, stanje u bazi, DEBUG, nevidljivi znakovi, srpska mnozina",
+    "standard je podrazumevana vrednost; zahtev klijenta ga menja bez pitanja",
+    "najvise jedan dijalog sa 4 pitanja; ostalo kao odluke za potvrdu",
+    "hook: poruka coveku dok podagenti rade; ispravljen .py u verify_before_stop i agent-message u log_prompt"
+   ],
+   "runda_4": "nove sesije bez konteksta na obe strane; model i nivo bira covek u panelu (Sonnet 5.5, medium), isto na obe strane"
+  },
+  "plugin_v2_1": {
+   "datum": "2026-11-12",
+   "posle": "runde 4",
+   "fajlovi": {
+    "hooks/verify_before_stop.py": "4b60180bd320216f1b7f92b00c2fdc50af03026133cc154310bb5d38bc52e138"
+   },
+   "razlog": "hook je javljao \"RADI JOS\" i za agenta koji je vec predao izvestaj, a obavestenje o zadatku jos nije stiglo"
+  },
+  "plugin_v2_2": {
+   "datum": "2026-11-12",
+   "rezervna_kopija": "git oznaka plugin-v2.1 (c28c463)",
+   "fajlovi": {
+    "agents/backend-junior.md": "e8e13574e71e0048b4345ac41686a7b061daec43921795f1c28ee66c31990f2f",
+    "agents/backend-medior.md": "9e1c3e5d87df3a7f98bd763f787532685082574cdd064dff8e484c5579d919a9",
+    "agents/backend-senior.md": "d782600c095ad0dbc015dae79bfdba24c96c6309038937e0129e526f78a4ddcd",
+    "agents/designer.md": "0fa212a2745e181e1b4f2d81ec07fedddfb4ddcf7779c3dd23f5b0fa538397e2",
+    "agents/devops.md": "f80f5119b5649f8ce5194f1d30382a0787f0e54349c51843b0c800dabcc24cc1",
+    "agents/frontend-junior.md": "6a757e486ece7c3a4457cbd4e602f51809aeed15dcf3bb2011c06a7b485898fb",
+    "agents/frontend-medior.md": "67cec09ac0507a0e025f71ccf33464f31c6554c04ccc017171bbcddc38221cd1",
+    "agents/frontend-senior.md": "48f6525422f3bc71f30798d9faccbab54a6c86e7daa3177d296326a92f1a75c2",
+    "agents/orchestrator.md": "360b23059ca0d568174fa8c6b0620c2096ad8e85be26f5ce018d95a0f9b4671c",
+    "agents/planer.md": "d149d1f7a139097316719b68e2bb62d33affcb4e3eeb8d6d6dc11e7f75a44d79",
+    "agents/qa.md": "902142039b8d3037c73fbd83df79bca1cbe9cc8989b5c647c7af23d5e37d5a89",
+    "agents/translate.md": "ecd9395219d98eeacdf4d4d4bcbec60f3b97ac8e8a1cd2810034ddbdfcf8a47e",
+    "agents/ui-ux.md": "f2898710c3b30ca23629b7e6a860f6cdb06d6eaf7c144fdfef9e92f72f581928",
+    "hooks/verify_before_stop.py": "adfb17a4f66f76e234bcbf3b50860796ccec69b335d0af4f6dee14a1b188c00f",
+    "scripts/novi_projekat.py": "e53c60742ec06d0dd290ebfbbb152ca6de74439ede4a2cd7dbd46f8dd121f06e",
+    "skills/opsti-sloj/craft-delegiranje/SKILL.md": "5a9a0d39f27c918adfd0cb678a01328115b943d14a7e72f61b418591c5928c66"
+   },
+   "projekat": "CLAUDE.md (raspored: laki put i pun aparat) dopunjen rukom",
+   "izmene": [
+    "laki put do oko 15 datoteka: plan, kod, prevod i testovi u glavnoj sesiji, bez planera i talasa",
+    "pun aparat samo za novu aplikaciju, ceo novi jezik ili vecu izmenu",
+    "qa uzi: ceo paket, testovi za nove rizike, jedan tok u pregledacu; snimci samo kad se menja izgled",
+    "agenti nasledjuju model i nivo glavne sesije (model: inherit), osim security (Opus, high)",
+    "translate samo za ceo novi jezik",
+    "hook ne trazi testove dok podagenti rade"
+   ],
+   "runda_5": "nove sesije bez konteksta; Opus 5.5 na najnizem nivou izabranom u panelu, isto na obe strane"
+  },
+  "plugin_v2_3": {
+   "datum": "2026-11-12",
+   "rezervna_kopija": "git oznaka plugin-v2.2 (9d8f12a)",
+   "fajlovi": {
+    "agents/qa.md": "89d0afecadc7d8c948692f24130cb5c083cd3e71fd0f3c3c71195b536b6c3c47",
+    "scripts/novi_projekat.py": "579d4e4675073e261eaa1ac975f364f631835ac99df94ad88ca84e36be7f89d3",
+    "skills/opsti-sloj/craft-delegiranje/SKILL.md": "c17f8249aa150b09ddc8e4e8edd3a7aa3553474f841153b3376bdd55547f91d1",
+    "skills/opsti-sloj/craft-testing/SKILL.md": "cee7b8e15d9ed00848b71dd66ec7feb18eb972bd255ace898e26c9a78ada3688",
+    "skills/sloj-projekta/projekat-standardi/SKILL.md": "015bf0f26110b25e6699fbe193b14d8b53d2fd2e82bbee5f3b8a1cca63ef547f",
+    "tools/test_summary.py": "1a988179094cca15ea72753c4331530f7267a5844435dc86b44a9df2655f3bd4"
+   },
+   "projekat": "CLAUDE.md (kontrolni skup) i .claude/skills/projekat-standardi (red o pokretanju testova) dopunjeni rukom",
+   "izmene": [
+    "test_summary.py --brzo: bez modula sa pregledacem (388 s -> 37 s na projektu plugina)",
+    "brzi paket tokom rada i posle ispravke; ceo paket jednom po upitu, nad konacnim kodom",
+    "qa samo kada izmena menja tok kroz pregledac; qa nivo medium, model nasledjen"
+   ],
+   "runda_6": "nove sesije bez konteksta; Fable 5.2 na najvisem nivou izabranom u panelu, isto na obe strane"
+  },
+  "plugin_v2_4": {
+   "datum": "2026-11-12",
+   "rezervna_kopija": "git oznaka plugin-v2.3 (4ef56a0)",
+   "fajlovi": {
+    "scripts/novi_projekat.py": "412db5bc15b84e19a9c48b4a04a6ef13f2911c877451207bba2811db17e10b90",
+    "skills/opsti-sloj/craft-delegiranje/SKILL.md": "5b4c59b6868a2c6280a7b3ed550618aa412052e16c2f40e15aaaf9a5858b3593",
+    "tools/mapa.py": "a4e013f025eeb7d5d9a24b4aa8a002f1d6fa150eebffe42d7364af0cc5f8f32a"
+   },
+   "projekat": "CLAUDE.md (red o paralelnom rezimu) dopunjen rukom",
+   "izmene": [
+    "tools/mapa.py: mapa projekta iz koda (rute, modeli i polja, moduli, sabloni, testovi, migracije, prevodi)",
+    "paralelni rezim za 3 ili vise nezavisnih zadataka: glavna sesija cita mapu, commit osnove, radnici u worktree-ovima u jednoj poruci, model po zadatku (sonnet; opus za prijavu, prava, novac, poene), spajanje grana u glavnoj sesiji, jedna kontrola nad spojenim kodom"
+   ],
+   "okruzenje": "ekstenzija Claude Code se sama azurirala sa 2.1.319 na 2.1.322 (2026-11-12 12:42), isto na obe strane",
+   "runda_7": "nove sesije bez konteksta; Opus 5.5 high izabran u panelu, isto na obe strane; brzina se meri i bez vremena automatskih testova"
+  }
+ },
+ "strane": {
+  "prazan": {
+   "claude_code_version": "2.1.322",
+   "cwd": "C:\\poredjenje-orkestrator\\prazan\\projekat",
+   "permissionMode": "acceptEdits",
+   "tools": [
+    "Bash",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "Edit",
+    "EnterWorktree",
+    "ExitWorktree",
+    "Glob",
+    "Grep",
+    "Monitor",
+    "NotebookEdit",
+    "PowerShell",
+    "PushNotification",
+    "Read",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "TaskStop",
+    "ToolSearch",
+    "WebFetch",
+    "WebSearch",
+    "Write"
+   ],
+   "skills": [],
+   "slash_commands": [
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "focus",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "agents": [
+    "claude",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "plugins": [
+    {
+     "name": "cc-plugin-agents-md",
+     "path": "builtin",
+     "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+     "name": "cc-plugin-telemetry",
+     "path": "builtin",
+     "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+     "name": "cc-plugin-privacy",
+     "path": "builtin",
+     "source": "cc-plugin-privacy@builtin"
+    },
+    {
+     "name": "cc-plugin-plugin-authoring",
+     "path": "builtin",
+     "source": "cc-plugin-plugin-authoring@builtin"
+    }
+   ],
+   "mcp_servers": []
+  },
+  "plugin": {
+   "claude_code_version": "2.1.322",
+   "cwd": "C:\\poredjenje-orkestrator\\plugin\\projekat",
+   "permissionMode": "acceptEdits",
+   "tools": [
+    "Task",
+    "Bash",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "Edit",
+    "EnterWorktree",
+    "ExitWorktree",
+    "Glob",
+    "Grep",
+    "ListAgents",
+    "Monitor",
+    "NotebookEdit",
+    "PowerShell",
+    "PushNotification",
+    "Read",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "TaskStop",
+    "ToolSearch",
+    "WebFetch",
+    "WebSearch",
+    "Workflow",
+    "Write"
+   ],
+   "skills": [
+    "projekat-domen",
+    "projekat-odluke",
+    "projekat-standardi",
+    "deep-research",
+    "diplomski:craft-code",
+    "diplomski:craft-delegiranje",
+    "diplomski:craft-git",
+    "diplomski:craft-i18n",
+    "diplomski:craft-security",
+    "diplomski:craft-testing",
+    "diplomski:stack-django",
+    "diplomski:ui-bootstrap",
+    "diplomski:django-mysql",
+    "diplomski:django-nginx-docker",
+    "diplomski:django-ssr-bootstrap",
+    "design",
+    "design-sync",
+    "dataviz",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "plugin-authoring"
+   ],
+   "slash_commands": [
+    "projekat-domen",
+    "projekat-odluke",
+    "projekat-standardi",
+    "deep-research",
+    "diplomski:craft-code",
+    "diplomski:craft-delegiranje",
+    "diplomski:craft-git",
+    "diplomski:craft-i18n",
+    "diplomski:craft-security",
+    "diplomski:craft-testing",
+    "diplomski:stack-django",
+    "diplomski:ui-bootstrap",
+    "diplomski:django-mysql",
+    "diplomski:django-nginx-docker",
+    "diplomski:django-ssr-bootstrap",
+    "design",
+    "design-sync",
+    "dataviz",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "plugin-authoring",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "focus",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "agents": [
+    "claude",
+    "diplomski:backend-junior",
+    "diplomski:backend-medior",
+    "diplomski:backend-senior",
+    "diplomski:designer",
+    "diplomski:devops",
+    "diplomski:frontend-junior",
+    "diplomski:frontend-medior",
+    "diplomski:frontend-senior",
+    "diplomski:orchestrator",
+    "diplomski:planer",
+    "diplomski:qa",
+    "diplomski:security",
+    "diplomski:translate",
+    "diplomski:ui-ux",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "plugins": [
+    {
+     "name": "diplomski",
+     "path": "C:\\poredjenje-orkestrator\\plugin\\config\\skills\\diplomski",
+     "source": "diplomski@skills-dir",
+     "version": "1.0.0"
+    },
+    {
+     "name": "cc-plugin-agents-md",
+     "path": "builtin",
+     "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+     "name": "cc-plugin-telemetry",
+     "path": "builtin",
+     "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+     "name": "cc-plugin-privacy",
+     "path": "builtin",
+     "source": "cc-plugin-privacy@builtin"
+    },
+    {
+     "name": "cc-plugin-plugin-authoring",
+     "path": "builtin",
+     "source": "cc-plugin-plugin-authoring@builtin"
+    }
+   ],
+   "mcp_servers": []
+  }
+ },
+ "problemi": [
+  "MVP.md na strani prazan nije isti kao u manifestu",
+  "MVP.md na strani plugin nije isti kao u manifestu",
+  "prazan: verzija alata 2.1.322 nije ona iz manifesta",
+  "prazan: projekat nije samo MVP.md: ['db.sqlite3', 'deploy', 'igra', 'manage.py', 'MVP.md', 'orkestrator', 'plan.md', 'requirements-razvoj.txt', 'requirements.txt']",
+  "prazan: config/settings.json nije propisan",
+  "prazan: vec postoji transkript: strana nije nekoriscena",
+  "plugin: verzija alata 2.1.322 nije ona iz manifesta",
+  "plugin: config/settings.json nije propisan",
+  "plugin: vec postoji transkript: strana nije nekoriscena"
+ ]
+}

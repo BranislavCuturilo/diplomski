@@ -1,0 +1,17 @@
+{% extends "igra/osnova.html" %}
+{% block sadrzaj %}
+<section class="panel">
+  <h1 class="naslov">Оркестратор</h1>
+  <p class="lead">Водиш израду веб апликације и за сваки задатак бираш како ће га AI агент урадити.</p>
+  <p>Циљ је да завршиш са што више поена, у буџету и року.</p>
+  <div class="row g-2 my-3">
+    <div class="col-4"><div class="pokazatelj"><span>Буџет</span><strong>{{ budzet }} $</strong></div></div>
+    <div class="col-4"><div class="pokazatelj"><span>Рок</span><strong>{{ rok }} мин</strong></div></div>
+    <div class="col-4"><div class="pokazatelj"><span>Кругова</span><strong>{{ broj_krugova }}</strong></div></div>
+  </div>
+  <form method="post" action="{% url 'nova' %}" data-jednom>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-lg dugme-glavno w-100">Нова игра</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,1303 @@
+# Orkestrator: engleski katalog. msgid je odobren srpski izvor; menja se samo msgstr (plan 12.8).
+# Izdvajanje: python manage.py makemessages -l en -l sr --ignore "igra/tests/*" --add-location file
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: orkestrator\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-12 15:03+0100\n"
+"PO-Revision-Date: 2026-11-11 13:40+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Translators: redni broj na rang listi (1., 2., ...).
+#: .\igra\moderacija.py .\templates\igra\igra.html
+msgid "Место"
+msgstr "Place"
+
+#: .\igra\moderacija.py .\templates\igra\igra.html
+#: .\templates\igra\moderator\potvrda.html
+msgid "Име"
+msgstr "Name"
+
+#: .\igra\moderacija.py .\templates\igra\_zavrsni.html
+#: .\templates\igra\igra.html .\templates\igra\moderator\_rezultati.html
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Поени"
+msgstr "Points"
+
+#. Translators: zavrsna ocena partije (solidan, pozar...), ne skolska ocena.
+#: .\igra\moderacija.py .\templates\igra\_zavrsni.html
+#: .\templates\igra\igra.html .\templates\igra\moderator\_rezultati.html
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Оцена"
+msgstr "Rating"
+
+#: .\igra\moderacija.py
+msgid "Сачуван"
+msgstr "Saved"
+
+#: .\igra\parametri.py
+msgid "Превод почетне стране"
+msgstr "Home page translation"
+
+#: .\igra\parametri.py
+msgid "Шаблон листе и форме"
+msgstr "List and form template"
+
+#: .\igra\parametri.py
+msgid "CSS и прилагођавање телефону"
+msgstr "CSS and phone adaptation"
+
+#: .\igra\parametri.py
+msgid "CRUD прикази"
+msgstr "CRUD screens"
+
+#: .\igra\parametri.py
+msgid "Модел података и миграција"
+msgstr "Data model and migration"
+
+#: .\igra\parametri.py
+msgid "Провера права приступа"
+msgstr "Access rights check"
+
+#: .\igra\parametri.py
+msgid "Аутоматски тестови"
+msgstr "Automated tests"
+
+#: .\igra\parametri.py
+msgid "Безбедносна ревизија"
+msgstr "Security review"
+
+#: .\igra\parametri.py
+msgid "најјефтинији и најбржи"
+msgstr "cheapest and fastest"
+
+#: .\igra\parametri.py
+msgid "средњи по цени и брзини"
+msgstr "medium in price and speed"
+
+#: .\igra\parametri.py
+msgid "најскупљи и најспорији, најпоузданији"
+msgstr "most expensive and slowest, most reliable"
+
+#: .\igra\parametri.py
+msgid "кратко размишљање: јефтино и брзо, слабије на захтевнијем послу"
+msgstr "short thinking: cheap and fast, weaker on demanding work"
+
+#: .\igra\parametri.py
+msgid "пажљиво размишљање: уобичајен избор"
+msgstr "careful thinking: the usual choice"
+
+#: .\igra\parametri.py
+msgid "најдуже размишљање: знатно скупље и спорије"
+msgstr "longest thinking: much more expensive and slower"
+
+#. Translators: kontekst koji agent dobija: malo, samo najnuzniji delovi projekta.
+#: .\igra\parametri.py
+msgid "мало"
+msgstr "small"
+
+#: .\igra\parametri.py
+msgid "само најнужније: јефтиније, али агент може да промаши"
+msgstr "only the essentials: cheaper, but the agent may miss things"
+
+#. Translators: kontekst koji agent dobija: taman, upravo koliko zadatku treba.
+#: .\igra\parametri.py
+msgid "таман"
+msgstr "just right"
+
+#: .\igra\parametri.py
+msgid "оно што задатку треба"
+msgstr "what the task needs"
+
+#. Translators: kontekst koji agent dobija: sve, ceo projekat.
+#: .\igra\parametri.py
+msgid "све"
+msgstr "all"
+
+#: .\igra\parametri.py
+msgid "цео пројекат: скупље и расплинуто"
+msgstr "the whole project: more expensive and diffuse"
+
+#. Translators: podela posla: jedan agent radi sam.
+#: .\igra\parametri.py
+msgid "сам"
+msgstr "alone"
+
+#: .\igra\parametri.py
+msgid "један агент ради редом"
+msgstr "one agent works in sequence"
+
+#. Translators: podela posla: tri agenta rade uporedo.
+#: .\igra\parametri.py
+msgid "3 агента"
+msgstr "3 agents"
+
+#: .\igra\parametri.py
+msgid "три агента упоредо: брже, нешто скупље"
+msgstr "three agents in parallel: faster, somewhat more expensive"
+
+#. Translators: podela posla: pedeset agenata rade uporedo.
+#: .\igra\parametri.py
+msgid "50 агената"
+msgstr "50 agents"
+
+#: .\igra\parametri.py
+msgid "педесет агената: много скупље, а усклађивање траје"
+msgstr "fifty agents: much more expensive, and coordination takes time"
+
+#: .\igra\parametri.py
+msgid "одличан оркестратор"
+msgstr "excellent orchestrator"
+
+#: .\igra\parametri.py
+msgid "солидан"
+msgstr "solid"
+
+#. Translators: ocena: igrac je skupo platio lekciju (doslovno "skup ucitelj").
+#: .\igra\parametri.py
+msgid "скуп учитељ"
+msgstr "costly lesson"
+
+#. Translators: najlosija ocena (doslovno "pozar").
+#: .\igra\parametri.py
+msgid "пожар"
+msgstr "disaster"
+
+#. Translators: status kruga: zadatak je zavrsen.
+#: .\igra\parametri.py
+msgid "готово"
+msgstr "done"
+
+#: .\igra\parametri.py
+msgid "враћено на дораду"
+msgstr "sent back for rework"
+
+#: .\igra\parametri.py
+msgid ""
+"Цене и нивои размишљања су стварни подаци; вероватноће, казне и поени су "
+"измишљени параметри игре."
+msgstr ""
+"Prices and thinking levels are real data; probabilities, penalties and "
+"points are made-up game parameters."
+
+#: .\igra\parametri.py
+msgid "Ако је грешка тиха, задатак остаје највишем разреду."
+msgstr "If an error is silent, the task stays with the top tier."
+
+#: .\igra\parametri.py
+msgid "Најскупљи модел није увек најбољи избор."
+msgstr "The most expensive model is not always the best choice."
+
+#: .\igra\parametri.py
+msgid "Изнад нивоа high цена расте, а квалитет не."
+msgstr "Above the high level, cost goes up but quality does not."
+
+#: .\igra\parametri.py
+msgid "Превише контекста квари резултат исто као премало."
+msgstr "Too much context spoils the result just as much as too little."
+
+#: .\igra\parametri.py
+msgid "Више агената не значи јефтиније."
+msgstr "More agents does not mean cheaper."
+
+#: .\igra\tekstovi.py
+msgid "Стање је освежено."
+msgstr "State refreshed."
+
+#: .\igra\tekstovi.py
+msgid "Партија више не постоји. Освежите страну за нову игру."
+msgstr "This game no longer exists. Refresh the page to start a new game."
+
+#: .\igra\tekstovi.py
+msgid "Захтев није исправан. Освежите страну."
+msgstr "The request is not valid. Refresh the page."
+
+#: .\igra\tekstovi.py
+msgid "Сервер није одговорио како треба. Покушајте поново."
+msgstr "The server did not respond properly. Try again."
+
+#: .\igra\tekstovi.py .\templates\igra\igra.html
+msgid "Стање игре није могло да се прочита. Освежите страну."
+msgstr "The game state could not be read. Refresh the page."
+
+#: .\igra\tekstovi.py
+msgid "Резултат је сачуван."
+msgstr "Result saved."
+
+#: .\igra\tekstovi.py
+msgid "Ово име није дозвољено. Изаберите друго име."
+msgstr "This name is not allowed. Choose another name."
+
+#: .\igra\tekstovi.py
+msgid "Ова партија је већ сачувана."
+msgstr "This game has already been saved."
+
+#: .\igra\tekstovi.py
+msgid "Партија још није завршена. Освежите страну."
+msgstr "The game is not finished yet. Refresh the page."
+
+#: .\igra\tekstovi.py
+msgid "Линк за ову партију више није доступан."
+msgstr "The link for this game is no longer available."
+
+#: .\igra\tekstovi.py
+msgid "Линк је копиран."
+msgstr "Link copied."
+
+#: .\igra\tekstovi.py
+msgid "Копирање није успело. Линк је означен; копирајте га ручно."
+msgstr "Copying failed. The link is selected; copy it manually."
+
+#: .\igra\tekstovi.py .\templates\igra\deljeno.html
+msgid "Резултат није могао да се прочита."
+msgstr "The result could not be read."
+
+#: .\igra\tekstovi.py
+msgid "Изаберите све четири опције да видите процену."
+msgstr "Choose all four options to see the estimate."
+
+#: .\igra\tekstovi.py
+msgid "Пријава је примљена. Хвала."
+msgstr "Report received. Thank you."
+
+#: .\igra\tekstovi.py
+msgid "Овај резултат више није на ранг листи. Освежите страну."
+msgstr "This result is no longer on the leaderboard. Refresh the page."
+
+#: .\igra\tekstovi.py
+msgid "Започети нову игру? Текућа партија се губи."
+msgstr "Start a new game? The current game will be lost."
+
+#. Translators: naziv igre (na engleskom "Orchestrator", odluka J3).
+#: .\igra\tekstovi.py .\templates\400.html .\templates\403.html
+#: .\templates\403_csrf.html .\templates\404.html .\templates\500.html
+#: .\templates\igra\deljeno.html .\templates\igra\igra.html
+#: .\templates\igra\moderator\osnova.html
+msgid "Оркестратор"
+msgstr "Orchestrator"
+
+#: .\igra\tekstovi.py
+msgid "Мој резултат у игри Оркестратор"
+msgstr "My result in the game Orchestrator"
+
+#. Translators: %(krug)s je redni broj kruga, %(ukupno)s ukupan broj krugova.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Круг %(krug)s од %(ukupno)s"
+msgstr "Round %(krug)s of %(ukupno)s"
+
+#: .\igra\tekstovi.py
+msgid "Игра је завршена"
+msgstr "Game over"
+
+#. Translators: rezultat poslednjeg kruga; %(zadatak)s je naziv zadatka.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Круг %(krug)s: %(zadatak)s"
+msgstr "Round %(krug)s: %(zadatak)s"
+
+#. Translators: %(cena)s je iznos sa oznakom valute, %(minuti)s broj minuta sa jedinicom.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Процена: цена %(cena)s, %(minuti)s."
+msgstr "Estimate: cost %(cena)s, %(minuti)s."
+
+#. Translators: tiha greska na zavrsnom ekranu; %(cena)s i %(minuti)s su dodatak sa jedinicom.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Круг %(krug)s: %(zadatak)s (додатак: %(cena)s, %(minuti)s)"
+msgstr "Round %(krug)s: %(zadatak)s (extra: %(cena)s, %(minuti)s)"
+
+#. Translators: odeljak zavrsnog rada uz lekciju, npr. 4.2.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "(одељак %(odeljak)s)"
+msgstr "(section %(odeljak)s)"
+
+#. Translators: %(datum)s je dan isteka linka za deljenje.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Линк важи до %(datum)s."
+msgstr "Link valid until %(datum)s."
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\nalozi.html
+#: .\templates\igra\moderator\prijava.html
+msgid "Корисничко име"
+msgstr "Username"
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\nalozi.html
+#: .\templates\igra\moderator\osnova.html
+#: .\templates\igra\moderator\prijava.html
+msgid "Лозинка"
+msgstr "Password"
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\nalog.html
+msgid "Нова лозинка"
+msgstr "New password"
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\nalog.html
+#: .\templates\igra\moderator\nalozi.html
+msgid "Лозинка поново"
+msgstr "Password again"
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\dnevnik.html
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "Главни модератор"
+msgstr "Head moderator"
+
+#: .\igra\tekstovi.py .\templates\igra\moderator\nalog.html
+#: .\templates\igra\moderator\nalozi.html
+msgid "Ваша лозинка"
+msgstr "Your password"
+
+#: .\igra\tekstovi.py
+msgid "Погрешно корисничко име или лозинка."
+msgstr "Wrong username or password."
+
+#: .\igra\tekstovi.py
+msgid "Погрешна лозинка."
+msgstr "Wrong password."
+
+#: .\igra\tekstovi.py
+msgid "Нова лозинка мора да се разликује од старе."
+msgstr "The new password must be different from the old one."
+
+#. Translators: %(n)s je broj minuta do kraja blokade.
+#: .\igra\tekstovi.py .\templates\igra\moderator\prijava.html
+#, python-format
+msgid "Превише неуспешних покушаја. Покушајте поново за %(n)s минут."
+msgid_plural "Превише неуспешних покушаја. Покушајте поново за %(n)s минута."
+msgstr[0] "Too many failed attempts. Try again in %(n)s minute."
+msgstr[1] "Too many failed attempts. Try again in %(n)s minutes."
+
+#. Translators: %(n)s je broj mesta na rang listi.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Резултат је сачуван, али није међу %(n)s најбољим."
+msgid_plural "Резултат је сачуван, али није међу %(n)s најбољих."
+msgstr[0] "The result is saved, but it is not in the top %(n)s."
+msgstr[1] "The result is saved, but it is not in the top %(n)s."
+
+#. Translators: %(n)s je najveci broj znakova imena.
+#: .\igra\tekstovi.py
+#, python-format
+msgid ""
+"Име мора имати од 1 до %(n)s знака, без размака на почетку и крају и без "
+"невидљивих знакова."
+msgid_plural ""
+"Име мора имати од 1 до %(n)s знакова, без размака на почетку и крају и без "
+"невидљивих знакова."
+msgstr[0] ""
+"The name must have 1 to %(n)s character, with no spaces at the start or end "
+"and no invisible characters."
+msgstr[1] ""
+"The name must have 1 to %(n)s characters, with no spaces at the start or end "
+"and no invisible characters."
+
+#. Translators: %(procenat)s je prekoracenje budzeta u procentima, vec sa znakom %; %(kazna)s je
+#. broj izgubljenih poena.
+#: .\igra\tekstovi.py
+#, python-format
+msgid "Буџет је прекорачен за %(procenat)s (−%(kazna)s поен)."
+msgid_plural "Буџет је прекорачен за %(procenat)s (−%(kazna)s поена)."
+msgstr[0] "Budget exceeded by %(procenat)s (−%(kazna)s point)."
+msgstr[1] "Budget exceeded by %(procenat)s (−%(kazna)s points)."
+
+#: .\templates\400.html
+msgid "Захтев није исправан · Оркестратор"
+msgstr "Invalid request · Orchestrator"
+
+#: .\templates\400.html
+msgid "Захтев није исправан."
+msgstr "This request is not valid."
+
+#: .\templates\400.html
+msgid "Покушајте поново са почетне стране."
+msgstr "Please try again from the home page."
+
+#: .\templates\400.html .\templates\403.html .\templates\403_csrf.html
+#: .\templates\404.html .\templates\500.html
+msgid "На почетну страну"
+msgstr "Go to the home page"
+
+#: .\templates\403.html .\templates\igra\moderator\zabranjeno.html
+msgid "Забрањено · Оркестратор"
+msgstr "Forbidden · Orchestrator"
+
+#: .\templates\403.html
+msgid "Приступ није дозвољен."
+msgstr "Access is not allowed."
+
+#: .\templates\403.html
+msgid "Ова страна вам није доступна."
+msgstr "This page is not available to you."
+
+#: .\templates\403_csrf.html
+msgid "Страна је истекла · Оркестратор"
+msgstr "Page expired · Orchestrator"
+
+#: .\templates\403_csrf.html
+msgid "Страна је истекла."
+msgstr "This page has expired."
+
+#: .\templates\403_csrf.html
+msgid "Освежите страну и покушајте поново."
+msgstr "Refresh the page and try again."
+
+#: .\templates\404.html
+msgid "Страна није пронађена · Оркестратор"
+msgstr "Page not found · Orchestrator"
+
+#: .\templates\404.html
+msgid "Ова страна не постоји."
+msgstr "This page does not exist."
+
+#: .\templates\404.html
+msgid "Адреса је можда погрешна или је страна уклоњена."
+msgstr "The address may be wrong, or the page may have been removed."
+
+#: .\templates\500.html
+msgid "Грешка · Оркестратор"
+msgstr "Error · Orchestrator"
+
+#: .\templates\500.html
+msgid "Нешто је пошло по злу."
+msgstr "Something went wrong."
+
+#: .\templates\500.html
+msgid "Грешка је на нашој страни. Покушајте поново за који тренутак."
+msgstr "The problem is on our side. Please try again in a moment."
+
+#: .\templates\igra\_prijava.html
+msgid "Пријави неприкладно име"
+msgstr "Report an inappropriate name"
+
+#: .\templates\igra\_prijava.html
+msgid "Име које пријављујете"
+msgstr "Name you are reporting"
+
+#: .\templates\igra\_prijava.html
+msgid "Модератор ће прегледати име и одлучити да ли се резултат брише."
+msgstr ""
+"A moderator will review the name and decide whether the result is deleted."
+
+#: .\templates\igra\_prijava.html
+msgid "Пошаљи пријаву"
+msgstr "Send report"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Контролни скуп"
+msgstr "Final check"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Укупна цена"
+msgstr "Total cost"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Укупно минута"
+msgstr "Total minutes"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Име за ранг листу"
+msgstr "Name for the leaderboard"
+
+#: .\templates\igra\_zavrsni.html
+#, python-format
+msgid "Од 1 до %(n)s знак."
+msgid_plural "Од 1 до %(n)s знакова."
+msgstr[0] "From 1 to %(n)s character."
+msgstr[1] "From 1 to %(n)s characters."
+
+#: .\templates\igra\_zavrsni.html
+msgid "Сачувај резултат"
+msgstr "Save result"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Подели резултат"
+msgstr "Share result"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Линк за дељење"
+msgstr "Share link"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Копирај линк"
+msgstr "Copy link"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Пошаљи"
+msgstr "Send"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Буџет је прекорачен."
+msgstr "Budget exceeded."
+
+#: .\templates\igra\_zavrsni.html
+msgid "Рок је прекорачен."
+msgstr "Deadline exceeded."
+
+#: .\templates\igra\_zavrsni.html
+msgid "Тихе грешке"
+msgstr "Silent errors"
+
+#: .\templates\igra\_zavrsni.html
+msgid "Нема тихих грешака."
+msgstr "No silent errors."
+
+#: .\templates\igra\_zavrsni.html
+msgid "Лекције"
+msgstr "Lessons"
+
+#: .\templates\igra\deljeno.html
+msgid "Подељени резултат · Оркестратор"
+msgstr "Shared result · Orchestrator"
+
+#: .\templates\igra\deljeno.html
+msgid "Резултат није доступан · Оркестратор"
+msgstr "Result not available · Orchestrator"
+
+#: .\templates\igra\deljeno.html
+msgid "Подељени резултат"
+msgstr "Shared result"
+
+#: .\templates\igra\deljeno.html .\templates\igra\igra.html
+#: .\templates\igra\moderator\osnova.html
+msgid "Језик"
+msgstr "Language"
+
+#: .\templates\igra\deljeno.html
+msgid "Играч:"
+msgstr "Player:"
+
+#: .\templates\igra\deljeno.html
+msgid "Датум:"
+msgstr "Date:"
+
+#: .\templates\igra\deljeno.html
+msgid "Ово је завршена партија; овде се не може играти."
+msgstr "This game is finished; it cannot be played here."
+
+#: .\templates\igra\deljeno.html
+msgid "Играј и ти"
+msgstr "Play too"
+
+#: .\templates\igra\deljeno.html
+msgid "Овај резултат више није доступан."
+msgstr "This result is no longer available."
+
+#: .\templates\igra\deljeno.html
+#, python-format
+msgid "Линк за дељење важи %(n)s дан."
+msgid_plural "Линк за дељење важи %(n)s дана."
+msgstr[0] "Share link valid for %(n)s day."
+msgstr[1] "Share link valid for %(n)s days."
+
+#: .\templates\igra\igra.html
+msgid "Буџет"
+msgstr "Budget"
+
+#: .\templates\igra\igra.html
+msgid "Потрошено:"
+msgstr "Spent:"
+
+#: .\templates\igra\igra.html
+msgid "Преостало:"
+msgstr "Remaining:"
+
+#. Translators: krajnji rok za zavrsetak posla (deadline), ne vremenski period uopste.
+#: .\templates\igra\igra.html
+msgid "Рок"
+msgstr "Deadline"
+
+#: .\templates\igra\igra.html
+msgid "Дневни изазов"
+msgstr "Daily challenge"
+
+#: .\templates\igra\igra.html
+msgid ""
+"Данас сви играју исту партију: исти задаци и исти исходи. Дневни изазов се "
+"игра једном."
+msgstr ""
+"Today everyone plays the same game: the same tasks and the same outcomes. "
+"The daily challenge is played once."
+
+#: .\templates\igra\igra.html
+msgid "Резултат круга"
+msgstr "Round result"
+
+#: .\templates\igra\igra.html
+msgid "Цена"
+msgstr "Cost"
+
+#: .\templates\igra\igra.html
+msgid "Минути"
+msgstr "Minutes"
+
+#: .\templates\igra\igra.html
+msgid "Статус"
+msgstr "Status"
+
+#: .\templates\igra\igra.html
+msgid "Задатак"
+msgstr "Task"
+
+#: .\templates\igra\igra.html
+msgid "Модел"
+msgstr "Model"
+
+#: .\templates\igra\igra.html
+msgid "Ниво размишљања"
+msgstr "Thinking level"
+
+#: .\templates\igra\igra.html
+msgid "Контекст"
+msgstr "Context"
+
+#: .\templates\igra\igra.html
+msgid "Подела посла"
+msgstr "Work split"
+
+#: .\templates\igra\igra.html
+msgid "Потврди избор"
+msgstr "Confirm choice"
+
+#: .\templates\igra\igra.html
+msgid "Назад на главну игру"
+msgstr "Back to the main game"
+
+#: .\templates\igra\igra.html
+msgid "Нова игра"
+msgstr "New game"
+
+#: .\templates\igra\igra.html
+msgid "Играј дневни изазов"
+msgstr "Play the daily challenge"
+
+#: .\templates\igra\igra.html
+msgid "Ранг листа дана"
+msgstr "Today's leaderboard"
+
+#: .\templates\igra\igra.html .\templates\igra\moderator\pregled.html
+msgid "Данас још нема сачуваних резултата."
+msgstr "No saved results today yet."
+
+#: .\templates\igra\igra.html
+msgid "Ранг листа није могла да се прочита."
+msgstr "The leaderboard could not be read."
+
+#: .\templates\igra\igra.html .\templates\igra\moderator\_rezultati.html
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Датум"
+msgstr "Date"
+
+#: .\templates\igra\igra.html
+msgid "Ранг листа"
+msgstr "Leaderboard"
+
+#: .\templates\igra\igra.html
+#, python-format
+msgid "%(n)s најбољи сачувани резултат"
+msgid_plural "%(n)s најбољих сачуваних резултата"
+msgstr[0] "%(n)s best saved result"
+msgstr[1] "%(n)s best saved results"
+
+#: .\templates\igra\igra.html .\templates\igra\moderator\pregled.html
+msgid "Још нема сачуваних резултата."
+msgstr "No saved results yet."
+
+#: .\templates\igra\igra.html
+msgid ""
+"Старо бодовање: резултат је бодован по ранијим правилима, са другачијим "
+"казнама за тиху грешку и буџет."
+msgstr ""
+"Old scoring: this result was scored under the earlier rules, with different "
+"penalties for silent errors and the budget."
+
+#: .\templates\igra\igra.html
+msgid "ваш резултат"
+msgstr "your result"
+
+#: .\templates\igra\igra.html
+msgid "старо бодовање"
+msgstr "old scoring"
+
+#: .\templates\igra\moderator\_rezultati.html
+msgid "Преузми табелу"
+msgstr "Download spreadsheet"
+
+#: .\templates\igra\moderator\_rezultati.html
+#: .\templates\igra\moderator\pregled.html
+msgid "јавно"
+msgstr "public"
+
+#: .\templates\igra\moderator\_rezultati.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Обриши"
+msgstr "Delete"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Дневник · Модератор · Оркестратор"
+msgstr "Log · Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Дневник брисања и налога"
+msgstr "Deletion and account log"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Када"
+msgstr "When"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Ко"
+msgstr "Who"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "развијалац (команда)"
+msgstr "developer (command)"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Шта"
+msgstr "What"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "обрисан резултат"
+msgstr "result deleted"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "обрисан линк"
+msgstr "link deleted"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "одбачена пријава имена"
+msgstr "name report dismissed"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "додат модератор"
+msgstr "moderator added"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "деактивиран модератор"
+msgstr "moderator deactivated"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "активиран модератор"
+msgstr "moderator activated"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "постављена лозинка"
+msgstr "password set"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "промењена лозинка"
+msgstr "password changed"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "додељена улога главног"
+msgstr "head moderator role granted"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "одузета улога главног"
+msgstr "head moderator role removed"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Над налогом"
+msgstr "On account"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Снимак"
+msgstr "Snapshot"
+
+#: .\templates\igra\moderator\dnevnik.html
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "(без имена)"
+msgstr "(no name)"
+
+#: .\templates\igra\moderator\dnevnik.html
+#: .\templates\igra\moderator\pregled.html
+msgid "дневни изазов"
+msgstr "daily challenge"
+
+#: .\templates\igra\moderator\dnevnik.html
+msgid "Дневник је празан."
+msgstr "The log is empty."
+
+#: .\templates\igra\moderator\lozinka.html
+msgid "Промена лозинке · Модератор · Оркестратор"
+msgstr "Change password · Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\lozinka.html
+msgid "Промена лозинке"
+msgstr "Change password"
+
+#: .\templates\igra\moderator\lozinka.html
+msgid "Морате да промените лозинку пре наставка."
+msgstr "You must change your password before continuing."
+
+#: .\templates\igra\moderator\lozinka.html
+msgid "Промени лозинку"
+msgstr "Change password"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\osnova.html
+msgid "Модератор · Оркестратор"
+msgstr "Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "Не можете деактивирати свој налог."
+msgstr "You cannot deactivate your own account."
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "Мора остати бар један активан главни модератор."
+msgstr "At least one active head moderator must remain."
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "Радња није дозвољена."
+msgstr "Action not allowed."
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "активан"
+msgstr "active"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "неактиван"
+msgstr "inactive"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "мора да промени лозинку"
+msgstr "must change password"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "ваш налог"
+msgstr "your account"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "Последња пријава"
+msgstr "Last sign-in"
+
+#: .\templates\igra\moderator\nalog.html .\templates\igra\moderator\nalozi.html
+msgid "никад"
+msgstr "never"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Назад на модераторе"
+msgstr "Back to moderators"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Деактивирај"
+msgstr "Deactivate"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Активирај"
+msgstr "Activate"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Постави лозинку"
+msgstr "Set password"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Додели улогу главног"
+msgstr "Grant head moderator role"
+
+#: .\templates\igra\moderator\nalog.html
+msgid "Одузми улогу главног"
+msgstr "Revoke head moderator role"
+
+#: .\templates\igra\moderator\nalozi.html
+msgid "Модератори · Оркестратор"
+msgstr "Moderators · Orchestrator"
+
+#: .\templates\igra\moderator\nalozi.html
+#: .\templates\igra\moderator\osnova.html
+msgid "Модератори"
+msgstr "Moderators"
+
+#: .\templates\igra\moderator\nalozi.html
+msgid "Управљај"
+msgstr "Manage"
+
+#: .\templates\igra\moderator\nalozi.html
+msgid "Додај модератора"
+msgstr "Add moderator"
+
+#: .\templates\igra\moderator\nalozi.html
+msgid "Додај"
+msgstr "Add"
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Модератор"
+msgstr "Moderator"
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Пријављени сте као"
+msgstr "Signed in as"
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Мени"
+msgstr "Menu"
+
+#: .\templates\igra\moderator\osnova.html
+#: .\templates\igra\moderator\pregled.html
+#: .\templates\igra\moderator\zabranjeno.html
+msgid "Преглед"
+msgstr "Overview"
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Дневник"
+msgstr "Log"
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Одјави се"
+msgstr "Log out"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Потврда брисања · Модератор · Оркестратор"
+msgstr "Delete confirmation · Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Обрисати овај линк?"
+msgstr "Delete this link?"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Обрисати овај резултат?"
+msgstr "Delete this result?"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Брисање се уписује у дневник."
+msgstr "Deletion is recorded in the log."
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Обрисано се не може вратити."
+msgstr "Deleted items cannot be restored."
+
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Настао"
+msgstr "Created"
+
+#: .\templates\igra\moderator\potvrda.html
+#: .\templates\igra\moderator\pregled.html
+msgid "Истиче"
+msgstr "Expires"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Потврди брисање"
+msgstr "Confirm deletion"
+
+#: .\templates\igra\moderator\potvrda.html
+msgid "Одустани"
+msgstr "Cancel"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Преглед · Модератор · Оркестратор"
+msgstr "Overview · Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Обрисано."
+msgstr "Deleted."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Ово је већ обрисано."
+msgstr "This has already been deleted."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Име је остављено, а пријаве су уклоњене."
+msgstr "The name was kept and the reports were removed."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Ове пријаве су већ решене."
+msgstr "These reports have already been resolved."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Пријављена имена"
+msgstr "Reported names"
+
+#: .\templates\igra\moderator\pregled.html
+msgid ""
+"Играчи су пријавили ова имена као неприкладна. Обришите резултат или "
+"оставите име; остављено име се више не појављује међу пријављенима."
+msgstr ""
+"Players reported these names as inappropriate. Delete the result or keep "
+"the name; a kept name no longer appears among the reported ones."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Број пријава"
+msgstr "Number of reports"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Прва пријава"
+msgstr "First report"
+
+#. Translators: dugme uz prijavljeno ime: ime ostaje na rang listi.
+#: .\templates\igra\moderator\pregled.html
+msgid "Остави"
+msgstr "Keep"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Нема пријављених имена."
+msgstr "No reported names."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Главна ранг листа"
+msgstr "Main leaderboard"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Дневни изазов, данас"
+msgstr "Daily challenge, today"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Подељени линкови"
+msgstr "Shared links"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Пронађи линк"
+msgstr "Find link"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Налепите линк који је играч поделио."
+msgstr "Paste the link the player shared."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Пронађи"
+msgstr "Find"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Пронађен линк"
+msgstr "Link found"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Тај линк не постоји или више није доступан."
+msgstr "That link does not exist or is no longer available."
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Најновији линкови"
+msgstr "Latest links"
+
+#: .\templates\igra\moderator\pregled.html
+msgid "Нема подељених линкова."
+msgstr "No shared links."
+
+#: .\templates\igra\moderator\prijava.html
+msgid "Пријава модератора · Оркестратор"
+msgstr "Moderator sign-in · Orchestrator"
+
+#: .\templates\igra\moderator\prijava.html
+msgid "Пријава модератора"
+msgstr "Moderator sign-in"
+
+#: .\templates\igra\moderator\prijava.html
+msgid "Пријави се"
+msgstr "Sign in"
+
+#: .\templates\igra\moderator\zabranjeno.html
+msgid "Ову страну види само главни модератор."
+msgstr "Only the head moderator can see this page."
+
+#: .\templates\igra\moderator\osnova.html
+msgid "Статистика"
+msgstr "Statistics"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Статистика · Модератор · Оркестратор"
+msgstr "Statistics · Moderator · Orchestrator"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Одигране партије по дану"
+msgstr "Games played per day"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Партије које су стигле до завршног екрана, по дану; најновији дан први."
+msgstr "Games that reached the final screen, per day; most recent day first."
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Укупно"
+msgstr "Total"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Обичне"
+msgstr "Regular"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Дневне"
+msgstr "Daily"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Просек"
+msgstr "Average"
+
+#: .\templates\igra\moderator\statistika.html
+msgid "Броје се обичне и дневне партије које су стигле до завршног екрана; просек је просечан број поена тих партија. Дани пре увођења статистике имају 0."
+msgstr "Regular and daily games that reached the final screen are counted; the average is the mean score of those games. Days before statistics were introduced show 0."
+
+#: .\templates\igra\kako.html
+msgid "Како се игра · Оркестратор"
+msgstr "How to play · Orchestrator"
+
+#: .\templates\igra\kako.html
+msgid "Како се игра"
+msgstr "How to play"
+
+#: .\templates\igra\kako.html
+msgid "Циљ игре"
+msgstr "Goal of the game"
+
+#: .\templates\igra\kako.html
+msgid "Водите израду веб апликације: за сваки задатак бирате како ће га агент урадити. Циљ је да завршите све задатке уз што мање новца и времена и да задржите што више поена."
+msgstr "You lead the building of a web application: for each task you choose how the agent will do it. The goal is to finish all the tasks spending as little money and time as possible, and to keep as many points as you can."
+
+#: .\templates\igra\kako.html
+msgid "Кругови, буџет и рок"
+msgstr "Rounds, budget and deadline"
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Буџет је %(budzet)s, а рок %(rok)s. Прекорачење не прекида игру: игра иде до краја, а казна стиже на крају."
+msgstr "The budget is %(budzet)s and the deadline is %(rok)s. Going over does not stop the game: it runs to the end, and the penalty comes at the end."
+
+#: .\templates\igra\kako.html
+msgid "Четири избора по кругу"
+msgstr "Four choices per round"
+
+#: .\templates\igra\kako.html
+msgid "У сваком кругу бирате по једну опцију из четири групе. Пре потврде игра показује процену цене и минута."
+msgstr "In each round you pick one option from four groups. Before you confirm, the game shows an estimate of the price and minutes."
+
+#: .\templates\igra\kako.html
+msgid "Шта видите после круга"
+msgstr "What you see after a round"
+
+#: .\templates\igra\kako.html
+msgid "После сваког круга видите цену, минуте и статус."
+msgstr "After each round you see the price, the minutes and the status."
+
+#: .\templates\igra\kako.html
+msgid "задатак је завршен, без последица."
+msgstr "the task is finished, with no consequences."
+
+#: .\templates\igra\kako.html
+msgid "Тиха грешка и контролни скуп"
+msgstr "Silent error and the control set"
+
+#: .\templates\igra\kako.html
+msgid "Неки неуспеси изгледају као успех: на екрану пише исто као да је све у реду. Такве грешке се откривају тек на контролном скупу, који се извршава сам после последњег круга."
+msgstr "Some failures look like a success: the screen says the same as if everything were fine. Such errors are only found by the control set, which runs by itself after the last round."
+
+#: .\templates\igra\kako.html
+msgid "Казне за буџет и рок"
+msgstr "Penalties for budget and deadline"
+
+#: .\templates\igra\kako.html
+msgid "Поени и оцене"
+msgstr "Points and ratings"
+
+#: .\templates\igra\kako.html
+msgid "Дневни изазов и ранг листа"
+msgstr "Daily challenge and leaderboard"
+
+#: .\templates\igra\kako.html
+msgid "Дневни изазов је иста партија за све играче тог дана и игра се једном. Када партија заврши, можете да сачувате резултат под својим именом: најбољи резултати улазе на ранг листу."
+msgstr "The daily challenge is the same game for every player that day, and it is played once. When a game ends, you can save the result under your name: the best results enter the leaderboard."
+
+#: .\templates\igra\kako.html
+msgid "Пример једног круга"
+msgstr "Example of one round"
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "У првом кругу радите задатак „%(zadatak)s“. Бирате: модел %(model)s, ниво %(nivo)s, контекст „%(kontekst)s“, подела „%(podela)s“."
+msgstr "In the first round you work on the task “%(zadatak)s”. You choose: model %(model)s, level %(nivo)s, context “%(kontekst)s”, split “%(podela)s”."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Ако прође: „%(status)s“, плаћате %(cena)s и %(minuti)s."
+msgstr "If it passes: “%(status)s”, you pay %(cena)s and %(minuti)s."
+
+#: .\templates\igra\kako.html
+msgid "Назад на игру"
+msgstr "Back to the game"
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Партија има %(n)s круг: у сваком кругу радите један задатак."
+msgid_plural "Партија има %(n)s кругова: у сваком кругу радите један задатак."
+msgstr[0] "The game has %(n)s round: in each round you work on one task."
+msgstr[1] "The game has %(n)s rounds: in each round you work on one task."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "цена и минути се одмах множе са %(mnozilac)s, а губите %(n)s поен."
+msgid_plural "цена и минути се одмах множе са %(mnozilac)s, а губите %(n)s поена."
+msgstr[0] "the price and minutes are immediately multiplied by %(mnozilac)s, and you lose %(n)s point."
+msgstr[1] "the price and minutes are immediately multiplied by %(mnozilac)s, and you lose %(n)s points."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "За сваку откривену тиху грешку плаћате додатну цену и време и губите %(n)s поен."
+msgid_plural "За сваку откривену тиху грешку плаћате додатну цену и време и губите %(n)s поена."
+msgstr[0] "For each silent error that is found you pay an extra price and time, and you lose %(n)s point."
+msgstr[1] "For each silent error that is found you pay an extra price and time, and you lose %(n)s points."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Буџет: за сваких започетих %(korak)s прекорачења губите %(n)s поен, а највише %(maks)s."
+msgid_plural "Буџет: за сваких започетих %(korak)s прекорачења губите %(n)s поена, а највише %(maks)s."
+msgstr[0] "Budget: for every started %(korak)s of overrun you lose %(n)s point, and at most %(maks)s."
+msgstr[1] "Budget: for every started %(korak)s of overrun you lose %(n)s points, and at most %(maks)s."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Рок: ако га прекорачите, губите %(n)s поен."
+msgid_plural "Рок: ако га прекорачите, губите %(n)s поена."
+msgstr[0] "Deadline: if you go over it, you lose %(n)s point."
+msgstr[1] "Deadline: if you go over it, you lose %(n)s points."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Партија почиње са %(n)s поеном, а поени не могу пасти испод нуле."
+msgid_plural "Партија почиње са %(n)s поена, а поени не могу пасти испод нуле."
+msgstr[0] "The game starts with %(n)s point, and points cannot fall below zero."
+msgstr[1] "The game starts with %(n)s points, and points cannot fall below zero."
+
+#: .\templates\igra\kako.html
+#, python-format
+msgid "Ако се врати на дораду: „%(status)s“, цена и минути се множе са %(mnozilac)s, па плаћате %(cena)s и %(minuti)s, и губите %(n)s поен."
+msgid_plural "Ако се врати на дораду: „%(status)s“, цена и минути се множе са %(mnozilac)s, па плаћате %(cena)s и %(minuti)s, и губите %(n)s поена."
+msgstr[0] "If it is sent back for rework: “%(status)s”, the price and minutes are multiplied by %(mnozilac)s, so you pay %(cena)s and %(minuti)s, and you lose %(n)s point."
+msgstr[1] "If it is sent back for rework: “%(status)s”, the price and minutes are multiplied by %(mnozilac)s, so you pay %(cena)s and %(minuti)s, and you lose %(n)s points."
+
+#: .\templates\igra\_istorija.html
+msgid "Моје партије"
+msgstr "My games"
+
+#: .\templates\igra\_istorija.html
+msgid "Врста"
+msgstr "Type"
+
+#: .\templates\igra\_istorija.html
+msgid "Обична игра"
+msgstr "Regular game"
+
+#: .\templates\igra\_istorija.html
+msgid "Још нема завршених партија у овом прегледачу."
+msgstr "No finished games in this browser yet."
+
+#: .\templates\igra\_istorija.html
+msgid "Листа се чува само у овом прегледачу и нестаје после 14 дана без игре или брисањем колачића."
+msgstr "This list is kept only in this browser and disappears after 14 days without playing or when cookies are cleared."
+
+#: .\templates\igra\igra.html
+msgid "Звук: укључен"
+msgstr "Sound: on"
+
+#: .\templates\igra\igra.html
+msgid "Звук: искључен"
+msgstr "Sound: off"

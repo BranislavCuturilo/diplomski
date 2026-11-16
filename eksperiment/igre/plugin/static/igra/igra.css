@@ -1,0 +1,1888 @@
+/*
+  Tema igre Orkestrator, nad Bootstrap-om 5.3.8.
+  Redosled: 1) tokeni, 2) osnova, 3) sastavni delovi (zaglavlje, mere, rezultat, izbori, zavrsni ekran).
+  Bez !important: gde Bootstrap utility klasa smeta, klasa je uklonjena iz sablona.
+  Svi parovi boja za tekst imaju kontrast od najmanje 4,5:1 (izmereno, vidi izvestaj).
+*/
+
+/* ---------- 1. Tokeni ---------- */
+:root {
+  /* Boje: tekst i konture */
+  --c-tinta: #1d1a3d;            /* tekst i konture: 16,6:1 na beloj */
+  --c-tiho: #4a4775;             /* sporedni tekst: 8,6:1 na beloj */
+  --c-papir: #ffffff;
+  --c-plocica: #f5f3ff;          /* pozadina plocica izbora */
+  --c-pozadina: #ece9ff;
+  --c-tackice: #d6d0f5;
+
+  /* Boje: znacenje */
+  --c-primarna: #4338ca;         /* bela na njoj: 7,9:1 */
+  --c-primarna-tamna: #3730a3;
+  --c-primarna-svetla: #e4e1ff;
+  --c-akcenat: #ffb703;          /* samo ukras i ispuna ikona; tinta na njemu: 9,5:1 */
+  --c-uspeh: #0b6b38;
+  --c-uspeh-svetla: #dcf5e6;
+  --c-dorada: #7a4300;
+  --c-dorada-svetla: #fff0cf;
+  --c-dorada-jaka: #c26a00;      /* samo grafika (prsten ocene), ne tekst */
+  --c-opasnost: #a8231c;
+  --c-opasnost-svetla: #fde4e1;
+  --c-iskljuceno: #d9d6f0;       /* pozadina onemogucenog dugmeta */
+
+  /* Slova: sistemski skup, ima cirilicu na Windows-u, macOS-u, Linux-u i Android-u */
+  --f-telo: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --f-naslov: var(--f-telo);
+  --t-mala: 0.8125rem;
+  --t-telo: 1rem;
+  --t-podnaslov: 1.125rem;
+  --t-naslov: 1.5rem;
+  --t-velika: 2.5rem;
+
+  /* Razmaci (osnova 0,25 rem) */
+  --r-1: 0.25rem;
+  --r-2: 0.5rem;
+  --r-3: 0.75rem;
+  --r-4: 1rem;
+  --r-5: 1.5rem;
+  --r-6: 2rem;
+
+  /* Oblik */
+  --rad-s: 0.5rem;
+  --rad-m: 0.875rem;
+  --rad-l: 1.125rem;
+  --linija: 2px;
+  --senka: 0 3px 0 var(--c-tinta);
+  --senka-mala: 0 2px 0 var(--c-tinta);
+  --fokus: 3px solid var(--c-primarna-tamna);
+
+  /* Ikonice */
+  --ik-a: var(--c-akcenat);
+
+  /* Bootstrap promenljive koje igra preuzima */
+  --bs-body-font-family: var(--f-telo);
+  --bs-body-color: var(--c-tinta);
+  --bs-danger-rgb: 168, 35, 28;
+}
+
+/* ---------- 2. Osnova ---------- */
+.igra-telo {
+  font-family: var(--f-telo);
+  color: var(--c-tinta);
+  background-color: var(--c-pozadina);
+  background-image: radial-gradient(var(--c-tackice) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+.igra-okvir {
+  padding-top: var(--r-4);
+  padding-bottom: var(--r-5);
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.ik {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.22em;
+}
+
+.ia {
+  fill: var(--ik-a);
+}
+
+/* Isti okvir svih karata */
+.mera,
+.zadatak-karta,
+.grupa,
+.zavrsni,
+.rezultat,
+.rang,
+.dnevni,
+.mod-karta {
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-l);
+  box-shadow: var(--senka);
+}
+
+.mera,
+.zadatak-karta,
+.grupa,
+.zavrsni,
+.rang,
+.dnevni,
+.mod-karta {
+  background: var(--c-papir);
+}
+
+.oznaka {
+  font-size: var(--t-mala);
+  color: var(--c-tiho);
+  font-weight: 600;
+}
+
+/* Bootstrap dd ima donju marginu: ovde je razmake daje izgled */
+.igra-telo dd {
+  margin: 0;
+}
+
+/* ---------- 3a. Zaglavlje ---------- */
+.vrh {
+  margin-bottom: var(--r-4);
+}
+
+.vrh-naslov {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--r-2) var(--r-3);
+  margin-bottom: var(--r-3);
+}
+
+.znak {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-akcenat);
+  box-shadow: var(--senka-mala);
+  --ik-a: var(--c-papir);
+}
+
+.znak .ik {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.vrh-tekst {
+  display: flex;
+  flex: 1 1 8rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--r-1) var(--r-3);
+  /* naslov se ne lomi i ne preliva: dugme jezika predje u sledeci red pre nego sto naslov ostane bez mesta */
+  min-width: min-content;
+}
+
+.naslov {
+  margin: 0;
+  font-family: var(--f-naslov);
+  font-size: var(--t-naslov);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.krug {
+  margin: 0;
+  padding: 0.125rem var(--r-3);
+  border-radius: 999px;
+  background: var(--c-tinta);
+  color: var(--c-papir);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.krug:empty {
+  display: none;
+}
+
+/* Izbor jezika: jedno dugme za drugi jezik (forma na igri, link na deljenoj strani); uz desnu ivicu, u novom redu kad ne staje.
+   Isti oblik ima i veza menija moderatora (.mod-veza). */
+.jezik {
+  margin: 0 0 0 auto;
+}
+
+.jezik-dugme,
+.mod-veza {
+  --bs-btn-padding-y: 0.5rem;
+  --bs-btn-padding-x: var(--r-3);
+  --bs-btn-font-weight: 800;
+  --bs-btn-border-width: var(--linija);
+  --bs-btn-border-radius: var(--rad-m);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  box-shadow: var(--senka-mala);
+}
+
+.jezik-dugme:focus-visible,
+.mod-veza:focus-visible {
+  outline: var(--fokus);
+  outline-offset: 3px;
+  box-shadow: var(--senka-mala);
+}
+
+.jezik-dugme:active,
+.mod-veza:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Staza zadataka: osam tacaka, svaka sa slikom svoje teme; svih osam istog stila */
+.staza {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--r-1);
+  margin: 0 0 var(--r-3);
+  padding: 0;
+  list-style: none;
+}
+
+.staza-tacka {
+  display: grid;
+  place-items: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: 50%;
+  background: var(--c-papir);
+  color: var(--c-tiho);
+}
+
+.staza-tacka .ik {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.staza-tacka.je-prosao {
+  background: var(--c-primarna);
+  color: var(--c-papir);
+  --ik-a: rgba(255, 255, 255, 0.28);
+}
+
+.staza-tacka.je-tu {
+  background: var(--c-akcenat);
+  color: var(--c-tinta);
+  --ik-a: var(--c-papir);
+  box-shadow: 0 0 0 3px var(--c-papir), 0 0 0 5px var(--c-tinta);
+}
+
+/* ---------- 3b. Budzet i rok ---------- */
+.mera {
+  height: 100%;
+  padding: var(--r-2);
+}
+
+.mera-glava {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin-bottom: var(--r-1);
+  font-weight: 800;
+}
+
+.mera-naslov {
+  flex: 1 1 auto;
+}
+
+.mera-upozorenje {
+  color: var(--c-opasnost);
+}
+
+.mera-red {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: var(--r-2);
+  font-size: var(--t-mala);
+  line-height: 1.5;
+}
+
+.mera-vrednost {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mera .progress {
+  --bs-progress-height: 0.875rem;
+  --bs-progress-bg: var(--c-papir);
+  --bs-progress-bar-bg: var(--c-primarna);
+  --bs-progress-border-radius: 999px;
+  --bs-progress-font-size: 0.5rem;
+  margin: var(--r-2) 0 var(--r-1);
+  border: var(--linija) solid var(--c-tinta);
+}
+
+.mera .progress-bar {
+  transition-duration: 0.3s;
+}
+
+.mera-granica {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--r-1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-tiho);
+}
+
+.mera-granica .ik {
+  width: 1em;
+  height: 1em;
+}
+
+/* Blizu granice: ista kartica, amber traka */
+.mera.je-blizu {
+  background: var(--c-dorada-svetla);
+}
+
+.mera.je-blizu .progress {
+  --bs-progress-bar-bg: var(--c-akcenat);
+}
+
+/* Prekoracenje: crven okvir, ikona upozorenja, pruge na traci i podebljana vrednost (ne samo boja) */
+.mera.je-prekoraceno {
+  background: var(--c-opasnost-svetla);
+  border-color: var(--c-opasnost);
+  box-shadow: 0 3px 0 var(--c-opasnost);
+}
+
+.mera.je-prekoraceno .progress {
+  border-color: var(--c-opasnost);
+}
+
+.mera.je-prekoraceno .progress-bar {
+  background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0 5px, transparent 5px 10px);
+}
+
+.mera.je-prekoraceno .mera-red + .mera-red .mera-vrednost {
+  color: var(--c-opasnost);
+}
+
+/* ---------- 3c. Poruka ---------- */
+.poruka {
+  margin-bottom: var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  font-weight: 600;
+}
+
+.poruka.alert-info {
+  --bs-alert-color: var(--c-tinta);
+  --bs-alert-bg: var(--c-primarna-svetla);
+  --bs-alert-border-color: var(--c-tinta);
+}
+
+.poruka.alert-danger {
+  --bs-alert-color: var(--c-tinta);
+  --bs-alert-bg: var(--c-opasnost-svetla);
+  --bs-alert-border-color: var(--c-opasnost);
+}
+
+/* ---------- 3d. Rezultat kruga ---------- */
+.rezultat {
+  --bs-alert-color: var(--c-tinta);
+  --bs-alert-padding-x: var(--r-3);
+  --bs-alert-padding-y: var(--r-3);
+  margin-bottom: var(--r-4);
+}
+
+.rezultat.alert-success {
+  --bs-alert-bg: var(--c-uspeh-svetla);
+  --bs-alert-border-color: var(--c-tinta);
+  --znak-boja: var(--c-uspeh);
+}
+
+.rezultat.alert-warning {
+  --bs-alert-bg: var(--c-dorada-svetla);
+  --bs-alert-border-color: var(--c-tinta);
+  --znak-boja: var(--c-dorada);
+}
+
+.rezultat-glava {
+  display: flex;
+  align-items: center;
+  gap: var(--r-3);
+  margin-bottom: var(--r-3);
+}
+
+.rezultat-znak {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border: var(--linija) solid var(--znak-boja);
+  border-radius: 50%;
+  background: var(--c-papir);
+  color: var(--znak-boja);
+}
+
+.rezultat-znak .ik {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.rezultat-tekst {
+  min-width: 0;
+}
+
+.podnaslov {
+  margin: 0 0 var(--r-1);
+  font-size: var(--t-mala);
+  font-weight: 700;
+  color: var(--znak-boja);
+}
+
+.rezultat-zadatak {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.rezultat-mere {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--r-2);
+}
+
+.mala-mera {
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-papir);
+}
+
+.mala-mera dt {
+  font-size: var(--t-mala);
+  font-weight: 600;
+  color: var(--c-tiho);
+}
+
+.mala-mera dd {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.mala-mera-status {
+  grid-column: 1 / -1;
+}
+
+.rezultat .mala-mera-status dd {
+  color: var(--znak-boja);
+}
+
+/* ---------- 3e. Kontrole ---------- */
+.kontrole {
+  margin-bottom: var(--r-4);
+}
+
+.zadatak-karta {
+  display: flex;
+  align-items: center;
+  gap: var(--r-3);
+  margin-bottom: var(--r-3);
+  padding: var(--r-3);
+}
+
+.zadatak-slika {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  flex: none;
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-primarna-svetla);
+}
+
+.zadatak-slika .ik {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.zadatak-tekst {
+  min-width: 0;
+}
+
+.zadatak-naziv {
+  margin: 0;
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.grupe {
+  display: grid;
+  gap: var(--r-3);
+  margin-bottom: var(--r-3);
+}
+
+.grupa {
+  min-width: 0;
+  margin: 0;
+  padding: var(--r-3);
+}
+
+.grupa-naslov {
+  display: flex;
+  align-items: center;
+  /* float i sirina kao u Bootstrap-u: legenda ostaje u toku sadrzaja, ne na okviru */
+  float: left;
+  gap: var(--r-2);
+  width: 100%;
+  margin: 0 0 var(--r-2);
+  font-size: var(--t-telo);
+  font-weight: 800;
+}
+
+.izbori {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--r-2);
+}
+
+/* Plocica izbora: ikona, naziv, kvacica. Izabrana: puna boja, deblji okvir, kvacica, prsten. */
+.izbor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* ikona uvek na istom vrhu, bez obzira na broj redova natpisa */
+  justify-content: flex-start;
+  gap: var(--r-1);
+  min-height: 5.5rem;
+  padding: var(--r-3) var(--r-1) var(--r-2);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-plocica);
+  color: var(--c-tinta);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.izbor-slika {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.izbor-naziv {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.izbor:hover {
+  background: var(--c-primarna-svetla);
+}
+
+.kvacica {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: 50%;
+  background: var(--c-akcenat);
+  color: var(--c-tinta);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: scale(0);
+}
+
+.btn-check:checked + .izbor {
+  background: var(--c-primarna);
+  color: var(--c-papir);
+  box-shadow: 0 0 0 3px var(--c-papir), 0 0 0 5px var(--c-tinta);
+  --ik-a: rgba(255, 255, 255, 0.28);
+}
+
+.btn-check:checked + .izbor .kvacica {
+  transform: scale(1);
+}
+
+.btn-check:focus-visible + .izbor {
+  outline: var(--fokus);
+  outline-offset: 4px;
+}
+
+/* Opisi: izabrani se istice isto kao njegova plocica (redni broj u grupi) */
+.opisi {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--r-1);
+  margin: var(--r-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.opisi li {
+  padding: var(--r-1) var(--r-2);
+  border-left: 4px solid transparent;
+  border-radius: var(--rad-s);
+  font-size: var(--t-mala);
+  line-height: 1.35;
+  color: var(--c-tiho);
+}
+
+.izbori input:nth-of-type(1):checked ~ .opisi li:nth-child(1),
+.izbori input:nth-of-type(2):checked ~ .opisi li:nth-child(2),
+.izbori input:nth-of-type(3):checked ~ .opisi li:nth-child(3) {
+  border-left-color: var(--c-primarna);
+  background: var(--c-primarna-svetla);
+  color: var(--c-tinta);
+}
+
+.procena-traka {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin-bottom: var(--r-3);
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) dashed var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-dorada-svetla);
+  --ik-a: var(--c-akcenat);
+}
+
+.procena-traka:has(.procena:empty) {
+  display: none;
+}
+
+.procena {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+/* ---------- 3f. Dugmad ---------- */
+.dugme {
+  --bs-btn-padding-y: 0.75rem;
+  --bs-btn-padding-x: var(--r-4);
+  --bs-btn-font-weight: 800;
+  --bs-btn-border-width: var(--linija);
+  --bs-btn-border-radius: var(--rad-m);
+  --bs-btn-disabled-opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--r-2);
+  width: 100%;
+  box-shadow: 0 4px 0 var(--c-tinta);
+}
+
+.dugme:focus-visible {
+  outline: var(--fokus);
+  outline-offset: 3px;
+  box-shadow: 0 4px 0 var(--c-tinta);
+}
+
+.dugme:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-tinta);
+}
+
+.dugme-glavno {
+  --bs-btn-color: var(--c-papir);
+  --bs-btn-bg: var(--c-primarna);
+  --bs-btn-border-color: var(--c-tinta);
+  --bs-btn-hover-color: var(--c-papir);
+  --bs-btn-hover-bg: var(--c-primarna-tamna);
+  --bs-btn-hover-border-color: var(--c-tinta);
+  --bs-btn-active-color: var(--c-papir);
+  --bs-btn-active-bg: var(--c-primarna-tamna);
+  --bs-btn-active-border-color: var(--c-tinta);
+  --bs-btn-disabled-color: var(--c-tiho);
+  --bs-btn-disabled-bg: var(--c-iskljuceno);
+  --bs-btn-disabled-border-color: var(--c-tiho);
+}
+
+.dugme-glavno:disabled {
+  box-shadow: 0 4px 0 var(--c-tiho);
+}
+
+.dugme-sporedno {
+  --bs-btn-color: var(--c-tinta);
+  --bs-btn-bg: var(--c-papir);
+  --bs-btn-border-color: var(--c-tinta);
+  --bs-btn-hover-color: var(--c-tinta);
+  --bs-btn-hover-bg: var(--c-primarna-svetla);
+  --bs-btn-hover-border-color: var(--c-tinta);
+  --bs-btn-active-color: var(--c-tinta);
+  --bs-btn-active-bg: var(--c-primarna-svetla);
+  --bs-btn-active-border-color: var(--c-tinta);
+}
+
+.nova {
+  margin: 0;
+}
+
+/* ---------- 3g. Zavrsni ekran ---------- */
+.zavrsni {
+  --ton: var(--c-primarna);
+  --ton-svetla: var(--c-primarna-svetla);
+  margin-bottom: var(--r-4);
+  padding: var(--r-4);
+}
+
+.zavrsni[data-ocena="odlican"] {
+  --ton: var(--c-uspeh);
+  --ton-svetla: var(--c-uspeh-svetla);
+}
+
+.zavrsni[data-ocena="solidan"] {
+  --ton: var(--c-primarna);
+  --ton-svetla: var(--c-primarna-svetla);
+}
+
+.zavrsni[data-ocena="skup"] {
+  --ton: var(--c-dorada-jaka);
+  --ton-svetla: var(--c-dorada-svetla);
+}
+
+.zavrsni[data-ocena="pozar"] {
+  --ton: var(--c-opasnost);
+  --ton-svetla: var(--c-opasnost-svetla);
+}
+
+.zavrsni-naslov {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0 0 var(--r-3);
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+}
+
+.hero {
+  /* usko: krug poena iznad, ocena ispod (cela sirina kartice); od 576 px jedno pored drugog */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--r-3);
+  margin-bottom: var(--r-3);
+  padding: var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-l);
+  background: var(--ton-svetla);
+}
+
+.poeni-krug {
+  display: flex;
+  flex: none;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle closest-side, var(--c-papir) 80%, transparent 81%),
+    conic-gradient(var(--ton) calc(var(--poeni, 0) * 1%), var(--c-papir) 0);
+  box-shadow: 0 0 0 var(--linija) var(--c-tinta);
+}
+
+.poeni-krug dd {
+  margin-bottom: var(--r-1);
+  font-size: var(--t-velika);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.poeni-krug dt {
+  font-size: var(--t-mala);
+  font-weight: 700;
+  color: var(--c-tiho);
+}
+
+.ocena-blok {
+  min-width: 0;
+  max-width: 100%;
+  text-align: center;
+}
+
+.ocena-blok dt {
+  margin-bottom: var(--r-1);
+  font-size: var(--t-mala);
+  font-weight: 700;
+  color: var(--c-tiho);
+}
+
+.ocena-blok dd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--r-2);
+  font-size: 1.375rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.ocena-znak {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: 50%;
+  background: var(--c-papir);
+}
+
+.ocena-znak .ik {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.ocena-tekst {
+  min-width: 0;
+}
+
+.zbir {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--r-2);
+  margin-bottom: var(--r-3);
+}
+
+.prekoracenje,
+.bez-tihih {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0 0 var(--r-2);
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) solid;
+  border-radius: var(--rad-m);
+  font-weight: 700;
+}
+
+.prekoracenje {
+  border-color: var(--c-opasnost);
+  background: var(--c-opasnost-svetla);
+  color: var(--c-opasnost);
+}
+
+.bez-tihih {
+  border-color: var(--c-uspeh);
+  background: var(--c-uspeh-svetla);
+  color: var(--c-uspeh);
+}
+
+.odeljak-naslov {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin: var(--r-4) 0 var(--r-2);
+  font-size: var(--t-telo);
+  font-weight: 800;
+}
+
+.odeljak-tihe .ik {
+  color: var(--c-opasnost);
+}
+
+.spisak {
+  display: grid;
+  gap: var(--r-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spisak:empty {
+  display: none;
+}
+
+.stavka {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--r-2);
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) solid;
+  border-radius: var(--rad-m);
+  line-height: 1.4;
+}
+
+.stavka .ik {
+  margin-top: 0.125rem;
+}
+
+/* Tihe greske su na zavrsnom ekranu namerno istaknute */
+.stavka-tiha {
+  border-color: var(--c-opasnost);
+  border-left-width: 6px;
+  background: var(--c-opasnost-svetla);
+  font-weight: 600;
+}
+
+.stavka-tiha .ik {
+  color: var(--c-opasnost);
+}
+
+.stavka-lekcija {
+  border-color: var(--c-primarna);
+  background: var(--c-primarna-svetla);
+}
+
+.odeljak {
+  color: var(--c-tiho);
+  white-space: nowrap;
+}
+
+.napomena {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--r-2);
+  margin-top: var(--r-4);
+  padding-top: var(--r-3);
+  border-top: var(--linija) dashed var(--c-tiho);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  line-height: 1.45;
+}
+
+.napomena p {
+  margin: 0;
+}
+
+/* ---------- 3h. Cuvanje rezultata i rang lista ---------- */
+/* Forma u zavrsnom ekranu. Greska polja: Bootstrap .is-invalid + .invalid-feedback (sledeci brat polja);
+   Bootstrap boju greske vezuje za svoj #dc3545 (4:1 na beloj), pa je ovde vezana za token (7:1). */
+.rang-forma,
+.mod-forma {
+  --bs-form-invalid-color: var(--c-opasnost);
+  --bs-form-invalid-border-color: var(--c-opasnost);
+  margin: 0 0 var(--r-3);
+  padding: var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-plocica);
+}
+
+.rang-oznaka,
+.mod-oznaka {
+  display: block;
+  margin-bottom: var(--r-1);
+  font-weight: 800;
+}
+
+.rang-ime,
+.mod-polje {
+  padding: 0.625rem var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  color: var(--c-tinta);
+  font-weight: 600;
+}
+
+.rang-ime:focus,
+.mod-polje:focus {
+  border-color: var(--c-primarna-tamna);
+  outline: var(--fokus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.rang-greska:not([hidden]) {
+  display: block;
+  margin-top: var(--r-1);
+  font-weight: 600;
+}
+
+.rang-pomoc,
+.mod-pomoc {
+  margin: var(--r-1) 0 var(--r-3);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+}
+
+.rang-poruka,
+.mod-poruka {
+  margin: 0 0 var(--r-3);
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) solid;
+  border-radius: var(--rad-m);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.rang-poruka-ok,
+.mod-poruka-ok {
+  border-color: var(--c-uspeh);
+  background: var(--c-uspeh-svetla);
+  color: var(--c-uspeh);
+}
+
+.rang-poruka-info,
+.mod-poruka-info {
+  border-color: var(--c-tinta);
+  background: var(--c-primarna-svetla);
+  color: var(--c-tinta);
+}
+
+.rang-poruka:focus-visible {
+  outline: var(--fokus);
+  outline-offset: 2px;
+}
+
+/* Odeljak sa listom: na kraju strane, posle dugmeta za novu igru */
+.rang {
+  margin-top: var(--r-4);
+  padding: var(--r-3) var(--r-2);
+}
+
+.rang-naslov {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0 0 var(--r-1);
+  padding: 0 var(--r-1);
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+}
+
+.rang-podnaslov {
+  margin: 0 0 var(--r-3);
+  padding: 0 var(--r-1);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+}
+
+.rang-prazno {
+  margin: 0;
+  padding: var(--r-3);
+  border: var(--linija) dashed var(--c-tiho);
+  border-radius: var(--rad-m);
+  color: var(--c-tiho);
+  font-weight: 600;
+}
+
+/* Tabela bez .table-responsive: nikad se ne razvlaci. Ime se lomi unutar reci samo kada
+   rec ne staje, ocena samo medju recima, datum nikad; na 320 px je sve unutar kartice
+   (raspored ispod 576 px je u odeljku posle pravila za sopstveni red). */
+.rang-tabela {
+  --bs-table-color: var(--c-tinta);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--c-tackice);
+  width: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.rang-tabela > :not(caption) > * > * {
+  padding: 0.375rem 0.1875rem;
+  vertical-align: top;
+}
+
+.rang-tabela thead th {
+  border-bottom: var(--linija) solid var(--c-tinta);
+  color: var(--c-tiho);
+  font-weight: 700;
+}
+
+.rang-mesto {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ime: prelom unutar reci samo kada rec sama ne staje u celu sirinu celije.
+   overflow: hidden je okvir crtezu: kombinujuci znakovi ne izlaze iz celije; vertikalni
+   razmak (0.375rem iznad i ispod, uz line-height 1.3) ostavlja mesta obicnim dijakriticima. */
+.rang-ime-celija {
+  min-width: 0;
+  font-weight: 700;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.rang-broj {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.rang-ocena {
+  overflow-wrap: normal;
+}
+
+.rang-datum {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Oznaka reda ranijih pravila: u celiji ocene, u svom redu; znacenje nosi tekst, ne boja */
+.rang-pravila {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-tiho);
+}
+
+.rang-pravila[hidden] {
+  display: none;
+}
+
+/* Objasnjenje ispod tabele; skripta ga prikazuje samo kad bar jedan red ima oznaku */
+.rang-legenda {
+  margin: var(--r-3) 0 0;
+  padding: 0 var(--r-1);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+}
+
+.rang-legenda[hidden] {
+  display: none;
+}
+
+/* Sopstveni red: pozadina, deblja leva ivica i podebljan tekst (ne samo boja); citac cuje "ваш резултат" */
+.rang-tabela tr.rang-moj {
+  --bs-table-bg: var(--c-primarna-svetla);
+  font-weight: 800;
+}
+
+.rang-tabela tr.rang-moj > * {
+  font-weight: 800;
+}
+
+.rang-tabela tr.rang-moj > :first-child {
+  border-left: 4px solid var(--c-primarna);
+}
+
+/* Usko (ispod 576 px): svaki red je mreza 2 reda x 3 kolone, a tabela ostaje tabela za citac
+   ekrana (uloge su u sablonu, jer display koji nije table-* ume da ih ukloni).
+     Место  Име (1fr)        Поени
+     (isto) Оцена            Датум
+   Ime dobija sve sto ostane iza mesta i kolone od 5rem (ISO datum 2026-11-10 je za nijansu sire od 10.11.2026); ocena i datum su ispod imena.
+   Zaglavlje ima iste kolone, pa naslovi stoje iznad sadrzaja. */
+@media (max-width: 575.98px) {
+  .rang-tabela,
+  .rang-tabela thead,
+  .rang-tabela tbody {
+    display: block;
+  }
+
+  .rang-tabela tr {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) 5rem;
+  }
+
+  .rang-tabela tr > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .rang-tabela tr > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .rang-tabela tr > :nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .rang-tabela tr > :nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .rang-tabela tr > :nth-child(5) {
+    grid-column: 3;
+    grid-row: 2;
+    text-align: right;
+  }
+
+  /* Bez crte izmedju dva reda istog zapisa: crta je samo ispod mesta, ocene i datuma */
+  .rang-tabela tr > :nth-child(2),
+  .rang-tabela tr > :nth-child(3) {
+    border-bottom-width: 0;
+    padding-bottom: 0;
+  }
+
+  .rang-tabela tr > :nth-child(4),
+  .rang-tabela tr > :nth-child(5) {
+    padding-top: 0.125rem;
+  }
+}
+
+/* ---------- 3h-1. Prijava neprikladnog imena ---------- */
+/* Ispod liste, zatvoreno dok igrac ne otvori: <details> radi tastaturom i citacem ekrana i bez skripte.
+   Naslov izgleda kao sporedna veza (zastavica i podvucen tekst), forma kao forma za cuvanje rezultata. */
+.rang-prijava {
+  margin: var(--r-3) 0 0;
+  padding: 0 var(--r-1);
+}
+
+.rang-prijava-naslov {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--r-2);
+  min-height: 2.75rem;
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.rang-prijava-naslov::-webkit-details-marker {
+  display: none;
+}
+
+.rang-prijava-naslov span {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.rang-prijava-naslov:hover {
+  color: var(--c-tinta);
+}
+
+.rang-prijava-naslov:focus-visible {
+  border-radius: var(--rad-s);
+  outline: var(--fokus);
+  outline-offset: 2px;
+}
+
+.rang-prijava-forma {
+  margin-top: var(--r-2);
+}
+
+.rang-prijava-izbor {
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  color: var(--c-tinta);
+  font-weight: 600;
+}
+
+.rang-prijava-izbor:focus {
+  border-color: var(--c-primarna-tamna);
+  outline: var(--fokus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Iskljuceno dugme (sva imena sa liste su vec prijavljena, ili zahtev traje): kao iskljuceno glavno dugme */
+.rang-prijava-forma .dugme-sporedno {
+  --bs-btn-disabled-color: var(--c-tiho);
+  --bs-btn-disabled-bg: var(--c-iskljuceno);
+  --bs-btn-disabled-border-color: var(--c-tiho);
+}
+
+.rang-prijava-forma .dugme-sporedno:disabled {
+  box-shadow: 0 4px 0 var(--c-tiho);
+}
+
+.rang-prijava .rang-poruka {
+  margin-bottom: 0;
+}
+
+/* ---------- 3h-2. Dnevni izazov ---------- */
+/* Na pocetnoj: poziv (naslov, objasnjenje, dugme); na dnevnoj strani: traka ispod zaglavlja sa datumom.
+   Lista dana koristi isti izgled kao .rang (isti sablon reda). */
+.dnevni {
+  margin-top: var(--r-4);
+  padding: var(--r-3) var(--r-2);
+}
+
+.dnevni-naslov {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0 0 var(--r-2);
+  padding: 0 var(--r-1);
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+}
+
+.dnevni-datum {
+  margin-left: auto;
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.dnevni-opis {
+  margin: 0 0 var(--r-3);
+  padding: 0 var(--r-1);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Na dnevnoj strani opis je poslednji u traci (nema dugmeta ispod njega) */
+.dnevni-opis:last-child {
+  margin-bottom: 0;
+}
+
+/* Traka na dnevnoj strani sledi zaglavlje (koje vec ima razmak ispod sebe) */
+.vrh + .dnevni {
+  margin-top: 0;
+  margin-bottom: var(--r-4);
+}
+
+/* ---------- 3i. Deljenje rezultata i deljena strana ---------- */
+/* Blok deljenja na zavrsnom ekranu igre. Dugme "Подели резултат" je uvek tu; blok sa linkom se otvara posle odgovora. */
+.deli {
+  margin: 0 0 var(--r-3);
+}
+
+.deli-blok {
+  margin-top: var(--r-3);
+  padding: var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-plocica);
+}
+
+/* Dug link se ne lomi i ne razvlaci stranu: polje ga skracuje (tri tacke), a pun tekst je izabran na fokus */
+.deli-link {
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+
+/* Dugmad su jedno ispod drugog dok ne stanu uporedo (~10 rem po dugmetu) */
+.deli-akcije .dugme {
+  width: auto;
+  flex: 1 1 10rem;
+}
+
+.deli-poruka {
+  margin: var(--r-3) 0 0;
+}
+
+/* Deljena strana: ime i datum iznad kartice, kratko objasnjenje ispod */
+.deljeno-podaci {
+  margin: 0 0 var(--r-3);
+  padding: var(--r-2) var(--r-3);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-m);
+  background: var(--c-papir);
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.deljeno-podaci p {
+  margin: 0;
+}
+
+.deljeno-podaci bdi {
+  overflow-wrap: anywhere;
+}
+
+.deljeno-napomena {
+  margin: 0 0 var(--r-3);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+}
+
+.nedostupno {
+  margin-bottom: var(--r-4);
+  padding: var(--r-4);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: var(--rad-l);
+  background: var(--c-papir);
+  box-shadow: var(--senka);
+}
+
+.nedostupno-naslov {
+  margin: 0 0 var(--r-2);
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+}
+
+.nedostupno-pomoc {
+  margin: 0;
+  color: var(--c-tiho);
+  font-weight: 600;
+}
+
+/* ---------- 3j. Moderator ---------- */
+/* Strane moderatora (templates/igra/moderator/): isti tokeni i isti oblik kao igra. Polja i poruke dele
+   pravila sa formom rang liste (selektori .mod-* stoje uz .rang-* iznad), veza menija sa dugmetom jezika. Bez skripte. */
+.mod-ja {
+  margin: 0 0 var(--r-2);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.mod-lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Tekuca strana: puna boja, ne samo boja (aria-current je i za citac ekrana) */
+.mod-veza[aria-current="page"] {
+  --bs-btn-color: var(--c-papir);
+  --bs-btn-bg: var(--c-primarna);
+  --bs-btn-hover-color: var(--c-papir);
+  --bs-btn-hover-bg: var(--c-primarna-tamna);
+  --bs-btn-active-color: var(--c-papir);
+  --bs-btn-active-bg: var(--c-primarna-tamna);
+}
+
+.mod-karta {
+  margin-bottom: var(--r-4);
+  padding: var(--r-3);
+  overflow-wrap: anywhere;
+}
+
+.mod-naslov {
+  display: flex;
+  align-items: center;
+  gap: var(--r-2);
+  margin: 0 0 var(--r-3);
+  font-size: var(--t-podnaslov);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* Polja: razmak izmedju grupa; natpis kvadratica je u liniji sa njim */
+.mod-grupa {
+  margin-bottom: var(--r-3);
+}
+
+.mod-pomoc {
+  margin-bottom: 0;
+}
+
+.mod-pomoc ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.form-check-label.mod-oznaka {
+  display: inline;
+  margin: 0;
+}
+
+.mod-kvadratic {
+  border: var(--linija) solid var(--c-tinta);
+}
+
+.mod-kvadratic:checked {
+  background-color: var(--c-primarna);
+  border-color: var(--c-tinta);
+}
+
+.mod-kvadratic:focus-visible {
+  border-color: var(--c-primarna-tamna);
+  outline: var(--fokus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Forma u kartici nema svoj okvir (kartica ga vec ima) */
+.mod-karta .mod-forma {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.mod-forma .invalid-feedback {
+  font-weight: 600;
+}
+
+.mod-poruka-greska {
+  border-color: var(--c-opasnost);
+  background: var(--c-opasnost-svetla);
+  color: var(--c-opasnost);
+}
+
+/* Liste: Bootstrap list-group sa tokenima igre */
+.mod-spisak {
+  --bs-list-group-color: var(--c-tinta);
+  --bs-list-group-bg: var(--c-papir);
+  --bs-list-group-border-color: var(--c-tinta);
+  --bs-list-group-border-width: var(--linija);
+  --bs-list-group-border-radius: var(--rad-m);
+  margin: 0 0 var(--r-3);
+}
+
+.mod-stavka,
+.mod-zapis {
+  padding: var(--r-2) var(--r-3);
+}
+
+.mod-stavka {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--r-2) var(--r-3);
+}
+
+.mod-stavka-tekst {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.mod-stavka-ime {
+  margin: 0 0 var(--r-1);
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.mod-mesto {
+  font-variant-numeric: tabular-nums;
+}
+
+.mod-bez {
+  color: var(--c-tiho);
+  font-weight: 600;
+}
+
+.mod-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--r-3);
+  margin: 0;
+  font-size: var(--t-mala);
+}
+
+.mod-meta > div {
+  display: flex;
+  gap: var(--r-1);
+}
+
+.mod-meta dt {
+  color: var(--c-tiho);
+  font-weight: 600;
+}
+
+.mod-meta dd {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mod-znacke {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--r-1);
+  margin: 0 0 var(--r-2);
+}
+
+.mod-znacka {
+  display: inline-block;
+  padding: 0 var(--r-2);
+  border: var(--linija) solid var(--c-tinta);
+  border-radius: 999px;
+  background: var(--c-primarna-svetla);
+  color: var(--c-tinta);
+  font-size: var(--t-mala);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.mod-znacka-ok {
+  border-color: var(--c-uspeh);
+  background: var(--c-uspeh-svetla);
+  color: var(--c-uspeh);
+}
+
+.mod-znacka-stop {
+  border-color: var(--c-opasnost);
+  background: var(--c-opasnost-svetla);
+  color: var(--c-opasnost);
+}
+
+.mod-znacka-pazi {
+  border-color: var(--c-dorada);
+  background: var(--c-dorada-svetla);
+  color: var(--c-dorada);
+}
+
+/* Dnevnik: red po zapisu, natpis (dt) pa vrednost (dd); kad staju, jedno pored drugog */
+.mod-dl {
+  margin: 0;
+}
+
+.mod-dl-red {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--r-2);
+  line-height: 1.4;
+}
+
+.mod-dl-red dt {
+  flex: 0 0 7rem;
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+}
+
+.mod-dl-red dd {
+  flex: 1 1 8rem;
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Uvod odeljka (prijavljena imena): sta moderator odlucuje */
+.mod-uvod {
+  margin: 0 0 var(--r-3);
+  color: var(--c-tiho);
+  font-size: var(--t-mala);
+  font-weight: 600;
+}
+
+/* Dve radnje u redu prijavljenog imena (ostavi, obrisi): jedna pored druge, na uskom ekranu jedna ispod druge */
+.mod-radnje {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--r-2);
+}
+
+/* Dugme u redu liste: nije cela sirina kao .dugme, ali ostaje meta od 2,75 rem */
+.mod-radnja {
+  --bs-btn-padding-y: 0.5rem;
+  --bs-btn-padding-x: var(--r-3);
+  width: auto;
+  flex: none;
+  min-height: 2.75rem;
+}
+
+.mod-obrisi {
+  --bs-btn-color: var(--c-opasnost);
+  --bs-btn-hover-color: var(--c-opasnost);
+  --bs-btn-hover-bg: var(--c-opasnost-svetla);
+  --bs-btn-active-color: var(--c-opasnost);
+  --bs-btn-active-bg: var(--c-opasnost-svetla);
+  --bs-btn-border-color: var(--c-opasnost);
+  --bs-btn-hover-border-color: var(--c-opasnost);
+  --bs-btn-active-border-color: var(--c-opasnost);
+  box-shadow: 0 3px 0 var(--c-opasnost);
+}
+
+.mod-obrisi:focus-visible {
+  box-shadow: 0 3px 0 var(--c-opasnost);
+}
+
+/* Dugme potvrde brisanja i oduzimanja uloge: crveno, bela slova (7:1) */
+.dugme-opasno {
+  --bs-btn-color: var(--c-papir);
+  --bs-btn-bg: var(--c-opasnost);
+  --bs-btn-border-color: var(--c-tinta);
+  --bs-btn-hover-color: var(--c-papir);
+  --bs-btn-hover-bg: var(--c-opasnost);
+  --bs-btn-hover-border-color: var(--c-tinta);
+  --bs-btn-active-color: var(--c-papir);
+  --bs-btn-active-bg: var(--c-opasnost);
+  --bs-btn-active-border-color: var(--c-tinta);
+}
+
+.dugme-opasno:hover {
+  filter: brightness(0.9);
+}
+
+.mod-potvrda {
+  margin: 0 0 var(--r-3);
+}
+
+.mod-odustani {
+  margin: 0;
+}
+
+.mod-karta > .mod-odustani {
+  margin-top: var(--r-3);
+}
+
+/* Snimak na potvrdi: ime preko cele sirine, ostalo u mrezi */
+.mod-snimak {
+  margin-bottom: var(--r-4);
+}
+
+.mod-snimak .mala-mera {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mod-snimak .mala-mera-status {
+  grid-column: 1 / -1;
+}
+
+/* ---------- 4. Siri ekrani ---------- */
+@media (min-width: 576px) {
+  .rang,
+  .dnevni,
+  .mod-karta {
+    padding: var(--r-4);
+  }
+
+  .rang-naslov,
+  .rang-podnaslov,
+  .rang-legenda,
+  .rang-prijava,
+  .dnevni-naslov,
+  .dnevni-opis {
+    padding: 0;
+  }
+
+  .rang-tabela {
+    font-size: 0.875rem;
+  }
+
+  .rang-tabela > :not(caption) > * > * {
+    padding: 0.375rem 0.5rem;
+  }
+
+  .hero {
+    flex-direction: row;
+    gap: var(--r-4);
+    padding: var(--r-4);
+  }
+
+  .ocena-blok {
+    text-align: left;
+  }
+
+  .ocena-blok dd {
+    justify-content: flex-start;
+  }
+
+  .staza {
+    justify-content: flex-start;
+    gap: var(--r-3);
+  }
+
+  .mera {
+    padding: var(--r-2) var(--r-3);
+  }
+
+  .rezultat-mere {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mala-mera-status {
+    grid-column: auto;
+  }
+
+  .staza-tacka {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .staza-tacka .ik {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grupe {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .igra-okvir {
+    padding-top: var(--r-5);
+  }
+
+  .mera {
+    padding: var(--r-3) var(--r-4);
+  }
+}
+
+/* ---------- 5. Pokret (samo ako korisnik ne trazi manje pokreta) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .izbor {
+    transition: background-color 0.12s, transform 0.12s, box-shadow 0.12s;
+  }
+
+  .btn-check:checked + .izbor {
+    transform: translateY(-2px);
+  }
+
+  .kvacica {
+    transition: transform 0.15s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+
+  .dugme {
+    transition: transform 0.08s, box-shadow 0.08s, background-color 0.12s;
+  }
+
+  .staza-tacka {
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+
+  .rezultat.ulaz,
+  .zavrsni:not([hidden]) .hero {
+    animation: ulaz 0.22s ease-out;
+  }
+
+  @keyframes ulaz {
+    from {
+      opacity: 0.4;
+      transform: scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- Veza "Како се игра" u zaglavlju ---------- */
+/* Uz desnu ivicu, odmah levo od dugmeta jezika (koje inace samo gura udesno). */
+.kako-veza {
+  margin-left: auto;
+}
+
+.kako-veza + .jezik {
+  margin-left: 0;
+}
+
+/* Moje partije (istorija pregledaca): izgled kao rang-tabela, ali sa sest kolona; ispod 576 px se klizi
+   (.table-responsive), bez mreze po redu koja vazi za rang-tabelu. */
+.istorija-tabela {
+  --bs-table-color: var(--c-tinta);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--c-tackice);
+  width: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.istorija-tabela > :not(caption) > * > * {
+  padding: 0.375rem 0.1875rem;
+  vertical-align: top;
+}
+
+.istorija-tabela thead th {
+  border-bottom: var(--linija) solid var(--c-tinta);
+  color: var(--c-tiho);
+  font-weight: 700;
+}

@@ -1,0 +1,112 @@
+{
+ "strana": "prazan",
+ "prolazi": 20,
+ "ukupno": 21,
+ "provere": [
+  {
+   "provera": "bez prijave: nijedna strana moderatora se ne prikazuje (200)",
+   "ok": true,
+   "detalj": "{'/moderator/': 302, '/moderator/dnevnik/': 302, '/moderator/rezultat/1/obrisi/': 302, '/moderator/link/-ZRhwlPpMU2aIQ20JdEXvQ/obrisi/': 302, '/moderator/nalozi/': 302}"
+  },
+  {
+   "provera": "bez prijave: POST brisanja ne brise",
+   "ok": true,
+   "detalj": "403"
+  },
+  {
+   "provera": "nalog bez uloge moderatora: nema pristupa",
+   "ok": true,
+   "detalj": "{'/moderator/': 302, '/moderator/dnevnik/': 302, '/moderator/rezultat/1/obrisi/': 302, '/moderator/link/-ZRhwlPpMU2aIQ20JdEXvQ/obrisi/': 302, '/moderator/nalozi/': 302}"
+  },
+  {
+   "provera": "nalog bez uloge: brisanje ne prolazi",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "pogresna lozinka i nepostojece ime daju isti odgovor",
+   "ok": true,
+   "detalj": "(400, 400)"
+  },
+  {
+   "provera": "posle prijave nema preusmeravanja van sajta",
+   "ok": true,
+   "detalj": "(302, '/moderator/')"
+  },
+  {
+   "provera": "prijava moderatora uspeva",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "kljuc sesije se menja pri prijavi (fiksacija)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "lozinka u bazi je hes",
+   "ok": true,
+   "detalj": "pbkdf2_sha256"
+  },
+  {
+   "provera": "strana moderatora se ne kesira",
+   "ok": true,
+   "detalj": "max-age=0, no-cache, no-store, must-revalidate, private"
+  },
+  {
+   "provera": "ime sa HTML-om u panelu moderatora je izbegnuto",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "GET na adresu brisanja ne brise",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "brisanje bez CSRF tokena odbijeno",
+   "ok": true,
+   "detalj": "403"
+  },
+  {
+   "provera": "moderator brise rezultat",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "rezultat nestao sa rang liste",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "moderator brise link; link daje 404",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "nepostojeci id: 404, ne 500",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "dnevnik: oba brisanja, ko i kada",
+   "ok": true,
+   "detalj": "zapisa 2"
+  },
+  {
+   "provera": "obrisan rezultat ne moze ponovo da se sacuva",
+   "ok": true,
+   "detalj": "409"
+  },
+  {
+   "provera": "iskljucen moderator odmah gubi pristup",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "[dubinska] dnevnik se ne moze izmeniti ni direktno u bazi",
+   "ok": false,
+   "detalj": "3"
+  }
+ ]
+}

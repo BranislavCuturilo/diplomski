@@ -1,0 +1,80 @@
+{
+ "strana": "prazan",
+ "sacuvana_imena": [
+  "=1+1",
+  "+1+1",
+  "-1+1",
+  "@SUM(1)",
+  "x,=1+1",
+  "x;=1+1",
+  "a\"b",
+  "Петар Ђорђевић",
+  "Igrac10",
+  "Igrac11",
+  "Igrac12"
+ ],
+ "prolazi": 11,
+ "ukupno": 12,
+ "provere": [
+  {
+   "provera": "izvoz bez prijave: nema datoteke",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "izvoz nalog bez uloge: nema datoteke",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "moderator dobija CSV kao datoteku (text/csv, attachment)",
+   "ok": true,
+   "detalj": "(200, 'text/csv; charset=utf-8', 'attachment; filename=\"rang-lista.csv\"')"
+  },
+  {
+   "provera": "UTF-8 sa BOM (cirilica u Excel-u)",
+   "ok": true,
+   "detalj": "b'\\xef\\xbb\\xbf'"
+  },
+  {
+   "provera": "separator ; (srpski Excel)",
+   "ok": true,
+   "detalj": "Место;Име;Поени;Оцена;Сачувано"
+  },
+  {
+   "provera": "cirilicno ime tacno u datoteci",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "cela lista, ne samo prvih 10",
+   "ok": true,
+   "detalj": "redova 12, sacuvano 11"
+  },
+  {
+   "provera": "dnevni rezultat nije u glavnoj listi",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "bez semena, hesa ili tokena u datoteci",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "nijedna celija ne pocinje formulom (srpski Excel, separator ';')",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "nijedna celija ne pocinje formulom (engleski Excel, separator ',')",
+   "ok": false,
+   "detalj": "['=1+1;0;пожар;2026-11-12 14:14']"
+  },
+  {
+   "provera": "dnevni izvoz sadrzi dnevni, a ne glavne rezultate",
+   "ok": true,
+   "detalj": "200"
+  }
+ ]
+}

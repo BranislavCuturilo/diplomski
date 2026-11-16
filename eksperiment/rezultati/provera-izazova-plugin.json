@@ -1,0 +1,77 @@
+{
+ "strana": "plugin",
+ "prolazi": 14,
+ "ukupno": 14,
+ "provere": [
+  {
+   "provera": "dva igraca, isti izbori: isti ishod",
+   "ok": true,
+   "detalj": "(40, 40)"
+  },
+  {
+   "provera": "dnevna partija: isto seme za dva igraca; obicna: razlicito",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana zavisi od tajnog kljuca",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana je drugacije sutra",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "seme dana nije u strani ni u odgovoru poteza",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "ponovni pocetak usred partije nastavlja istu (krug 4)",
+   "ok": true,
+   "detalj": "4"
+  },
+  {
+   "provera": "dnevni rezultat se cuva",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "posle odigrane dnevne: nova dnevna partija u istoj sesiji ne pocinje i nema drugog upisa",
+   "ok": true,
+   "detalj": "(409, 409)"
+  },
+  {
+   "provera": "vise igraca cuva rezultat iste dnevne partije",
+   "ok": true,
+   "detalj": "['Drugi', 'Prvi', 'Treci']"
+  },
+  {
+   "provera": "lista dana ima dnevne, a nema obicni rezultat",
+   "ok": true,
+   "detalj": "{'lista': [{'ime': 'Prvi', 'poeni': 40, 'ocena': 'skup', 'datum': '12.11.2026', 'stara_pravila': False}, {'ime': 'Drugi', 'poeni': 40, 'ocena': 'skup', 'datum': '12.11.2026', 'stara_pravila': False}, "
+  },
+  {
+   "provera": "glavna lista ima obicni, a nema dnevne rezultate",
+   "ok": true,
+   "detalj": "{'lista': [{'ime': 'Obicni', 'poeni': 10, 'ocena': 'pozar', 'datum': '12.11.2026', 'stara_pravila': False}], 'sacuvano': False, 'moj': None}"
+  },
+  {
+   "provera": "partija zapoceta pre ponoci cuva se na listu dana pocetka (12.11.)",
+   "ok": true,
+   "detalj": "(200, datetime.date(2026, 11, 12))"
+  },
+  {
+   "provera": "posle ponoci lista dana je za novi dan (bez juce sacuvanih)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "dan se racuna po beogradskom vremenu (23:30 UTC = 13.11.)",
+   "ok": true,
+   "detalj": "2026-11-13"
+  }
+ ]
+}

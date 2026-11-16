@@ -1,0 +1,1 @@
+Klijent trazi da moderator moze da preuzme rang listu (glavnu i dnevnu) kao CSV datoteku koju otvara u Excel-u.

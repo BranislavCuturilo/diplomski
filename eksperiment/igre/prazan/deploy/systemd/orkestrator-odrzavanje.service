@@ -1,0 +1,19 @@
+[Unit]
+Description=Orkestrator: dnevno odrzavanje i rezervna kopija baze
+
+[Service]
+Type=oneshot
+User=orkestrator
+Group=orkestrator
+WorkingDirectory=/srv/orkestrator/app
+EnvironmentFile=/etc/orkestrator/orkestrator.env
+Environment=DJANGO_SETTINGS_MODULE=orkestrator.settings_produkcija
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/srv/orkestrator/venv/bin/python manage.py odrzavanje
+ExecStart=/srv/orkestrator/venv/bin/python manage.py rezervna_kopija /var/backups/orkestrator --zadrzi 14
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/orkestrator /var/backups/orkestrator

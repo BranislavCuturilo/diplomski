@@ -1,0 +1,59 @@
+# Kontekst gradnje slike: samo kod aplikacije i deploy/ konfiguracija (plan 15.9).
+# Sve iz .gitignore, plus ono sto je u git-u a slici ne treba.
+
+# Baza i kopije.
+db.sqlite3
+db.sqlite3-*
+db.sqlite3.pre-*
+**/*.sqlite3
+**/*.sqlite3*
+**/*.sqlite3-journal
+**/*.sqlite3-wal
+**/*.sqlite3-shm
+**/*.sqlite
+**/*.db
+**/*.bak
+kopije/
+
+# Tajne.
+.env
+.env.*
+**/.env
+**/.env.*
+deploy/env.primer
+**/*.gpg
+**/*.pem
+**/*.key
+
+# Rad agenata, planiranje i dokumentacija.
+.claude/
+*.md
+
+# Git i alati.
+.git/
+.gitignore
+.gitattributes
+.dockerignore
+Dockerfile
+compose.yaml
+
+# Gradnja i Python.
+staticfiles/
+**/__pycache__/
+**/*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Testovi ne idu u sliku (plan 15.9).
+igra/tests/
+requirements-razvoj.txt
+.coverage
+htmlcov/
+.pytest_cache/
+test-results/
+playwright-report/
+*.log
+
+# Skripte domacina se ne pokrecu u kontejneru.
+deploy/*.sh

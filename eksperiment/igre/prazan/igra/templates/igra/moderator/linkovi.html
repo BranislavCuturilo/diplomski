@@ -1,0 +1,27 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="linkovi" class="panel">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-veza"/></svg>{% translate "Подељени линкови" %}</h1>
+  {% if redovi %}
+  <ul class="rang-lista">
+    {% for red in redovi %}
+    <li class="rang-red moderator-red" id="link-{{ red.kod }}">
+      <span class="rang-tekst">
+        <span class="rang-ime">{% if red.ime %}{{ red.ime }}{% else %}{% translate "без сачуваног резултата" %}{% endif %}</span>
+        <span class="rang-detalji">{% blocktranslate with datum=red.datum %}партија од {{ datum }}{% endblocktranslate %}{% if red.poeni is not None %} · {{ red.poeni }} {% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}{% endif %}</span>
+        <code class="moderator-kod">/partija/{{ red.kod }}/</code>
+      </span>
+      <span class="moderator-radnje">
+        <a class="btn dugme-sporedno" href="{% url 'podeljeno' red.kod %}" target="_blank" rel="noopener">{% translate "Отвори линк" %}</a>
+        <a class="btn dugme-opasno" href="{% url 'moderator_obrisi_link' red.kod %}">{% translate "Обриши линк" %}</a>
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% include "igra/moderator/_strane.html" %}
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Нема подељених линкова." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block sadrzaj %}
+<header class="zaglavlje">
+  <h1 class="logo"><svg class="ikona" aria-hidden="true"><use href="#ik-palica"/></svg>{% translate "Оркестратор" %}</h1>
+  <div class="zaglavlje-desno">
+    {% comment %}Zvuk zavisi samo od statusa koji igrac i vidi, pa tiha greska zvuci kao uspeh (pravilo 1).
+    Bez JavaScript-a dugme nema svrhu i ostaje skriveno.{% endcomment %}
+    <button id="zvuk" type="button" class="dugme-zvuka" aria-pressed="false" aria-label="{% translate 'Звук исхода круга' %}" title="{% translate 'Звук исхода круга' %}" hidden>
+      <svg class="ikona zvuk-ukljucen" aria-hidden="true"><use href="#ik-zvuk"/></svg>
+      <svg class="ikona zvuk-iskljucen" aria-hidden="true"><use href="#ik-bez-zvuka"/></svg>
+    </button>
+    <span class="oznaka-kruga">{% translate "Круг" %} <strong id="broj-kruga">{{ krug }}</strong>/{{ broj_krugova }}</span>
+  </div>
+</header>
+<div class="segmenti mb-3" aria-hidden="true">
+  {% for s in segmenti %}<span class="segment{% if s.odigran %} segment-odigran{% if s.gotovo %} segment-gotovo{% else %} segment-dorada{% endif %}{% endif %}{% if s.tekuci %} segment-tekuci{% endif %}"></span>{% endfor %}
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-6">
+    <div class="pokazatelj pokazatelj-budzet">
+      <span class="pokazatelj-naslov"><svg class="ikona" aria-hidden="true"><use href="#ik-novac"/></svg>{% translate "Преостали буџет" %}</span>
+      <span class="pokazatelj-vrednost"><strong id="budzet" class="{% if budzet_prekoracen %}text-danger{% endif %}">{{ budzet_preostalo }}</strong> <small>$</small></span>
+      <div class="merilo" id="merilo-budzeta" data-ukupno="{{ budzet }}" aria-hidden="true"><span class="merilo-punjenje{% if budzet_udeo < 25 %} merilo-nisko{% endif %}" style="width: {{ budzet_udeo }}%"></span></div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="pokazatelj pokazatelj-rok">
+      <span class="pokazatelj-naslov"><svg class="ikona" aria-hidden="true"><use href="#ik-vreme"/></svg>{% translate "Преостали рок" %}</span>
+      <span class="pokazatelj-vrednost"><strong id="rok" class="{% if rok_prekoracen %}text-danger{% endif %}">{{ rok_preostalo }}</strong> <small>{% translate "мин" %}</small></span>
+      <div class="merilo" id="merilo-roka" data-ukupno="{{ rok }}" aria-hidden="true"><span class="merilo-punjenje{% if rok_udeo < 25 %} merilo-nisko{% endif %}" style="width: {{ rok_udeo }}%"></span></div>
+    </div>
+  </div>
+</div>
+
+<section id="panel-poteza" class="panel panel-poteza mb-3">
+  <div id="zaglavlje-zadatka" class="kartica-zadatka">
+    <span class="znak-zadatka" aria-hidden="true"><svg class="ikona"><use id="ikona-zadatka" href="#ik-zadatak-{{ krug }}"/></svg></span>
+    <div class="kartica-zadatka-tekst">
+      <h2 class="oznaka-zadatka">{% translate "Задатак" %}</h2>
+      <p id="naziv-zadatka" class="zadatak">{{ naziv }}</p>
+    </div>
+  </div>
+  <form id="forma-poteza" data-krug="{{ krug }}" data-adresa="{% url 'potez' %}" data-status-gotovo="{% translate 'готово' %}" data-jedinica-minuta="{% translate 'мин' %}" data-poruka-greske="{% translate 'Потез није прихваћен. Покушај поново.' %}" novalidate>
+    {% csrf_token %}
+    {% for grupa in opcije %}
+    <fieldset class="grupa">
+      <legend class="grupa-naslov">{{ grupa.naslov }}</legend>
+      <div class="row g-2">
+        {% for opcija in grupa.opcije %}
+        <div class="col-4">
+          <input class="btn-check" type="radio" name="{{ grupa.polje }}" id="{{ grupa.polje }}-{{ opcija.kljuc }}" value="{{ opcija.kljuc }}" autocomplete="off">
+          <label class="btn izbor w-100 h-100" for="{{ grupa.polje }}-{{ opcija.kljuc }}">
+            <svg class="izbor-ikona" aria-hidden="true"><use href="#ik-{{ grupa.polje }}-{{ opcija.kljuc }}"/></svg>
+            <span class="izbor-naziv">{{ opcija.naziv }}</span>
+            {% for detalj in opcija.detalji %}<span class="izbor-detalj">{{ detalj }}</span>{% endfor %}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </fieldset>
+    {% endfor %}
+    <button id="potvrdi" type="submit" class="btn btn-lg dugme-glavno w-100" disabled>{% translate "Потврди" %}<svg class="ikona" aria-hidden="true"><use href="#ik-strelica"/></svg></button>
+    <p id="greska-poteza" class="poruka-greske mt-2 mb-0" role="alert" hidden></p>
+  </form>
+  <div id="kraj-partije" class="kraj-partije" hidden>
+    <svg class="ikona kraj-partije-ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>
+    <p>{% blocktranslate with broj=broj_krugova %}Свих {{ broj }} кругова је одиграно.{% endblocktranslate %}</p>
+    <a id="pogledaj-rezultat" class="btn btn-lg dugme-glavno w-100" href="{% url 'kraj' %}">{% translate "Погледај резултат" %}<svg class="ikona" aria-hidden="true"><use href="#ik-strelica"/></svg></a>
+  </div>
+</section>
+
+<section id="rezultat-poteza" class="panel panel-rezultata mb-3{% if poslednji.gotovo %} ishod-gotovo{% elif poslednji %} ishod-dorada{% endif %}" aria-live="polite"{% if not poslednji %} hidden{% endif %}>
+  <svg class="ikona-ishoda" aria-hidden="true"><use id="ikona-ishoda" href="#ik-{% if poslednji.gotovo %}gotovo{% else %}dorada{% endif %}"/></svg>
+  <div>
+    <h2 class="oznaka-zadatka">{% translate "Последњи потез" %}</h2>
+    <p class="mb-0">
+      <span id="poslednji-status" class="status {% if poslednji.gotovo %}status-gotovo{% else %}status-dorada{% endif %}">{{ poslednji.status }}</span>
+      <span class="ms-2 trosak"><span id="poslednja-cena">{{ poslednji.cena }}</span> $ · <span id="poslednji-minuti">{{ poslednji.minuti }}</span> {% translate "мин" %}</span>
+    </p>
+  </div>
+</section>
+
+<section id="panel-istorije" class="panel"{% if not istorija %} hidden{% endif %}>
+  <h2 class="oznaka-zadatka">{% translate "Одиграни кругови" %}</h2>
+  <ol id="istorija" class="istorija">
+    {% for red in istorija %}
+    <li class="{% if red.gotovo %}ishod-gotovo{% else %}ishod-dorada{% endif %}">
+      <svg class="istorija-znak" aria-hidden="true"><use href="#ik-zadatak-{{ red.krug }}"/></svg>
+      <span class="istorija-tekst"><span class="istorija-naziv">{{ red.krug }}. {{ red.naziv }}</span>
+      <span class="istorija-podaci">{{ red.status }} · {{ red.cena }} $ · {{ red.minuti }} {% translate "мин" %}</span></span>
+      <svg class="istorija-ishod" aria-hidden="true"><use href="#ik-{% if red.gotovo %}gotovo{% else %}dorada{% endif %}"/></svg>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}

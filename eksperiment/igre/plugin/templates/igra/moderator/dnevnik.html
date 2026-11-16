@@ -1,0 +1,35 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Дневник · Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Samo citanje. Nikad partija ni id reda: prikaz ih ne salje. Imena su tudji unos: autoescape u <bdi>. #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-lekcija"/></svg>{% translate "Дневник брисања и налога" %}</h1>
+  {% if zapisi %}
+  <ul class="list-group mod-spisak">
+    {% for z in zapisi %}
+    <li class="list-group-item mod-zapis">
+      <dl class="mod-dl">
+        <div class="mod-dl-red"><dt>{% translate "Када" %}</dt><dd>{{ z.kada }}</dd></div>
+        <div class="mod-dl-red"><dt>{% translate "Ко" %}</dt><dd>{% if z.ko %}<bdi>{{ z.ko }}</bdi>{% else %}{% translate "развијалац (команда)" %}{% endif %}</dd></div>
+        <div class="mod-dl-red"><dt>{% translate "Шта" %}</dt><dd><span class="mod-znacka">{% if z.radnja == "rezultat_obrisan" %}{% translate "обрисан резултат" %}{% elif z.radnja == "link_obrisan" %}{% translate "обрисан линк" %}{% elif z.radnja == "prijava_odbacena" %}{% translate "одбачена пријава имена" %}{% elif z.radnja == "moderator_dodat" %}{% translate "додат модератор" %}{% elif z.radnja == "moderator_deaktiviran" %}{% translate "деактивиран модератор" %}{% elif z.radnja == "moderator_aktiviran" %}{% translate "активиран модератор" %}{% elif z.radnja == "lozinka_postavljena" %}{% translate "постављена лозинка" %}{% elif z.radnja == "lozinka_promenjena" %}{% translate "промењена лозинка" %}{% elif z.radnja == "uloga_dodeljena" %}{% translate "додељена улога главног" %}{% elif z.radnja == "uloga_oduzeta" %}{% translate "одузета улога главног" %}{% else %}{{ z.radnja }}{% endif %}</span></dd></div>
+        {% if z.nad %}<div class="mod-dl-red"><dt>{% translate "Над налогом" %}</dt><dd><bdi>{{ z.nad }}</bdi></dd></div>{% endif %}
+        {% if z.snimak and "poeni" in z.snimak or z.snimak.glavni %}
+        <div class="mod-dl-red"><dt>{% translate "Снимак" %}</dt><dd>
+          {% if "poeni" in z.snimak %}
+            {% if z.snimak.ime %}<bdi>{{ z.snimak.ime }}</bdi>{% else %}<span class="mod-bez">{% translate "(без имена)" %}</span>{% endif %}
+            · {{ z.snimak.poeni }} · {{ z.snimak.ocena }} · {{ z.snimak.datum }}
+            {% if z.snimak.dan %}· <span class="mod-znacka">{% translate "дневни изазов" %}</span>{% endif %}
+          {% else %}
+            {% translate "Главни модератор" %}
+          {% endif %}
+        </dd></div>
+        {% endif %}
+      </dl>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="rang-prazno">{% translate "Дневник је празан." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

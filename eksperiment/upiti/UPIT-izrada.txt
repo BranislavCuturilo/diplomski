@@ -1,0 +1,1 @@
+Potvrdjeno. Izradi igru Orkestrator. Zavrseno je kada su ispunjeni svi uslovi iz odeljka "Kada je gotovo" u MVP.md.

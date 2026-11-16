@@ -1,0 +1,8 @@
+{
+  "name": "diplomski",
+  "owner": { "name": "Branislav Cuturilo" },
+  "description": "Lokalni marketplace sa jednim pluginom; plugin se ucitava sa mesta, pa git pull odmah menja pravila.",
+  "plugins": [
+    { "name": "diplomski", "source": "./", "description": "Agenti i pravila za Django, ucitani sa mesta (bez kopiranja)" }
+  ]
+}

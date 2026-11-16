@@ -1,0 +1,11 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block glava %}<meta name="robots" content="noindex">{% endblock %}
+{% block sadrzaj %}
+<p id="podeljeno" class="podeljeno-oznaka"><svg class="ikona" aria-hidden="true"><use href="#ik-veza"/></svg><span>{% translate "Подељен резултат" %}{% if ime_igraca %} · <strong id="ime-igraca">{{ ime_igraca }}</strong>{% endif %}</span></p>
+{% include "igra/_rezultat.html" %}
+
+<p id="napomena" class="napomena">{{ napomena }}</p>
+
+<a id="igraj-i-ti" class="btn btn-lg dugme-glavno w-100" href="{% url 'pocetna' %}"><svg class="ikona" aria-hidden="true"><use href="#ik-palica"/></svg>{% translate "Играј и ти" %}</a>
+{% endblock %}

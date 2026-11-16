@@ -1,0 +1,163 @@
+{% load static %}<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оркестратор</title>
+  <link rel="icon" href="data:,">
+  <link href="{% static 'igra/bootstrap-5.3.8.min.css' %}" rel="stylesheet">
+</head>
+<body class="bg-body-tertiary">
+<div class="container py-3">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+
+      <header class="mb-3">
+        <h1 class="h4 mb-1">Оркестратор</h1>
+        <p id="krug" class="mb-2 text-body-secondary"></p>
+        <div class="row g-2">
+          <div class="col-12 col-sm-6">
+            <div id="budzet" class="card card-body p-2">
+              <div class="fw-semibold">Буџет</div>
+              <div class="small">Потрошено: <span data-mesto="potroseno"></span></div>
+              <div class="small">Преостало: <span data-mesto="preostalo"></span></div>
+              <div class="progress mt-1" role="progressbar" aria-label="Буџет" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" data-mesto="traka"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div id="rok" class="card card-body p-2">
+              <div class="fw-semibold">Рок</div>
+              <div class="small">Потрошено: <span data-mesto="potroseno"></span></div>
+              <div class="small">Преостало: <span data-mesto="preostalo"></span></div>
+              <div class="progress mt-1" role="progressbar" aria-label="Рок" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" data-mesto="traka"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="poruka" class="alert alert-info" role="alert" hidden></div>
+
+      <section id="rezultat" class="alert alert-success" role="status" hidden>
+        <h2 class="h6 mb-2">Резултат круга</h2>
+        <p class="mb-2" data-mesto="zadatak"></p>
+        <dl class="row mb-0">
+          <dt class="col-5">Цена</dt><dd class="col-7 mb-1" data-mesto="cena"></dd>
+          <dt class="col-5">Минути</dt><dd class="col-7 mb-1" data-mesto="minuti"></dd>
+          <dt class="col-5">Статус</dt><dd class="col-7 mb-0 fw-semibold" data-mesto="status"></dd>
+        </dl>
+      </section>
+
+      <section id="kontrole" data-url-potez="{% url 'potez' %}" class="mb-3">
+        <div class="card card-body mb-3">
+          <div class="small text-body-secondary">Задатак</div>
+          <h2 id="zadatak" class="h5 mb-0"></h2>
+        </div>
+
+        <fieldset class="mb-3">
+          <legend class="fs-6 mb-1">Модел</legend>
+          <div class="btn-group w-100" role="group" aria-label="Модел">
+            {% for o in opcije.model %}
+            <input type="radio" class="btn-check" name="model" id="model-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="model-{{ o.kljuc }}">{{ o.naziv }}</label>
+            {% endfor %}
+          </div>
+          <ul class="list-unstyled small text-body-secondary mt-1 mb-0">
+            {% for o in opcije.model %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+            {% endfor %}
+          </ul>
+        </fieldset>
+
+        <fieldset class="mb-3">
+          <legend class="fs-6 mb-1">Ниво размишљања</legend>
+          <div class="btn-group w-100" role="group" aria-label="Ниво размишљања">
+            {% for o in opcije.nivo %}
+            <input type="radio" class="btn-check" name="nivo" id="nivo-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="nivo-{{ o.kljuc }}">{{ o.naziv }}</label>
+            {% endfor %}
+          </div>
+          <ul class="list-unstyled small text-body-secondary mt-1 mb-0">
+            {% for o in opcije.nivo %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+            {% endfor %}
+          </ul>
+        </fieldset>
+
+        <fieldset class="mb-3">
+          <legend class="fs-6 mb-1">Контекст</legend>
+          <div class="btn-group w-100" role="group" aria-label="Контекст">
+            {% for o in opcije.kontekst %}
+            <input type="radio" class="btn-check" name="kontekst" id="kontekst-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="kontekst-{{ o.kljuc }}">{{ o.naziv }}</label>
+            {% endfor %}
+          </div>
+          <ul class="list-unstyled small text-body-secondary mt-1 mb-0">
+            {% for o in opcije.kontekst %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+            {% endfor %}
+          </ul>
+        </fieldset>
+
+        <fieldset class="mb-3">
+          <legend class="fs-6 mb-1">Подела посла</legend>
+          <div class="btn-group w-100" role="group" aria-label="Подела посла">
+            {% for o in opcije.podela %}
+            <input type="radio" class="btn-check" name="podela" id="podela-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="podela-{{ o.kljuc }}">{{ o.naziv }}</label>
+            {% endfor %}
+          </div>
+          <ul class="list-unstyled small text-body-secondary mt-1 mb-0">
+            {% for o in opcije.podela %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+            {% endfor %}
+          </ul>
+        </fieldset>
+
+        <p id="procena" class="small text-body-secondary mb-3"></p>
+
+        <button type="button" id="potvrdi" class="btn btn-primary w-100" disabled>Потврди избор</button>
+      </section>
+
+      <section id="zavrsni" class="card card-body mb-3" hidden>
+        <h2 class="h5">Контролни скуп</h2>
+        <dl class="row mb-2">
+          <dt class="col-6">Поени</dt><dd class="col-6 mb-1" data-mesto="poeni"></dd>
+          <dt class="col-6">Оцена</dt><dd class="col-6 mb-1 fw-semibold" data-mesto="ocena"></dd>
+          <dt class="col-6">Укупна цена</dt><dd class="col-6 mb-1" data-mesto="cena"></dd>
+          <dt class="col-6">Укупно минута</dt><dd class="col-6 mb-1" data-mesto="minuti"></dd>
+        </dl>
+        <p class="text-danger mb-1" data-mesto="budzet-prekoracen" hidden>Буџет је прекорачен.</p>
+        <p class="text-danger mb-2" data-mesto="rok-prekoracen" hidden>Рок је прекорачен.</p>
+
+        <h3 class="h6">Тихе грешке</h3>
+        <p class="mb-2" data-mesto="nema-tihih" hidden>Нема тихих грешака.</p>
+        <ul class="mb-3" data-mesto="tihe"></ul>
+
+        <div data-mesto="lekcije-blok" hidden>
+          <h3 class="h6">Лекције</h3>
+          <ul class="mb-3" data-mesto="lekcije"></ul>
+        </div>
+
+        <p class="small text-body-secondary mb-0" data-mesto="napomena"></p>
+      </section>
+
+      <form id="nova-forma" method="post" action="{% url 'nova' %}" class="mb-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-secondary w-100">Нова игра</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<template id="sablon-tiha">
+  <li><span data-mesto="tekst"></span></li>
+</template>
+<template id="sablon-lekcija">
+  <li><span data-mesto="tekst"></span> <span class="text-body-secondary" data-mesto="odeljak"></span></li>
+</template>
+
+{{ stanje|json_script:"stanje-igre" }}
+<script src="{% static 'igra/igra.js' %}"></script>
+</body>
+</html>

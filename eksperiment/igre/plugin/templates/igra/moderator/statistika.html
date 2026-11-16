@@ -1,0 +1,35 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Статистика · Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Samo citanje. Datum i prosek formatira prikaz (moderacija.statistika); dan bez partija stoji sa 0 i "—". #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% translate "Одигране партије по дану" %}</h1>
+  <div class="table-responsive">
+    <table id="statistika-tabela" class="table table-sm small mod-statistika">
+      <caption class="visually-hidden">{% translate "Партије које су стигле до завршног екрана, по дану; најновији дан први." %}</caption>
+      <thead>
+        {# Naslovi su po jedna rec i ne lome se (text-nowrap): .mod-karta inace lomi rec usred, a na 375 px je tesno. #}
+        <tr>
+          <th scope="col" class="text-nowrap">{% translate "Датум" %}</th>
+          <th scope="col" class="rang-broj text-nowrap">{% translate "Укупно" %}</th>
+          <th scope="col" class="rang-broj text-nowrap">{% translate "Обичне" %}</th>
+          <th scope="col" class="rang-broj text-nowrap">{% translate "Дневне" %}</th>
+          <th scope="col" class="rang-broj text-nowrap">{% translate "Просек" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in dani %}
+        <tr>
+          <th scope="row" class="rang-datum">{{ d.datum }}</th>
+          <td class="rang-broj">{{ d.ukupno }}</td>
+          <td class="rang-broj">{{ d.obicnih }}</td>
+          <td class="rang-broj">{{ d.dnevnih }}</td>
+          <td class="rang-broj">{{ d.prosek }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="rang-prazno">{% translate "Броје се обичне и дневне партије које су стигле до завршног екрана; просек је просечан број поена тих партија. Дани пре увођења статистике имају 0." %}</p>
+</section>
+{% endblock %}

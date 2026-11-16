@@ -1,0 +1,264 @@
+{% load i18n static %}{% get_current_language as JEZIK %}<!doctype html>
+<html lang="{{ JEZIK }}">{# _glava.html se zavrsava novim redom, pa <body> stoji odmah iza include-a (izlaz je bajt-u-bajt isti kao pre izdvajanja). #}
+{% translate "Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov %}<body class="igra-telo">
+
+{% include "igra/_ikone.html" %}
+
+<div class="container igra-okvir">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+
+      <header class="vrh">
+        <div class="vrh-naslov">
+          <span class="znak"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg></span>
+          <div class="vrh-tekst">
+            <h1 class="naslov">{% translate "Оркестратор" %}</h1>
+            <p id="krug" class="krug"></p>
+          </div>
+          <a id="kako-link" class="btn jezik-dugme dugme-sporedno kako-veza" href="{% url 'kako_se_igra' %}">{% translate "Како се игра" %}</a>
+          {# Izbor jezika radi i bez skripte: POST na set_language, pa nazad na istu partiju (stanje je u sesiji). Dugme nudi drugi jezik, pod njegovim imenom. #}
+          <form id="jezik-forma" class="jezik" method="post" action="{% url 'jezik' %}" aria-label="{% translate 'Језик' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ adrese.strana }}">
+            {% if JEZIK == "sr" %}
+            <button type="submit" id="jezik-dugme" class="btn jezik-dugme dugme-sporedno" name="language" value="en" lang="en">English</button>
+            {% else %}
+            <button type="submit" id="jezik-dugme" class="btn jezik-dugme dugme-sporedno" name="language" value="sr" lang="sr">Српски</button>
+            {% endif %}
+          </form>
+          {# Prekidac zvuka ishoda kruga: skripta ga prikazuje samo ako postoji Web Audio; bez skripte ostaje skriven. Izbor pamti pregledac (localStorage), ne server. #}
+          <button type="button" id="zvuk-dugme" class="btn jezik-dugme dugme-sporedno" aria-pressed="false" hidden>{% translate "Звук: искључен" %}</button>
+        </div>
+
+        <ol id="staza" class="staza" aria-hidden="true">
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-1"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-2"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-3"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-4"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-5"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-6"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-7"/></svg></li>
+          <li class="staza-tacka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#zad-8"/></svg></li>
+        </ol>
+
+        <div class="row g-2">
+          <div class="col-6">
+            <div id="budzet" class="mera">
+              <div class="mera-glava">
+                <svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-budzet"/></svg>
+                <span class="mera-naslov">{% translate "Буџет" %}</span>
+                <svg class="ik mera-upozorenje" data-mesto="upozorenje" aria-hidden="true" focusable="false" hidden><use href="#ik-upozorenje"/></svg>
+              </div>
+              <div class="mera-red"><span>{% translate "Потрошено:" %}</span> <span class="mera-vrednost" data-mesto="potroseno"></span></div>
+              <div class="mera-red"><span>{% translate "Преостало:" %}</span> <span class="mera-vrednost" data-mesto="preostalo"></span></div>
+              <div class="progress" role="progressbar" aria-label="{% translate 'Буџет' %}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" data-mesto="traka"></div>
+              </div>
+              <div class="mera-granica">
+                <svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-granica"/></svg>
+                <span data-mesto="granica"></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div id="rok" class="mera">
+              <div class="mera-glava">
+                <svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-rok"/></svg>
+                {# Translators: krajnji rok za zavrsetak posla (deadline), ne vremenski period uopste. #}
+                <span class="mera-naslov">{% translate "Рок" %}</span>
+                <svg class="ik mera-upozorenje" data-mesto="upozorenje" aria-hidden="true" focusable="false" hidden><use href="#ik-upozorenje"/></svg>
+              </div>
+              <div class="mera-red"><span>{% translate "Потрошено:" %}</span> <span class="mera-vrednost" data-mesto="potroseno"></span></div>
+              <div class="mera-red"><span>{% translate "Преостало:" %}</span> <span class="mera-vrednost" data-mesto="preostalo"></span></div>
+              <div class="progress" role="progressbar" aria-label="{% translate 'Рок' %}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" data-mesto="traka"></div>
+              </div>
+              <div class="mera-granica">
+                <svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-granica"/></svg>
+                <span data-mesto="granica"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {% if vrsta == "dnevna" %}
+      {# Dnevna strana: ista igra, ista skripta; ciljevi stizu iz data-url-*. Bez "Нова игра": partija dana se igra jednom. #}
+      <section id="dnevni" class="dnevni" aria-labelledby="dnevni-naslov">
+        <h2 id="dnevni-naslov" class="dnevni-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-rok"/></svg>{% translate "Дневни изазов" %}<span class="dnevni-datum">{{ dnevni.datum }}</span></h2>
+        <p class="dnevni-opis">{% translate "Данас сви играју исту партију: исти задаци и исти исходи. Дневни изазов се игра једном." %}</p>
+      </section>
+      {% endif %}
+
+      <div id="poruka" class="alert alert-info poruka" role="alert" hidden></div>
+      {# Skriveno dok skripta ne ustanovi da mapa tekstova nije procitana; tada je ovo jedini tekst koji se prikazuje. #}
+      <div id="tekstovi-greska" class="alert alert-danger poruka" role="alert" hidden>{% translate "Стање игре није могло да се прочита. Освежите страну." %}</div>
+
+      <section id="rezultat" class="alert alert-success rezultat" role="status" hidden>
+        <div class="rezultat-glava">
+          <span class="rezultat-znak"><svg class="ik" data-mesto="status-ikona" aria-hidden="true" focusable="false"><use href="#ish-gotovo"/></svg></span>
+          <div class="rezultat-tekst">
+            <h2 class="podnaslov">{% translate "Резултат круга" %}</h2>
+            <p class="rezultat-zadatak" data-mesto="zadatak"></p>
+          </div>
+        </div>
+        <dl class="rezultat-mere">
+          <div class="mala-mera"><dt>{% translate "Цена" %}</dt><dd data-mesto="cena"></dd></div>
+          <div class="mala-mera"><dt>{% translate "Минути" %}</dt><dd data-mesto="minuti"></dd></div>
+          <div class="mala-mera mala-mera-status"><dt>{% translate "Статус" %}</dt><dd data-mesto="status"></dd></div>
+        </dl>
+      </section>
+
+      <section id="kontrole" data-url-potez="{{ adrese.potez }}" class="kontrole">
+        <div class="zadatak-karta">
+          <span class="zadatak-slika"><svg class="ik" data-mesto="slika" aria-hidden="true" focusable="false"><use href="#zad-1"/></svg></span>
+          <div class="zadatak-tekst">
+            <div class="oznaka">{% translate "Задатак" %}</div>
+            <h2 id="zadatak" class="zadatak-naziv"></h2>
+          </div>
+        </div>
+
+        <div class="grupe">
+          <fieldset class="grupa">
+            <legend class="grupa-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#grp-model"/></svg>{% translate "Модел" %}</legend>
+            <div class="izbori" role="group" aria-label="{% translate 'Модел' %}">
+              {% for o in opcije.model %}
+              <input type="radio" class="btn-check" name="model" id="model-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+              <label class="izbor" for="model-{{ o.kljuc }}"><svg class="ik izbor-slika" aria-hidden="true" focusable="false"><use href="#ik-model-{{ o.kljuc }}"/></svg><span class="izbor-naziv">{{ o.naziv }}</span><svg class="kvacica" aria-hidden="true" focusable="false"><use href="#ik-kvacica"/></svg></label>
+              {% endfor %}
+              <ul class="opisi">
+                {% for o in opcije.model %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </fieldset>
+
+          <fieldset class="grupa">
+            <legend class="grupa-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#grp-nivo"/></svg>{% translate "Ниво размишљања" %}</legend>
+            <div class="izbori" role="group" aria-label="{% translate 'Ниво размишљања' %}">
+              {% for o in opcije.nivo %}
+              <input type="radio" class="btn-check" name="nivo" id="nivo-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+              <label class="izbor" for="nivo-{{ o.kljuc }}"><svg class="ik izbor-slika" aria-hidden="true" focusable="false"><use href="#ik-nivo-{{ o.kljuc }}"/></svg><span class="izbor-naziv">{{ o.naziv }}</span><svg class="kvacica" aria-hidden="true" focusable="false"><use href="#ik-kvacica"/></svg></label>
+              {% endfor %}
+              <ul class="opisi">
+                {% for o in opcije.nivo %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </fieldset>
+
+          <fieldset class="grupa">
+            <legend class="grupa-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#grp-kontekst"/></svg>{% translate "Контекст" %}</legend>
+            <div class="izbori" role="group" aria-label="{% translate 'Контекст' %}">
+              {% for o in opcije.kontekst %}
+              <input type="radio" class="btn-check" name="kontekst" id="kontekst-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+              <label class="izbor" for="kontekst-{{ o.kljuc }}"><svg class="ik izbor-slika" aria-hidden="true" focusable="false"><use href="#ik-kontekst-{{ o.kljuc }}"/></svg><span class="izbor-naziv">{{ o.naziv }}</span><svg class="kvacica" aria-hidden="true" focusable="false"><use href="#ik-kvacica"/></svg></label>
+              {% endfor %}
+              <ul class="opisi">
+                {% for o in opcije.kontekst %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </fieldset>
+
+          <fieldset class="grupa">
+            <legend class="grupa-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#grp-podela"/></svg>{% translate "Подела посла" %}</legend>
+            <div class="izbori" role="group" aria-label="{% translate 'Подела посла' %}">
+              {% for o in opcije.podela %}
+              <input type="radio" class="btn-check" name="podela" id="podela-{{ o.kljuc }}" value="{{ o.kljuc }}" autocomplete="off">
+              <label class="izbor" for="podela-{{ o.kljuc }}"><svg class="ik izbor-slika" aria-hidden="true" focusable="false"><use href="#ik-podela-{{ o.kljuc }}"/></svg><span class="izbor-naziv">{{ o.naziv }}</span><svg class="kvacica" aria-hidden="true" focusable="false"><use href="#ik-kvacica"/></svg></label>
+              {% endfor %}
+              <ul class="opisi">
+                {% for o in opcije.podela %}<li><strong>{{ o.naziv }}</strong>: {{ o.opis }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="procena-traka"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-budzet"/></svg><p id="procena" class="procena"></p></div>
+
+        <button type="button" id="potvrdi" class="btn dugme dugme-glavno" disabled><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-kvacica"/></svg>{% translate "Потврди избор" %}</button>
+      </section>
+
+      {% include "igra/_zavrsni.html" %}
+
+      {% if vrsta == "dnevna" %}
+      <div class="nova">
+        <a id="nazad-dugme" class="btn dugme dugme-sporedno" href="{% url 'pocetna' %}">{% translate "Назад на главну игру" %}</a>
+      </div>
+      {% else %}
+      <form id="nova-forma" method="post" action="{% url 'nova' %}" class="nova">
+        {% csrf_token %}
+        <button type="submit" class="btn dugme dugme-sporedno"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-nova"/></svg>{% translate "Нова игра" %}</button>
+      </form>
+
+      {# Poziv na dnevni izazov: obican link na dnevnu stranu; partija obicne igre ostaje u sesiji. #}
+      <section id="dnevni" class="dnevni" aria-labelledby="dnevni-naslov">
+        <h2 id="dnevni-naslov" class="dnevni-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-rok"/></svg>{% translate "Дневни изазов" %}</h2>
+        <p class="dnevni-opis">{% translate "Данас сви играју исту партију: исти задаци и исти исходи. Дневни изазов се игра једном." %}</p>
+        <a id="dnevni-dugme" class="btn dugme dugme-glavno" href="{% url 'dnevni' %}"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-rok"/></svg>{% translate "Играј дневни изазов" %}</a>
+      </section>
+
+      {# Lista dana: samo citanje, vidljiva od prvog ucitavanja. Ime je tudji unos: json_script, pa textContent. #}
+      <section id="rang-dana-sekcija" class="rang" aria-labelledby="rang-dana-naslov">
+        <h2 id="rang-dana-naslov" class="rang-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% translate "Ранг листа дана" %}</h2>
+        <p id="rang-dana-prazno" class="rang-prazno" hidden>{% translate "Данас још нема сачуваних резултата." %}</p>
+        <p class="rang-prazno" data-mesto="nije-procitana" hidden>{% translate "Ранг листа није могла да се прочита." %}</p>
+        <table id="rang-dana-tabela" class="table table-sm rang-tabela" role="table" aria-labelledby="rang-dana-naslov" hidden>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th scope="col" role="columnheader">{% translate "Место" %}</th>
+              <th scope="col" role="columnheader">{% translate "Име" %}</th>
+              <th scope="col" role="columnheader" class="rang-broj">{% translate "Поени" %}</th>
+              <th scope="col" role="columnheader">{% translate "Оцена" %}</th>
+              <th scope="col" role="columnheader">{% translate "Датум" %}</th>
+            </tr>
+          </thead>
+          <tbody id="rang-dana-redovi" role="rowgroup"></tbody>
+        </table>
+{% include "igra/_prijava.html" with oznaka="rang-dana" %}      </section>
+      {% endif %}
+
+      {# Ranglista: vidljiva od prvog ucitavanja. Ime je tudji unos; stize samo kroz json_script i upisuje se samo kroz textContent. #}
+      <section id="rang" class="rang" aria-labelledby="rang-naslov">
+        <h2 id="rang-naslov" class="rang-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% if vrsta == "dnevna" %}{% translate "Ранг листа дана" %}{% else %}{% translate "Ранг листа" %}{% endif %}</h2>
+        <p class="rang-podnaslov">{% blocktranslate count n=brojevi.rang_mesta trimmed %}{{ n }} најбољи сачувани резултат{% plural %}{{ n }} најбољих сачуваних резултата{% endblocktranslate %}</p>
+        <p id="rang-prazno" class="rang-prazno" hidden>{% if vrsta == "dnevna" %}{% translate "Данас још нема сачуваних резултата." %}{% else %}{% translate "Још нема сачуваних резултата." %}{% endif %}</p>
+        <p class="rang-prazno" data-mesto="nije-procitana" hidden>{% translate "Ранг листа није могла да се прочита." %}</p>
+        {# Uloge su izricite jer CSS ispod 576 px menja display tabele (mreza po redu); bez njih citac ekrana gubi tabelu. #}
+        <table id="rang-tabela" class="table table-sm rang-tabela" role="table" aria-labelledby="rang-naslov" hidden>
+          <thead role="rowgroup">
+            <tr role="row">
+              {# Translators: redni broj na rang listi (1., 2., ...). #}
+              <th scope="col" role="columnheader">{% translate "Место" %}</th>
+              <th scope="col" role="columnheader">{% translate "Име" %}</th>
+              <th scope="col" role="columnheader" class="rang-broj">{% translate "Поени" %}</th>
+              {# Translators: zavrsna ocena partije (solidan, pozar...), ne skolska ocena. #}
+              <th scope="col" role="columnheader">{% translate "Оцена" %}</th>
+              <th scope="col" role="columnheader">{% translate "Датум" %}</th>
+            </tr>
+          </thead>
+          <tbody id="rang-redovi" role="rowgroup"></tbody>
+        </table>
+        {# Vidljivo samo kad bar jedan prikazan red nosi oznaku "старо бодовање"; skripta menja samo hidden. #}
+        <p id="rang-legenda" class="rang-legenda" hidden>{% translate "Старо бодовање: резултат је бодован по ранијим правилима, са другачијим казнама за тиху грешку и буџет." %}</p>
+{% include "igra/_prijava.html" with oznaka="rang" %}      </section>
+
+      {# Moje partije: server iscrtava iz sesije; skripta ga ne osvezava. #}
+{% include "igra/_istorija.html" %}
+    </div>
+  </div>
+</div>
+
+<template id="sablon-rang-red">
+  <tr role="row"><th scope="row" role="rowheader" class="rang-mesto" data-mesto="mesto"></th><td role="cell" class="rang-ime-celija"><bdi data-mesto="ime"></bdi><span class="visually-hidden" data-mesto="moj" hidden> {% translate "ваш резултат" %}</span></td><td role="cell" class="rang-broj" data-mesto="poeni"></td><td role="cell" class="rang-ocena"><span data-mesto="ocena"></span><span class="rang-pravila" data-mesto="pravila" hidden>{% translate "старо бодовање" %}</span></td><td role="cell" class="rang-datum" data-mesto="datum"></td></tr>
+</template>
+
+{{ stanje|json_script:"stanje-igre" }}
+{{ rang|json_script:"rang-lista" }}
+{% if vrsta != "dnevna" %}{{ rang_dana|json_script:"rang-dana" }}
+{% endif %}{{ tekstovi|json_script:"tekstovi" }}
+<script src="{% static 'igra/igra.js' %}"></script>
+</body>
+</html>

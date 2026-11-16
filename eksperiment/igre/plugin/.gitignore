@@ -1,0 +1,46 @@
+# Orkestrator: kod ide administratoru kao `git archive` (plan 15.1 P4, 15.9).
+# Sve sto ovde stoji nikad ne ulazi u arhivu ni u sliku (isto u .dockerignore).
+
+# Baza i kopije: rang lista, sesije sa semenima partija, hesevi lozinki moderatora.
+db.sqlite3
+db.sqlite3-*
+db.sqlite3.pre-*
+*.sqlite3
+*.sqlite3*
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+*.sqlite
+*.db
+*.bak
+/kopije/
+
+# Tajne: .env drzi DJANGO_SECRET_KEY. Primer bez tajni je deploy/env.primer.
+.env
+.env.*
+# Sifrovane kopije i kljucevi (TLS, gpg); nijedan ne pripada kodu.
+*.gpg
+*.pem
+*.key
+
+# Rad agenata i planiranje: .claude/usage/ cuva pun tekst upita.
+.claude/
+CLAUDE.md
+MVP.md
+plan*.md
+
+# Gradnja i Python.
+staticfiles/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Testovi i alati.
+.coverage
+htmlcov/
+.pytest_cache/
+test-results/
+playwright-report/
+*.log

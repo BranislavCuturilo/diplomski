@@ -1,0 +1,35 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="statistika" class="panel">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-grafikon"/></svg>{% blocktranslate with broj=statistika.broj_dana %}Статистика за последњих {{ broj }} дана{% endblocktranslate %}</h1>
+  <p class="rang-detalji mb-3">{% translate "Завршене партије, обичне и дневни изазов, по дану завршетка. Недовршене партије се не броје." %}</p>
+  <div class="tabela-omot">
+    <table class="tabela-pravila tabela-statistike">
+      <thead>
+        <tr>
+          <th scope="col">{% translate "Дан" %}</th>
+          <th scope="col" class="broj">{% translate "Партије" %}</th>
+          <th scope="col" class="broj">{% translate "Просек поена" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for red in statistika.dani %}
+        <tr class="dan-statistike{% if red.danas %} danas{% endif %}">
+          <th scope="row">{{ red.dan }}{% if red.danas %} <small>{% translate "данас" %}</small>{% endif %}</th>
+          <td class="broj"><span class="traka" aria-hidden="true"><span style="width: {{ red.udeo }}%"></span></span><span class="vrednost-broja">{{ red.broj }}</span></td>
+          <td class="broj prosek">{% if red.prosek %}{{ red.prosek }}{% else %}—{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr id="ukupno-statistike">
+          <th scope="row">{% translate "Укупно" %}</th>
+          <td class="broj"><span class="vrednost-broja">{{ statistika.ukupno.broj }}</span></td>
+          <td class="broj prosek">{% if statistika.ukupno.prosek %}{{ statistika.ukupno.prosek }}{% else %}—{% endif %}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+{% endblock %}

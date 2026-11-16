@@ -1,0 +1,27 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="potvrda" class="panel panel-potvrde">
+  {% if vrsta == "rezultat" %}
+  <h1 class="oznaka-zadatka">{% translate "Обрисати резултат?" %}</h1>
+  <p class="rang-ime fs-5 mb-1">{{ red.ime }}</p>
+  <p class="rang-detalji mb-3">{{ red.poeni }} {% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %} · {{ red.ocena }} · {{ red.datum }}</p>
+  <p class="mb-3">{% translate "Брисање је коначно: резултат нестаје са ранг листе и играч не може поново да сачува ову партију." %}</p>
+  {% url 'moderator_obrisi_rezultat' red.pk as adresa %}
+  {% if iz_prijava %}{% url 'moderator_prijavljena_imena' as nazad %}{% else %}{% url 'moderator_rezultati' as nazad %}{% endif %}
+  {% else %}
+  <h1 class="oznaka-zadatka">{% translate "Обрисати линк?" %}</h1>
+  <p class="rang-ime fs-5 mb-1">{% if red.ime %}{{ red.ime }}{% else %}{% translate "без сачуваног резултата" %}{% endif %}</p>
+  <p class="rang-detalji mb-1">{% blocktranslate with datum=red.datum %}партија од {{ datum }}{% endblocktranslate %}</p>
+  <p class="mb-3"><code class="moderator-kod">/partija/{{ red.kod }}/</code></p>
+  <p class="mb-3">{% translate "Брисање је коначно: линк престаје да ради и за ову партију се не прави нови. Резултат на ранг листи остаје." %}</p>
+  {% url 'moderator_obrisi_link' red.kod as adresa %}{% url 'moderator_linkovi' as nazad %}
+  {% endif %}
+  <p class="napomena text-start">{% translate "Брисање се бележи у дневник, са твојим именом и временом." %}</p>
+  <form method="post" action="{{ adresa }}{% if iz_prijava %}?odakle=prijave{% endif %}" class="red-potvrde" data-jednom>
+    {% csrf_token %}
+    <a id="odustani" class="btn dugme-sporedno" href="{{ nazad }}">{% translate "Одустани" %}</a>
+    <button id="obrisi" type="submit" class="btn dugme-opasno">{% translate "Обриши" %}</button>
+  </form>
+</section>
+{% endblock %}

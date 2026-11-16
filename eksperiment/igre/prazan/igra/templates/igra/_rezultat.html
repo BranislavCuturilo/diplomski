@@ -1,0 +1,58 @@
+{% load i18n %}<section class="panel panel-rezultat rezultat-z{{ zvezdice }} mb-3">
+  <h1 class="naslov-kraja">{% translate "Завршна провера" %}</h1>
+  <div class="prsten" style="--udeo: {{ poeni }}">
+    <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+      <circle class="prsten-osnova" cx="60" cy="60" r="52" pathLength="100"/>
+      {% if poeni %}<circle class="prsten-punjenje" cx="60" cy="60" r="52" pathLength="100"/>{% endif %}
+    </svg>
+    <div class="prsten-sadrzaj">
+      <p id="poeni" class="poeni">{{ poeni }}</p>
+      <p class="poeni-oznaka">{% blocktranslate count broj=poeni %}поена{% plural %}поена{% endblocktranslate %}</p>
+    </div>
+  </div>
+  <div class="zvezdice" aria-hidden="true">
+    {% if zvezdice %}
+      {% for i in "123" %}<svg class="zvezda{% if forloop.counter <= zvezdice %} zvezda-puna{% endif %}"><use href="#ik-zvezda"/></svg>{% endfor %}
+    {% else %}
+      <svg class="plamen"><use href="#ik-plamen"/></svg>
+    {% endif %}
+  </div>
+  <p id="ocena" class="ocena">{{ ocena }}</p>
+</section>
+
+<div class="row g-2 mb-3">
+  <div class="col-6">
+    <div class="pokazatelj{% if cena_prekoracena %} pokazatelj-preko{% endif %}">
+      <span class="pokazatelj-naslov"><svg class="ikona" aria-hidden="true"><use href="#ik-novac"/></svg>{% blocktranslate %}Укупна цена (буџет {{ budzet }} $){% endblocktranslate %}</span>
+      <span class="pokazatelj-vrednost"><strong id="ukupna-cena">{{ ukupna_cena }}</strong> <small>$</small></span>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="pokazatelj{% if minuti_prekoraceni %} pokazatelj-preko{% endif %}">
+      <span class="pokazatelj-naslov"><svg class="ikona" aria-hidden="true"><use href="#ik-vreme"/></svg>{% blocktranslate %}Укупно минута (рок {{ rok }}){% endblocktranslate %}</span>
+      <span class="pokazatelj-vrednost"><strong id="ukupni-minuti">{{ ukupni_minuti }}</strong> <small>{% translate "мин" %}</small></span>
+    </div>
+  </div>
+</div>
+
+<section class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-greska"/></svg>{% translate "Тихе грешке" %}</h2>
+  {% if tihe_greske %}
+  <ul id="tihe-greske" class="lista-kartica">
+    {% for zadatak in tihe_greske %}<li class="kartica-greske"><svg class="kartica-znak" aria-hidden="true"><use href="#ik-zadatak-{{ zadatak.krug }}"/></svg><span>{% blocktranslate with krug=zadatak.krug naziv=zadatak.naziv %}Круг {{ krug }}: {{ naziv }}{% endblocktranslate %}</span></li>{% endfor %}
+  </ul>
+  {% else %}
+  <p id="tihe-greske" class="mb-0 bez-gresaka"><svg class="ikona" aria-hidden="true"><use href="#ik-gotovo"/></svg>{% translate "Нема тихих грешака." %}</p>
+  {% endif %}
+</section>
+
+<section class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-knjiga"/></svg>{% translate "Лекције" %}</h2>
+  {% if lekcije %}
+  <ul id="lekcije" class="lista-kartica">
+    {% for lekcija in lekcije %}<li class="kartica-lekcije"><span>{{ lekcija.tekst }} <small class="odeljak">{% blocktranslate with odeljak=lekcija.odeljak %}Одељак {{ odeljak }} завршног рада.{% endblocktranslate %}</small></span></li>{% endfor %}
+  </ul>
+  {% else %}
+  <p id="lekcije" class="mb-0">{% translate "У овој партији нема посебних лекција." %}</p>
+  {% endif %}
+</section>

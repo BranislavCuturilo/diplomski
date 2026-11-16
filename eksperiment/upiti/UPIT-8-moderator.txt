@@ -1,0 +1,1 @@
+Klijent trazi moderatora: moderator se prijavljuje imenom i lozinkom i moze da obrise rezultat sa rang liste ili deljeni link, a vidi i ko je sta obrisao i kada. Igraci i dalje igraju bez naloga. Prvog moderatora pravi razvijalac.

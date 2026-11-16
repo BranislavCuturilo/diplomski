@@ -1,0 +1,23 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Промена лозинке · Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# obavezna: prva prijava ili lozinku postavio glavni; meni nudi samo odjavu dok se ne promeni. Lozinka nikad kao value. #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-info"/></svg>{% translate "Промена лозинке" %}</h1>
+
+  {% if obavezna %}
+  <p class="mod-poruka mod-poruka-info" role="status">{% translate "Морате да промените лозинку пре наставка." %}</p>
+  {% endif %}
+
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    {% for greska in form.non_field_errors %}
+    <p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>
+    {% endfor %}
+    {% include "igra/_polje.html" with polje=form.old_password autocomplete="current-password" %}
+    {% include "igra/_polje.html" with polje=form.new_password1 autocomplete="new-password" %}
+    {% include "igra/_polje.html" with polje=form.new_password2 autocomplete="new-password" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Промени лозинку" %}</button>
+  </form>
+</section>
+{% endblock %}

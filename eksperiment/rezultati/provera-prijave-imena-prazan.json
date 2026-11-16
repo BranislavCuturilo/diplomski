@@ -1,0 +1,97 @@
+{
+ "strana": "prazan",
+ "prolazi": 18,
+ "ukupno": 18,
+ "provere": [
+  {
+   "provera": "GET na adresu prijave ne belezi prijavu",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "prijava bez CSRF tokena odbijena",
+   "ok": true,
+   "detalj": "403"
+  },
+  {
+   "provera": "igrac prijavljuje ime sa liste",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "prijava ne sakriva i ne brise ime",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "ime van prvih 10 ne moze da se prijavi",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "nepostojeci red: 4xx, ne 500",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "50 prijava iz iste sesije: najvise 1 zapis te sesije",
+   "ok": true,
+   "detalj": "1"
+  },
+  {
+   "provera": "150 prijava iz 150 sesija: broj zapisa ogranicen",
+   "ok": true,
+   "detalj": "1"
+  },
+  {
+   "provera": "spisak prijava bez prijave: nije dostupan",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "spisak prijava nalog bez uloge: nije dostupan",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "moderator vidi prijavljena imena",
+   "ok": true,
+   "detalj": "<!doctype html>\n<html lang=\"sr-Cyrl\" data-bs-theme=\"dark\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" conte"
+  },
+  {
+   "provera": "ime sa HTML-om u spisku je izbegnuto",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "spisak ne otkriva sesiju prijavioca",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "\"zadrzi\": ime nestaje sa spiska i nova prijava ga ne vraca",
+   "ok": true,
+   "detalj": "(302, 0)"
+  },
+  {
+   "provera": "\"obrisi\": rezultat i njegove prijave nestaju",
+   "ok": true,
+   "detalj": "302"
+  },
+  {
+   "provera": "prijava obrisanog rezultata: 4xx, nista se ne belezi",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "dnevnik belezi obe odluke moderatora",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "odluka bez prijave moderatora odbijena",
+   "ok": true,
+   "detalj": "403"
+  }
+ ]
+}

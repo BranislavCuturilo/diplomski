@@ -1,0 +1,1 @@
+Doradi izgled igre Orkestrator, tako da izgleda kao igra, a ne kao obrazac: jedinstvena tema (boje, slova, razmaci), slike i ikonice koje prate zadatke, izbore i ishode, jasno istaknut izabran izbor, pregledan budzet i rok, i zavrsni ekran koji izgleda kao rezultat igre. Ne menjaj pravila, tekst ni ponasanje igre.

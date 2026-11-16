@@ -1,0 +1,9 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Забрањено · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Telo 403 za nalozi*: isto za svaku rutu i svaki id, bez podataka o nalozima. Veza nazad ne zavisi od menija. #}
+<section class="nedostupno" role="alert">
+  <h1 class="nedostupno-naslov">{% translate "Ову страну види само главни модератор." %}</h1>
+</section>
+<a class="btn dugme dugme-glavno" href="{% url 'moderator' %}">{% translate "Преглед" %}</a>
+{% endblock %}

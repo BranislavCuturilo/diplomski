@@ -1,0 +1,47 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block sadrzaj %}
+{% include "igra/_rezultat.html" %}
+
+<section id="cuvanje" class="panel panel-cuvanja mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>{% translate "Ранг листа" %}</h2>
+  {% if sacuvano_ime %}
+  <p id="sacuvano" class="bez-gresaka mb-2"><svg class="ikona" aria-hidden="true"><use href="#ik-gotovo"/></svg><span>{% blocktranslate with ime=sacuvano_ime %}Резултат је сачуван као „{{ ime }}“.{% endblocktranslate %}</span></p>
+  {% if greska %}<p class="poruka-greske mb-2" role="alert">{{ greska }}</p>{% endif %}
+  <a class="btn dugme-sporedno w-100" href="{% url 'pocetna' %}#rang-lista">{% translate "Погледај ранг листу" %}</a>
+  {% elif rezultat_uklonjen %}
+  <p id="rezultat-uklonjen" class="prazna-lista mb-0">{% translate "Модератор је уклонио резултат ове партије са ранг листе." %}</p>
+  {% else %}
+  <form id="forma-imena" method="post" action="{% url 'sacuvaj' %}" data-jednom>
+    {% csrf_token %}
+    <label for="ime" class="oznaka-imena">{% translate "Упиши име и сачувај резултат" %}</label>
+    <div class="red-imena">
+      <input id="ime" name="ime" type="text" class="form-control polje-imena" maxlength="{{ duzina_imena }}" required autocomplete="nickname" value="{{ uneto_ime|default:'' }}"{% if greska %} aria-invalid="true" aria-describedby="greska-imena"{% endif %}>
+      <button id="sacuvaj" type="submit" class="btn dugme-glavno">{% translate "Сачувај" %}</button>
+    </div>
+    {% if greska %}<p id="greska-imena" class="poruka-greske mt-2 mb-0" role="alert">{{ greska }}</p>{% endif %}
+  </form>
+  {% endif %}
+</section>
+
+<section id="deljenje" class="panel panel-cuvanja mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-veza"/></svg>{% translate "Подели резултат" %}</h2>
+  {% if not link_deljenja %}
+  <p id="link-uklonjen" class="prazna-lista mb-0">{% translate "Модератор је уклонио линк за дељење ове партије." %}</p>
+  {% else %}
+  <label for="link-deljenja" class="oznaka-imena">{% translate "Пошаљи овај линк: отвара резултат партије, без наставка игре." %}</label>
+  <div class="red-imena">
+    <input id="link-deljenja" type="text" class="form-control polje-imena polje-linka" value="{{ link_deljenja }}" readonly>
+    <button id="kopiraj-link" type="button" class="btn dugme-sporedno" data-kopirano="{% translate 'Линк је копиран.' %}" data-oznaceno="{% translate 'Линк је означен, копирај га.' %}" hidden>{% translate "Копирај" %}</button>
+  </div>
+  <p id="poruka-kopiranja" class="poruka-kopiranja mt-2 mb-0" aria-live="polite"></p>
+  {% endif %}
+</section>
+
+<p id="napomena" class="napomena">{{ napomena }}</p>
+
+<form method="post" action="{% url 'nova' %}" data-jednom>
+  {% csrf_token %}
+  <button id="nova-igra" type="submit" class="btn btn-lg dugme-glavno w-100"><svg class="ikona" aria-hidden="true"><use href="#ik-ponovo"/></svg>{% translate "Нова игра" %}</button>
+</form>
+{% endblock %}

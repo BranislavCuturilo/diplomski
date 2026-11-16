@@ -1,0 +1,9 @@
+{% load static %}<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ naslov }}</title>
+{% if robots %}  <meta name="robots" content="noindex, nofollow">
+{% endif %}  <link rel="icon" href="data:,">
+  <link href="{% static 'igra/bootstrap-5.3.8.min.css' %}" rel="stylesheet">
+  <link href="{% static 'igra/igra.css' %}" rel="stylesheet">
+</head>

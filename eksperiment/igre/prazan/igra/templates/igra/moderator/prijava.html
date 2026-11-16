@@ -1,0 +1,18 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block glava %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block sadrzaj %}
+<section class="panel panel-cuvanja moderator-prijava">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-stit"/></svg>{% translate "Пријава модератора" %}</h1>
+  <form id="forma-prijave" method="post" action="{% url 'moderator_prijava' %}" data-jednom>
+    {% csrf_token %}
+    <label for="ime" class="oznaka-imena">{% translate "Име налога" %}</label>
+    <input id="ime" name="ime" type="text" class="form-control polje-imena mb-3" required autocomplete="username" autocapitalize="none" spellcheck="false" value="{{ uneto_ime|default:'' }}"{% if greska %} aria-invalid="true" aria-describedby="greska-prijave"{% endif %}>
+    <label for="lozinka" class="oznaka-imena">{% translate "Лозинка" %}</label>
+    <input id="lozinka" name="lozinka" type="password" class="form-control polje-imena mb-3" required autocomplete="current-password"{% if greska %} aria-invalid="true" aria-describedby="greska-prijave"{% endif %}>
+    {% if greska %}<p id="greska-prijave" class="poruka-greske mb-3" role="alert">{{ greska }}</p>{% endif %}
+    <button id="prijavi-se" type="submit" class="btn btn-lg dugme-glavno w-100">{% translate "Пријави се" %}</button>
+  </form>
+  <p class="napomena mt-3 mb-0">{% translate "Играчима налог није потребан." %} <a href="{% url 'pocetna' %}">{% translate "Назад на игру" %}</a></p>
+</section>
+{% endblock %}

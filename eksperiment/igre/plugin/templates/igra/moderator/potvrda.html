@@ -1,0 +1,32 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Потврда брисања · Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Posebna strana: GET samo prikazuje snimak, brise tek POST ove forme (bez action: isti URL). vrsta je "rezultat" ili "link". #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-upozorenje"/></svg>{% if vrsta == "link" %}{% translate "Обрисати овај линк?" %}{% else %}{% translate "Обрисати овај резултат?" %}{% endif %}</h1>
+
+  <p class="mod-poruka mod-poruka-info">{% translate "Брисање се уписује у дневник." %} {% translate "Обрисано се не може вратити." %}</p>
+
+  <dl class="rezultat-mere mod-snimak">
+    {% if red.ime %}
+    <div class="mala-mera mala-mera-status"><dt>{% translate "Име" %}</dt><dd><bdi>{{ red.ime }}</bdi></dd></div>
+    {% else %}
+    <div class="mala-mera mala-mera-status"><dt>{% translate "Име" %}</dt><dd><span class="mod-bez">{% translate "(без имена)" %}</span></dd></div>
+    {% endif %}
+    <div class="mala-mera"><dt>{% translate "Поени" %}</dt><dd>{{ red.poeni }}</dd></div>
+    <div class="mala-mera"><dt>{% translate "Оцена" %}</dt><dd>{{ red.ocena }}</dd></div>
+    {% if vrsta == "link" %}
+    <div class="mala-mera"><dt>{% translate "Настао" %}</dt><dd>{{ red.nastao }}</dd></div>
+    <div class="mala-mera"><dt>{% translate "Истиче" %}</dt><dd>{{ red.istice }}</dd></div>
+    {% else %}
+    <div class="mala-mera"><dt>{% translate "Датум" %}</dt><dd>{{ red.datum }}</dd></div>
+    {% endif %}
+  </dl>
+
+  <form method="post" class="mod-potvrda">
+    {% csrf_token %}
+    <button type="submit" class="btn dugme dugme-opasno">{% translate "Потврди брисање" %}</button>
+  </form>
+  <a class="btn dugme dugme-sporedno mod-odustani" href="{% url 'moderator' %}">{% translate "Одустани" %}</a>
+</section>
+{% endblock %}

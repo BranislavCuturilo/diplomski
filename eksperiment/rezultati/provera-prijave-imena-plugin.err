@@ -1,0 +1,5 @@
+Method Not Allowed (GET): /prijavi/
+Forbidden (CSRF token missing.): /prijavi/
+Conflict: /prijavi/
+Bad Request: /prijavi/
+Conflict: /prijavi/

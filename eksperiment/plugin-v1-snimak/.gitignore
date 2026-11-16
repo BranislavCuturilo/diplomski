@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+# Word drzi zakljucavajuci fajl dok je dokument otvoren
+~$*
+# rad (docx/pdf) nije deo plugina; ukloni ove redove ako hoces i njega u git-u
+*.docx
+*.pdf
+# poredjenje verzija rada, nije deo plugina
+izmene_v3_v4.diff
+# logovi merenja (upiti su pun tekst) i izvestaji
+.claude/usage/
+*.log

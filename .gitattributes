@@ -1,0 +1,2 @@
+# Bash skripte (eksperiment/pokreni.sh) moraju imati LF; sa CRLF bash javlja "$'\r': command not found".
+*.sh text eol=lf

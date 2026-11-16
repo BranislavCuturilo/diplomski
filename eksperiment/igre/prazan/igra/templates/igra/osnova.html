@@ -1,0 +1,30 @@
+{% load static i18n %}<!doctype html>
+<html lang="{{ jezik_html }}" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1226">
+  <title>{% translate "Оркестратор" %}</title>
+  <link rel="icon" href="data:,">
+  {% block glava %}{% endblock %}
+  {% if jezik_html == "en" %}
+  <link rel="preload" href="{% static 'igra/slova/russo-one-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{% static 'igra/slova/rubik-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+  {% else %}
+  <link rel="preload" href="{% static 'igra/slova/russo-one-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{% static 'igra/slova/rubik-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
+  {% endif %}
+  <link rel="stylesheet" href="{% static 'igra/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'igra/igra.css' %}">
+</head>
+<body>
+  {% include "igra/ikonice.html" %}
+  <main class="sadrzaj container">
+    <nav class="jezici" aria-label="{% translate 'Језик' %}">
+      {% for j in izbor_jezika %}<a class="jezik{% if j.tekuci %} jezik-tekuci{% endif %}" id="jezik-{{ j.kod }}" lang="{{ j.kod }}" title="{{ j.naziv }}" href="{{ j.adresa }}?dalje={{ dalje_jezika|urlencode:'' }}"{% if j.tekuci %} aria-current="true"{% endif %}>{{ j.oznaka }}</a>{% endfor %}
+    </nav>
+    {% block sadrzaj %}{% endblock %}
+  </main>
+  <script src="{% static 'igra/igra.js' %}"></script>
+</body>
+</html>

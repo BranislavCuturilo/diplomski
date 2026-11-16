@@ -1,0 +1,753 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: orkestrator\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "готово"
+msgstr "done"
+
+msgid "враћено на дораду"
+msgstr "sent back for rework"
+
+msgid "Цене и нивои размишљања су стварни подаци; вероватноће, казне и поени су измишљени параметри игре."
+msgstr "Prices and reasoning levels are real data; probabilities, penalties and points are made-up game parameters."
+
+msgid "Превод почетне стране"
+msgstr "Home page translation"
+
+msgid "Шаблон листе и форме"
+msgstr "List and form template"
+
+msgid "CSS и прилагођавање телефону"
+msgstr "CSS and mobile layout"
+
+msgid "CRUD прикази"
+msgstr "CRUD views"
+
+msgid "Модел података и миграција"
+msgstr "Data model and migration"
+
+msgid "Провера права приступа"
+msgstr "Access control check"
+
+msgid "Аутоматски тестови"
+msgstr "Automated tests"
+
+msgid "Безбедносна ревизија"
+msgstr "Security audit"
+
+msgid "мало"
+msgstr "little"
+
+msgid "таман"
+msgstr "just right"
+
+msgid "све"
+msgstr "everything"
+
+msgid "сам"
+msgstr "solo"
+
+msgid "3 агента"
+msgstr "3 agents"
+
+msgid "50 агената"
+msgstr "50 agents"
+
+msgid "одличан оркестратор"
+msgstr "excellent orchestrator"
+
+msgid "солидан"
+msgstr "solid"
+
+msgid "скуп учитељ"
+msgstr "costly lesson"
+
+msgid "пожар"
+msgstr "house on fire"
+
+msgid "Ако је грешка тиха, задатак остаје највишем разреду."
+msgstr "If an error is silent, the task belongs to the top tier."
+
+msgid "Најскупљи модел није увек најбољи избор."
+msgstr "The most expensive model is not always the best choice."
+
+msgid "Изнад нивоа high цена расте, а квалитет не."
+msgstr "Above the high level, the cost goes up but the quality does not."
+
+msgid "Превише контекста квари резултат исто као премало."
+msgstr "Too much context spoils the result just as much as too little."
+
+msgid "Више агената не значи јефтиније."
+msgstr "More agents does not mean cheaper."
+
+#, python-format
+msgid "токени ×%(mnozilac)s"
+msgstr "tokens ×%(mnozilac)s"
+
+#, python-format
+msgid "време ×%(mnozilac)s"
+msgstr "time ×%(mnozilac)s"
+
+msgid "Захтев нема тражена поља."
+msgstr "The request is missing the required fields."
+
+msgid "Број круга није исправан."
+msgstr "The round number is not valid."
+
+msgid "Нема партије у току."
+msgstr "There is no game in progress."
+
+msgid "Модел"
+msgstr "Model"
+
+msgid "Ниво размишљања"
+msgstr "Reasoning level"
+
+msgid "Контекст"
+msgstr "Context"
+
+msgid "Подела посла"
+msgstr "Work split"
+
+msgid "Упиши име."
+msgstr "Enter a name."
+
+msgid "Име садржи недозвољене знакове."
+msgstr "The name contains characters that are not allowed."
+
+msgid "Нема завршене партије."
+msgstr "There is no finished game."
+
+msgid "Партија није завршена."
+msgstr "The game is not finished."
+
+msgid "Захтев није исправан JSON."
+msgstr "The request is not valid JSON."
+
+msgid "Непознат избор."
+msgstr "Unknown choice."
+
+msgid "Потез за овај круг је већ одигран."
+msgstr "A move for this round has already been played."
+
+#, python-format
+msgid "Име мора имати од 1 до %(najvise)s знакова."
+msgstr "The name must have 1 to %(najvise)s characters."
+
+msgid "Резултат ове партије је већ сачуван."
+msgstr "The result of this game has already been saved."
+
+msgid "Игра је завршена."
+msgstr "The game is over."
+
+msgid "Потез не важи за текући круг."
+msgstr "The move does not match the current round."
+
+msgid "Завршна провера"
+msgstr "Final check"
+
+msgid "поена"
+msgid_plural "поена"
+msgstr[0] "point"
+msgstr[1] "points"
+
+#, python-format
+msgid "Укупна цена (буџет %(budzet)s $)"
+msgstr "Total cost (budget %(budzet)s $)"
+
+#, python-format
+msgid "Укупно минута (рок %(rok)s)"
+msgstr "Total minutes (deadline %(rok)s)"
+
+msgid "мин"
+msgstr "min"
+
+msgid "Тихе грешке"
+msgstr "Silent errors"
+
+#, python-format
+msgid "Круг %(krug)s: %(naziv)s"
+msgstr "Round %(krug)s: %(naziv)s"
+
+msgid "Нема тихих грешака."
+msgstr "No silent errors."
+
+msgid "Лекције"
+msgstr "Lessons"
+
+#, python-format
+msgid "Одељак %(odeljak)s завршног рада."
+msgstr "Section %(odeljak)s of the thesis."
+
+msgid "У овој партији нема посебних лекција."
+msgstr "No special lessons in this game."
+
+msgid "Оркестратор"
+msgstr "Orchestrator"
+
+msgid "Круг"
+msgstr "Round"
+
+msgid "Преостали буџет"
+msgstr "Budget left"
+
+msgid "Преостали рок"
+msgstr "Time left"
+
+msgid "Задатак"
+msgstr "Task"
+
+msgid "Потез није прихваћен. Покушај поново."
+msgstr "The move was not accepted. Try again."
+
+msgid "Потврди"
+msgstr "Confirm"
+
+#, python-format
+msgid "Свих %(broj)s кругова је одиграно."
+msgstr "All %(broj)s rounds have been played."
+
+msgid "Погледај резултат"
+msgstr "See the result"
+
+msgid "Последњи потез"
+msgstr "Last move"
+
+msgid "Одиграни кругови"
+msgstr "Rounds played"
+
+msgid "Ранг листа"
+msgstr "Leaderboard"
+
+#, python-format
+msgid "Резултат је сачуван као „%(ime)s“."
+msgstr "Result saved as “%(ime)s”."
+
+msgid "Погледај ранг листу"
+msgstr "See the leaderboard"
+
+msgid "Упиши име и сачувај резултат"
+msgstr "Enter your name and save the result"
+
+msgid "Сачувај"
+msgstr "Save"
+
+msgid "Подели резултат"
+msgstr "Share the result"
+
+msgid "Пошаљи овај линк: отвара резултат партије, без наставка игре."
+msgstr "Send this link: it opens the result of this game, without continuing it."
+
+msgid "Линк је копиран."
+msgstr "Link copied."
+
+msgid "Линк је означен, копирај га."
+msgstr "Link selected, copy it."
+
+msgid "Копирај"
+msgstr "Copy"
+
+msgid "Нова игра"
+msgstr "New game"
+
+msgid "Језик"
+msgstr "Language"
+
+msgid "Водиш израду веб апликације и за сваки задатак бираш како ће га AI агент урадити."
+msgstr "You lead the build of a web app, and for each task you choose how the AI agent will do it."
+
+msgid "Циљ је да завршиш са што више поена, у буџету и року."
+msgstr "The goal is to finish with as many points as possible, within budget and on time."
+
+msgid "Буџет"
+msgstr "Budget"
+
+msgid "Рок"
+msgstr "Deadline"
+
+msgid "Кругова"
+msgstr "Rounds"
+
+msgid "Погледај резултат последње партије"
+msgstr "See the result of your last game"
+
+msgid "Још нема сачуваних резултата."
+msgstr "No saved results yet."
+
+msgid "Подељен резултат"
+msgstr "Shared result"
+
+msgid "Играј и ти"
+msgstr "Play it yourself"
+
+msgid "обрисао резултат"
+msgstr "deleted a result"
+
+msgid "обрисао линк"
+msgstr "deleted a link"
+
+msgid "додао модератора"
+msgstr "added a moderator"
+
+msgid "искључио модератора"
+msgstr "disabled a moderator"
+
+msgid "укључио модератора"
+msgstr "re-enabled a moderator"
+
+msgid "Име налога је обавезно."
+msgstr "Username is required."
+
+msgid "Лозинка је обавезна."
+msgstr "Password is required."
+
+msgid "Лозинке се не поклапају."
+msgstr "The passwords do not match."
+
+msgid "Не можеш да искључиш сопствени налог."
+msgstr "You cannot disable your own account."
+
+#, python-format
+msgid "Име налога може имати највише %(broj)s знакова."
+msgstr "Username can be at most %(broj)s characters long."
+
+msgid "Име налога сме да има само слова, цифре и знакове @ . + - _."
+msgstr "Username may contain only letters, digits and @ . + - _."
+
+msgid "Налог са тим именом већ постоји."
+msgstr "An account with that username already exists."
+
+msgid "Резултат је обрисан."
+msgstr "The result was deleted."
+
+msgid "Линк је обрисан."
+msgstr "The link was deleted."
+
+msgid "Модератор је додат."
+msgstr "The moderator was added."
+
+msgid "Модератор је искључен."
+msgstr "The moderator was disabled."
+
+msgid "Модератор је поново укључен."
+msgstr "The moderator was re-enabled."
+
+msgid "Превише неуспелих покушаја. Покушај поново за 15 минута."
+msgstr "Too many failed attempts. Try again in 15 minutes."
+
+msgid "Погрешно име или лозинка."
+msgstr "Wrong username or password."
+
+msgid "Потребна је пријава модератора."
+msgstr "Moderator sign-in required."
+
+msgid "Резултат не постоји или је већ обрисан."
+msgstr "The result does not exist or was already deleted."
+
+msgid "Линк не постоји или је већ обрисан."
+msgstr "The link does not exist or was already deleted."
+
+msgid "Модератор не постоји."
+msgstr "The moderator does not exist."
+
+msgid "Модератор је уклонио резултат ове партије."
+msgstr "A moderator removed the result of this game."
+
+msgid "Модератор је уклонио резултат ове партије са ранг листе."
+msgstr "A moderator removed the result of this game from the leaderboard."
+
+msgid "Модератор је уклонио линк за дељење ове партије."
+msgstr "A moderator removed the share link of this game."
+
+msgid "Стране"
+msgstr "Pages"
+
+msgid "Претходна"
+msgstr "Previous"
+
+#, python-format
+msgid "Страна %(broj)s од %(ukupno)s"
+msgstr "Page %(broj)s of %(ukupno)s"
+
+msgid "Следећа"
+msgstr "Next"
+
+msgid "Дневник модерације"
+msgstr "Moderation log"
+
+msgid "развијалац"
+msgstr "developer"
+
+msgid "Дневник је празан."
+msgstr "The log is empty."
+
+msgid "Подељени линкови"
+msgstr "Shared links"
+
+msgid "без сачуваног резултата"
+msgstr "no saved result"
+
+#, python-format
+msgid "партија од %(datum)s"
+msgstr "game of %(datum)s"
+
+msgid "Отвори линк"
+msgstr "Open link"
+
+msgid "Обриши линк"
+msgstr "Delete link"
+
+msgid "Нема подељених линкова."
+msgstr "No shared links yet."
+
+msgid "Модератори"
+msgstr "Moderators"
+
+msgid "ти"
+msgstr "you"
+
+msgid "активан"
+msgstr "active"
+
+msgid "искључен"
+msgstr "disabled"
+
+msgid "Искључи"
+msgstr "Disable"
+
+msgid "Укључи"
+msgstr "Enable"
+
+msgid "Искључен модератор не може да се пријави, а већ отворена сесија губи приступ одмах."
+msgstr "A disabled moderator cannot sign in, and an open session loses access immediately."
+
+msgid "Додај модератора"
+msgstr "Add a moderator"
+
+msgid "Име налога"
+msgstr "Username"
+
+msgid "Лозинка"
+msgstr "Password"
+
+msgid "Најмање 10 знакова; не сме бити честа лозинка, ни само од цифара, ни слична имену."
+msgstr "At least 10 characters; not a common password, not only digits, and not similar to the username."
+
+msgid "Поново лозинка"
+msgstr "Password again"
+
+msgid "Додај"
+msgstr "Add"
+
+msgid "Модерација"
+msgstr "Moderation"
+
+msgid "Одјави се"
+msgstr "Sign out"
+
+msgid "Резултати"
+msgstr "Results"
+
+msgid "Линкови"
+msgstr "Links"
+
+msgid "Дневник"
+msgstr "Log"
+
+msgid "Обрисати резултат?"
+msgstr "Delete this result?"
+
+msgid "Брисање је коначно: резултат нестаје са ранг листе и играч не може поново да сачува ову партију."
+msgstr "Deletion is final: the result leaves the leaderboard and the player cannot save this game again."
+
+msgid "Обрисати линк?"
+msgstr "Delete this link?"
+
+msgid "Брисање је коначно: линк престаје да ради и за ову партију се не прави нови. Резултат на ранг листи остаје."
+msgstr "Deletion is final: the link stops working and no new link is made for this game. The leaderboard result stays."
+
+msgid "Брисање се бележи у дневник, са твојим именом и временом."
+msgstr "Deletions are recorded in the log, with your name and the time."
+
+msgid "Одустани"
+msgstr "Cancel"
+
+msgid "Обриши"
+msgstr "Delete"
+
+msgid "Пријава модератора"
+msgstr "Moderator sign-in"
+
+msgid "Пријави се"
+msgstr "Sign in"
+
+msgid "Играчима налог није потребан."
+msgstr "Players do not need an account."
+
+msgid "Назад на игру"
+msgstr "Back to the game"
+
+msgid "Резултати на ранг листи"
+msgstr "Leaderboard results"
+
+msgid "Обриши резултат"
+msgstr "Delete result"
+
+msgid "Захтев није исправан"
+msgstr "Invalid request"
+
+msgid "Врати се на почетну и покушај поново."
+msgstr "Go back to the start page and try again."
+
+msgid "Страница не постоји"
+msgstr "Page not found"
+
+msgid "Адреса није исправна или је модератор уклонио овај резултат."
+msgstr "The address is wrong, or a moderator removed this result."
+
+msgid "Нешто није у реду"
+msgstr "Something went wrong"
+
+msgid "Грешка је на нашој страни и забележена је. Покушај поново за неколико минута."
+msgstr "The error is on our side and has been logged. Try again in a few minutes."
+
+msgid "На почетну"
+msgstr "Back to start"
+
+msgid "Данашњи изазов је већ одигран."
+msgstr "Today's challenge has already been played."
+
+msgid "Дневни изазов"
+msgstr "Daily challenge"
+
+msgid "Ранг листа дана"
+msgstr "Today's leaderboard"
+
+msgid "Данас још нико није сачувао резултат."
+msgstr "Nobody has saved a result today yet."
+
+msgid "Место"
+msgstr "Rank"
+
+msgid "Име"
+msgstr "Name"
+
+msgid "Поени"
+msgstr "Points"
+
+msgid "Оцена"
+msgstr "Rating"
+
+msgid "Сачувано"
+msgstr "Saved"
+
+msgid "Дан мора бити у облику ГГГГ-ММ-ДД."
+msgstr "The day must be in YYYY-MM-DD format."
+
+msgid "Непозната листа."
+msgstr "Unknown leaderboard."
+
+msgid "Преузми ранг листу (CSV)"
+msgstr "Download leaderboard (CSV)"
+
+msgid "Дан"
+msgstr "Day"
+
+msgid "Преузми листу дана (CSV)"
+msgstr "Download daily leaderboard (CSV)"
+
+msgid "задржао пријављени резултат"
+msgstr "kept a reported result"
+
+msgid "Резултат је задржан."
+msgstr "The result was kept."
+
+msgid "Пријава не постоји или је већ решена."
+msgstr "The report does not exist or was already resolved."
+
+msgid "Пријави неприкладно име"
+msgstr "Report an inappropriate name"
+
+#, python-format
+msgid "Пријави име „%(ime)s“"
+msgstr "Report the name “%(ime)s”"
+
+msgid "Пријаве"
+msgstr "Reports"
+
+msgid "Пријављена имена"
+msgstr "Reported names"
+
+#, python-format
+msgid "пријављено %(vreme)s"
+msgstr "reported %(vreme)s"
+
+msgid "Задржи"
+msgstr "Keep"
+
+msgid "Пријављено име остаје на ранг листи док не одлучиш. Задржан резултат играчи више не могу да пријаве, а брисање је коначно."
+msgstr "A reported name stays on the leaderboard until you decide. Players can no longer report a kept result, and deletion is final."
+
+msgid "Нема пријављених имена."
+msgstr "No reported names."
+
+msgid "Пријава имена"
+msgstr "Report a name"
+
+msgid "Ако је ово име неприкладно, пријави га. Модератор ће га прегледати и одлучити да ли резултат остаје на ранг листи. До тада се име и даље види."
+msgstr "If this name is inappropriate, report it. A moderator will review it and decide whether the result stays on the leaderboard. Until then the name remains visible."
+
+msgid "Пријави"
+msgstr "Report"
+
+msgid "Име је пријављено. Модератор ће га прегледати и одлучити да ли резултат остаје на ранг листи."
+msgstr "The name has been reported. A moderator will review it and decide whether the result stays on the leaderboard."
+
+msgid "Модератор је прегледао ово име и оставио резултат на ранг листи."
+msgstr "A moderator has reviewed this name and kept the result on the leaderboard."
+
+msgid "Назад на ранг листу"
+msgstr "Back to the leaderboard"
+
+msgid "Страница „О нама“"
+msgstr "“About us” page"
+
+msgid "Звук исхода круга"
+msgstr "Round outcome sound"
+
+msgid "Како се игра"
+msgstr "How to play"
+
+msgid "Циљ"
+msgstr "Goal"
+
+#, python-format
+msgid "Водиш израду веб апликације у %(broj_krugova)s кругова. У сваком кругу AI агент ради један задатак, а ти бираш како ће га урадити."
+msgstr "You lead the build of a web application over %(broj_krugova)s rounds. In each round an AI agent does one task, and you choose how it will do it."
+
+#, python-format
+msgid "Циљ је да завршиш са што више поена, у буџету од %(budzet)s $ и року од %(rok)s мин. Задаци нису исти, па ни најбољи избор није увек исти."
+msgstr "The goal is to finish with as many points as possible, within a budget of %(budzet)s $ and a deadline of %(rok)s min. Tasks are not all alike, so the best choice is not always the same."
+
+msgid "Један круг"
+msgstr "One round"
+
+msgid "Прочиташ назив задатка."
+msgstr "Read the name of the task."
+
+msgid "Изабереш по једну опцију у све четири групе. Уз модел пише његова цена по милиону токена, а уз остале опције колико мењају токене и време. Више токена значи већу цену."
+msgstr "Pick one option in each of the four groups. Each model shows its price per million tokens, and the other options show how they change tokens and time. More tokens means a higher price."
+
+msgid "Потврдиш потез. Видиш исход, цену и минуте тог круга и колико је остало од буџета и рока."
+msgstr "Confirm the move. You see the outcome, the price and minutes of that round, and how much budget and time is left."
+
+msgid "Исход круга"
+msgstr "Round outcome"
+
+msgid "Задатак је урађен."
+msgstr "The task is finished."
+
+#, python-format
+msgid "Грешка се види одмах. Цена и минути тог круга се множе са %(dorada_puta)s, а на крају губиш %(dorada_poeni)s поена. Игра иде на следећи круг."
+msgstr "The error shows right away. The price and minutes of that round are multiplied by %(dorada_puta)s, and at the end you lose %(dorada_poeni)s points. The game moves on to the next round."
+
+msgid "Тиха грешка"
+msgstr "Silent error"
+
+#, python-format
+msgid "Неке грешке се не виде одмах: круг пише „%(status_gotovo)s“, исто као када успе. Открива их завршна провера после последњег круга. Тада се укупној цени додаје цена тог задатка ×%(tihi_cena_puta)s, укупним минутима његови минути ×%(tihi_minuti_puta)s, и губиш %(tihi_poeni)s поена."
+msgstr "Some errors do not show right away: the round says “%(status_gotovo)s”, just like a success. The final check after the last round uncovers them. Then the price of that task ×%(tihi_cena_puta)s is added to the total price, its minutes ×%(tihi_minuti_puta)s to the total minutes, and you lose %(tihi_poeni)s points."
+
+msgid "Пример једног круга"
+msgstr "Example of one round"
+
+msgid "Задатак је измишљен и није у игри. Бројеви су израчунати по правилима игре."
+msgstr "The task is made up and is not in the game. The numbers follow the game rules."
+
+msgid "Избор"
+msgstr "Choice"
+
+msgid "Ако би исти круг био враћен на дораду:"
+msgstr "If the same round were sent back for rework:"
+
+#, python-format
+msgid "Да је грешка тиха, круг би изгледао као први: „%(status_gotovo)s“, са истом ценом и минутима. Трошак и казна стижу тек на завршној провери."
+msgstr "If the error were silent, the round would look like the first one: “%(status_gotovo)s”, with the same price and minutes. The cost and the penalty arrive only at the final check."
+
+msgid "Поени и оцена"
+msgstr "Points and grade"
+
+#, python-format
+msgid "Почињеш са %(pocetni_poeni)s поена. Поени не падају испод %(najmanje_poena)s."
+msgstr "You start with %(pocetni_poeni)s points. Points never drop below %(najmanje_poena)s."
+
+msgid "Прекорачење буџета или рока не прекида игру. Рачуна се на крају, после трошкова тихих грешака."
+msgstr "Going over the budget or the deadline does not stop the game. It is counted at the end, after the costs of silent errors."
+
+#, python-format
+msgid "Прекорачен буџет: −%(kazna_budzet)s поена за сваких започетих %(korak_budzeta)s процената прекорачења (%(korak_budzeta_iznos)s $), највише −%(kazna_budzet_max)s."
+msgstr "Budget overrun: −%(kazna_budzet)s points for every started %(korak_budzeta)s percent of overrun (%(korak_budzeta_iznos)s $), at most −%(kazna_budzet_max)s."
+
+#, python-format
+msgid "Прекорачен буџет: −%(kazna_budzet)s поена."
+msgstr "Budget overrun: −%(kazna_budzet)s points."
+
+#, python-format
+msgid "Прекорачен рок: −%(kazna_rok)s поена."
+msgstr "Missed deadline: −%(kazna_rok)s points."
+
+msgid "После игре"
+msgstr "After the game"
+
+msgid "Завршни екран показује поене, оцену, тихе грешке и лекције."
+msgstr "The final screen shows points, grade, silent errors and lessons."
+
+msgid "Резултат можеш да сачуваш на ранг листи под својим именом, а линком за дељење да га покажеш другима."
+msgstr "You can save the result on the leaderboard under your name, and show it to others with the share link."
+
+msgid "Дневни изазов је исти за све играче тог дана, игра се једном дневно и има своју ранг листу."
+msgstr "The daily challenge is the same for all players that day, can be played once a day and has its own leaderboard."
+
+#, python-format
+msgid "Почетни екран показује твојих последњих %(broj_u_istoriji)s завршених партија у овом прегледачу."
+msgstr "The start screen shows your last %(broj_u_istoriji)s finished games in this browser."
+
+msgid "Звук исхода круга укључујеш и искључујеш дугметом на екрану игре."
+msgstr "Turn the round outcome sound on and off with the button on the game screen."
+
+msgid "Назад"
+msgstr "Back"
+
+msgid "Статистика"
+msgstr "Statistics"
+
+#, python-format
+msgid "Статистика за последњих %(broj)s дана"
+msgstr "Statistics for the last %(broj)s days"
+
+msgid "Завршене партије, обичне и дневни изазов, по дану завршетка. Недовршене партије се не броје."
+msgstr "Finished games, regular and daily challenge, by day of finishing. Unfinished games are not counted."
+
+msgid "Партије"
+msgstr "Games"
+
+msgid "Просек поена"
+msgstr "Average points"
+
+msgid "данас"
+msgstr "today"
+
+msgid "Укупно"
+msgstr "Total"
+
+msgid "Моје партије"
+msgstr "My games"
+
+msgid "дневни изазов"
+msgstr "daily challenge"

@@ -1,0 +1,62 @@
+{% load i18n static %}{% get_current_language as JEZIK %}<!doctype html>
+<html lang="{{ JEZIK }}">
+{# Osnova svih moderatorskih strana. Bez skripte: sve su obicne forme (POST + preusmerenje). Naslov strane menja blok "glava". #}
+{% block glava %}{% translate "Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}<body class="igra-telo">
+
+{% include "igra/_ikone.html" %}
+
+<div class="container igra-okvir">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+
+      <header class="vrh">
+        <div class="vrh-naslov">
+          <span class="znak"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg></span>
+          <div class="vrh-tekst">
+            <p class="naslov">{% translate "Оркестратор" %}</p>
+            <p class="krug">{% translate "Модератор" %}</p>
+          </div>
+          {# Jezik: POST na set_language i nazad na ovu stranu (next proverava Django). #}
+          <form class="jezik" method="post" action="{% url 'jezik' %}" aria-label="{% translate 'Језик' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            {% if JEZIK == "sr" %}
+            <button type="submit" class="btn jezik-dugme dugme-sporedno" name="language" value="en" lang="en">English</button>
+            {% else %}
+            <button type="submit" class="btn jezik-dugme dugme-sporedno" name="language" value="sr" lang="sr">Српски</button>
+            {% endif %}
+          </form>
+        </div>
+
+        {% block meni %}{% if ja %}
+        <p class="mod-ja">{% translate "Пријављени сте као" %} <bdi>{{ ja }}</bdi></p>
+        <nav class="mod-meni" aria-label="{% translate 'Мени' %}">
+          <ul class="mod-lista">
+            {% if not obavezna %}
+            <li><a class="btn mod-veza dugme-sporedno" href="{% url 'moderator' %}"{% if request.resolver_match.url_name == 'moderator' or request.resolver_match.url_name == 'moderator_rezultat' or request.resolver_match.url_name == 'moderator_link' %} aria-current="page"{% endif %}>{% translate "Преглед" %}</a></li>
+            <li><a class="btn mod-veza dugme-sporedno" href="{% url 'moderator_dnevnik' %}"{% if request.resolver_match.url_name == 'moderator_dnevnik' %} aria-current="page"{% endif %}>{% translate "Дневник" %}</a></li>
+            <li><a class="btn mod-veza dugme-sporedno" href="{% url 'moderator_statistika' %}"{% if request.resolver_match.url_name == 'moderator_statistika' %} aria-current="page"{% endif %}>{% translate "Статистика" %}</a></li>
+            <li><a class="btn mod-veza dugme-sporedno" href="{% url 'moderator_lozinka' %}"{% if request.resolver_match.url_name == 'moderator_lozinka' %} aria-current="page"{% endif %}>{% translate "Лозинка" %}</a></li>
+            {# Samo glavnom; obican moderator na ovu rutu ionako dobija 403 (server odlucuje, meni samo ne nudi vezu). #}
+            {% if glavni %}<li><a class="btn mod-veza dugme-sporedno" href="{% url 'moderator_nalozi' %}"{% if request.resolver_match.url_name == 'moderator_nalozi' or request.resolver_match.url_name == 'moderator_nalozi_nalog' %} aria-current="page"{% endif %}>{% translate "Модератори" %}</a></li>{% endif %}
+            {% endif %}
+            <li>
+              <form method="post" action="{% url 'moderator_odjava' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn mod-veza dugme-sporedno">{% translate "Одјави се" %}</button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+        {% endif %}{% endblock %}
+      </header>
+
+      <main>
+{% block sadrzaj %}{% endblock %}
+      </main>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

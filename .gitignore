@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+# Word drzi zakljucavajuci fajl dok je dokument otvoren
+~$*
+# poredjenje verzija rada, nije deo plugina
+izmene_v3_v4.diff
+# logovi merenja (upiti su pun tekst) i izvestaji
+.claude/usage/
+*.log
+# venv igara iz eksperimenta (pravi ga eksperiment/pokreni.sh)
+eksperiment/igre/*/.venv/
+# baze igara: sesije sa semenima i hesevi lozinki moderatora; pokreni.sh pravi novu praznu bazu
+eksperiment/igre/**/db.sqlite3*

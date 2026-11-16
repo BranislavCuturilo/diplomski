@@ -1,0 +1,47 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Модератори · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+{# Samo glavni (server vraca 403 ostalima). Imena su tudji unos: autoescape u <bdi>. Lozinke nikad kao value. #}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg>{% translate "Модератори" %}</h1>
+
+  {% if odbijeno %}
+  <p class="mod-poruka mod-poruka-greska" role="alert">{% if odbijeno == "ne_sebe" %}{% translate "Не можете деактивирати свој налог." %}{% elif odbijeno == "poslednji_glavni" %}{% translate "Мора остати бар један активан главни модератор." %}{% else %}{% translate "Радња није дозвољена." %}{% endif %}</p>
+  {% endif %}
+
+  <ul class="list-group mod-spisak">
+    {% for n in nalozi %}
+    <li class="list-group-item mod-stavka">
+      <div class="mod-stavka-tekst">
+        <p class="mod-stavka-ime"><bdi>{{ n.ime }}</bdi>{% if n.ja %} <span class="mod-bez">({% translate "ваш налог" %})</span>{% endif %}</p>
+        <p class="mod-znacke">
+          {% if n.aktivan %}<span class="mod-znacka mod-znacka-ok">{% translate "активан" %}</span>{% else %}<span class="mod-znacka mod-znacka-stop">{% translate "неактиван" %}</span>{% endif %}
+          {% if n.glavni %}<span class="mod-znacka">{% translate "Главни модератор" %}</span>{% endif %}
+          {% if n.mora_promeniti %}<span class="mod-znacka mod-znacka-pazi">{% translate "мора да промени лозинку" %}</span>{% endif %}
+        </p>
+        <dl class="mod-meta">
+          <div><dt>{% translate "Последња пријава" %}</dt><dd>{% if n.poslednja_prijava %}{{ n.poslednja_prijava }}{% else %}{% translate "никад" %}{% endif %}</dd></div>
+        </dl>
+      </div>
+      <a class="btn dugme dugme-sporedno mod-radnja" href="{% url 'moderator_nalozi_nalog' n.id %}">{% translate "Управљај" %}<span class="visually-hidden">: <bdi>{{ n.ime }}</bdi></span></a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="mod-karta" aria-labelledby="mod-dodaj">
+  <h2 id="mod-dodaj" class="mod-naslov">{% translate "Додај модератора" %}</h2>
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    {% for greska in forma.non_field_errors %}
+    <p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>
+    {% endfor %}
+    {% include "igra/_polje.html" with polje=forma.ime oznaka=_("Корисничко име") autocomplete="off" %}
+    {% include "igra/_polje.html" with polje=forma.lozinka1 oznaka=_("Лозинка") autocomplete="new-password" %}
+    {% include "igra/_polje.html" with polje=forma.lozinka2 oznaka=_("Лозинка поново") autocomplete="new-password" %}
+    {% include "igra/_polje.html" with polje=forma.glavni oznaka=_("Главни модератор") %}
+    {% include "igra/_polje.html" with polje=forma.moja_lozinka oznaka=_("Ваша лозинка") autocomplete="current-password" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Додај" %}</button>
+  </form>
+</section>
+{% endblock %}

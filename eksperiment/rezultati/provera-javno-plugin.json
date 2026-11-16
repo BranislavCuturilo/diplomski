@@ -1,0 +1,82 @@
+{
+ "strana": "plugin",
+ "prolazi": 15,
+ "ukupno": 15,
+ "provere": [
+  {
+   "provera": "bez tajnog kljuca aplikacija odbija da krene i imenuje promenljivu",
+   "ok": true,
+   "detalj": "or\\settings_prod.py\", line 22, in _obavezno\n    raise _nije_postavljena(ime)\ndjango.core.exceptions.ImproperlyConfigured: Promenljiva okruzenja DJANGO_SECRET_KEY nije postavljena (deploy/env.primer).\n"
+  },
+  {
+   "provera": "korak iz uputstva prolazi: collectstatic --noinput",
+   "ok": true,
+   "detalj": "\n3 static files copied to 'C:\\Users\\Bane\\AppData\\Local\\Temp\\tmp7knsoicr\\projekat\\staticfiles'.\n"
+  },
+  {
+   "provera": "korak iz uputstva prolazi: migrate --noinput",
+   "ok": true,
+   "detalj": ".. OK\n  Applying igra.0007_pravila_opseg... OK\n  Applying igra.0008_pravila_nabrajanje... OK\n  Applying igra.0009_moderator... OK\n  Applying igra.0010_dnevnik_okidac... OK\n  Applying igra.0011_dnevnik_bez_zamene... OK\n  Applying igra.0012_pokusaj_prijave... OK\n  Applying sessions.0001_initial... OK\n"
+  },
+  {
+   "provera": "check --deploy bez upozorenja",
+   "ok": true,
+   "detalj": "System check identified no issues (2 silenced).\n"
+  },
+  {
+   "provera": "http preusmerava na https",
+   "ok": true,
+   "detalj": "(301, 'https://orkestrator.example/')"
+  },
+  {
+   "provera": "nepoznat Host odbijen (400)",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "pocetna strana radi (200)",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "svi kolacici samo preko HTTPS-a (Secure)",
+   "ok": true,
+   "detalj": "['csrftoken=HA0JP1N73tVWLjXLKIPBk3DciHqsHFsH; expires=Thu, 11 Nov 2027 09:57:35 GMT; Max-Age=31449600; Path=/; SameSite=Lax; Secure', 'sessionid=1p44lab7l8h9art10npxkzevp9bsjnr8; expires=Thu, 26 Nov 2026 09:57:35 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax; Secure']"
+  },
+  {
+   "provera": "HSTS zaglavlje postoji",
+   "ok": true,
+   "detalj": "max-age=3600"
+  },
+  {
+   "provera": "zaglavlja: nosniff, X-Frame-Options, Referrer-Policy",
+   "ok": true,
+   "detalj": "('nosniff', 'DENY', 'same-origin')"
+  },
+  {
+   "provera": "staticke datoteke iz strane postoje u direktorijumu koji servira nginx",
+   "ok": true,
+   "detalj": "[('/static/igra/bootstrap-5.3.8.min.css', True), ('/static/igra/igra.css', True), ('/static/igra/igra.js', True)]"
+  },
+  {
+   "provera": "404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "neuspela prijava radi bez greske 500",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "40 istovremenih igraca: bez 5xx i svi rezultati sacuvani",
+   "ok": true,
+   "detalj": "5xx 0, izuzeci [], sacuvano 40/40, 4.1 s"
+  },
+  {
+   "provera": "rezervna kopija nastaje i ispravna je (integrity_check)",
+   "ok": true,
+   "detalj": "izlaz 0, kopije ['C:\\\\Users\\\\Bane\\\\AppData\\\\Local\\\\Temp\\\\tmp7knsoicr\\\\kopije\\\\kopija.sqlite3'], kopija: C:\\Users\\Bane\\AppData\\Local\\Temp\\tmp7knsoicr\\kopije\\kopija.sqlite3 (integrity_check: ok)\n"
+  }
+ ]
+}

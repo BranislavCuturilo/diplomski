@@ -1,0 +1,32 @@
+[Unit]
+Description=Orkestrator (gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=orkestrator
+Group=orkestrator
+WorkingDirectory=/srv/orkestrator/app
+EnvironmentFile=/etc/orkestrator/orkestrator.env
+Environment=DJANGO_SETTINGS_MODULE=orkestrator.settings_produkcija
+Environment=PYTHONDONTWRITEBYTECODE=1
+# /run/orkestrator za socket; brise se kada servis stane.
+RuntimeDirectory=orkestrator
+RuntimeDirectoryMode=0750
+ExecStart=/srv/orkestrator/venv/bin/gunicorn --config deploy/gunicorn.conf.py orkestrator.wsgi
+# "systemctl reload orkestrator" menja procese jedan po jedan, bez prekida igre.
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+Restart=on-failure
+RestartSec=3
+
+# Servis sme da pise samo u bazu; kod i staticke datoteke su mu samo za citanje.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ReadWritePaths=/var/lib/orkestrator
+
+[Install]
+WantedBy=multi-user.target

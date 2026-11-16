@@ -1,0 +1,6 @@
+# Orkestrator: pretrazivaci vide samo pocetnu stranu. Deljeni linkovi (/r/) su licni i nose noindex,
+# a svaki nepotreban zahtev na / pravi sesiju u bazi (plan 15.5).
+User-agent: *
+Allow: /$
+Allow: /static/
+Disallow: /

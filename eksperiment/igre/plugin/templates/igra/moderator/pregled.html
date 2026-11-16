@@ -1,0 +1,114 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Преглед · Модератор · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{% block sadrzaj %}
+<h1 class="visually-hidden">{% translate "Преглед" %}</h1>
+
+{# poruka je kod ("obrisano", "vec_obrisano", "ostavljeno", "vec_reseno") ili prazna; nepoznat kod prikaz ne salje. #}
+{% if poruka == "obrisano" %}
+<p class="mod-poruka mod-poruka-ok" role="status">{% translate "Обрисано." %}</p>
+{% elif poruka == "vec_obrisano" %}
+<p class="mod-poruka mod-poruka-info" role="status">{% translate "Ово је већ обрисано." %}</p>
+{% elif poruka == "ostavljeno" %}
+<p class="mod-poruka mod-poruka-ok" role="status">{% translate "Име је остављено, а пријаве су уклоњене." %}</p>
+{% elif poruka == "vec_reseno" %}
+<p class="mod-poruka mod-poruka-info" role="status">{% translate "Ове пријаве су већ решене." %}</p>
+{% endif %}
+
+{# Prijavljena imena (odluka 2026-11-12): moderator brise rezultat (postojeca potvrda) ili ostavlja ime (POST, odluka ide u dnevnik). Imena su tudji unos: samo autoescape u <bdi>, nikad |safe ni atribut. #}
+<section class="mod-karta" aria-labelledby="mod-prijavljena">
+  <h2 id="mod-prijavljena" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-granica"/></svg>{% translate "Пријављена имена" %}</h2>
+  {% if prijavljeni %}
+  <p class="mod-uvod">{% translate "Играчи су пријавили ова имена као неприкладна. Обришите резултат или оставите име; остављено име се више не појављује међу пријављенима." %}</p>
+  <ul class="list-group mod-spisak">
+    {% for r in prijavljeni %}
+    <li class="list-group-item mod-stavka">
+      <div class="mod-stavka-tekst">
+        <p class="mod-stavka-ime"><span class="mod-mesto">{{ r.mesto }}.</span> <bdi>{{ r.ime }}</bdi>{% if r.javno %} <span class="mod-znacka">{% translate "јавно" %}</span>{% endif %}{% if r.dan %} <span class="mod-znacka">{% translate "дневни изазов" %}</span>{% endif %}</p>
+        <dl class="mod-meta">
+          <div><dt>{% translate "Број пријава" %}</dt><dd>{{ r.prijava }}</dd></div>
+          <div><dt>{% translate "Прва пријава" %}</dt><dd>{{ r.prva_prijava }}</dd></div>
+          <div><dt>{% translate "Поени" %}</dt><dd>{{ r.poeni }}</dd></div>
+          <div><dt>{% translate "Оцена" %}</dt><dd>{{ r.ocena }}</dd></div>
+          <div><dt>{% translate "Датум" %}</dt><dd>{{ r.datum }}</dd></div>
+        </dl>
+      </div>
+      <div class="mod-radnje">
+        <form method="post" action="{% url 'moderator_ostavi' r.id %}">
+          {% csrf_token %}
+          {# Translators: dugme uz prijavljeno ime: ime ostaje na rang listi. #}
+          <button type="submit" class="btn dugme dugme-sporedno mod-radnja">{% translate "Остави" %}<span class="visually-hidden">: <bdi>{{ r.ime }}</bdi></span></button>
+        </form>
+        <a class="btn dugme dugme-sporedno mod-radnja mod-obrisi" href="{% url 'moderator_rezultat' r.id %}">{% translate "Обриши" %}<span class="visually-hidden">: <bdi>{{ r.ime }}</bdi></span></a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="rang-prazno">{% translate "Нема пријављених имена." %}</p>
+  {% endif %}
+</section>
+
+{# Dve liste istim isecakom: glavna i danasnja dnevna. Imena su tudji unos: samo autoescape u <bdi>, nikad |safe ni atribut. #}
+{% translate "Главна ранг листа" as naslov_glavne %}{% translate "Још нема сачуваних резултата." as prazno_glavne %}
+{% url "moderator_izvoz_glavne" as izvoz_glavne %}{% include "igra/moderator/_rezultati.html" with izvoz=izvoz_glavne lista=rezultati oznaka="mod-rezultati" naslov=naslov_glavne ikona="ik-pehar" prazno=prazno_glavne %}
+{% translate "Дневни изазов, данас" as naslov_dana %}{% translate "Данас још нема сачуваних резултата." as prazno_dana %}
+{% url "moderator_izvoz_dana" as izvoz_dana %}{% include "igra/moderator/_rezultati.html" with izvoz=izvoz_dana lista=rezultati_dana oznaka="mod-rezultati-dana" naslov=naslov_dana ikona="ik-rok" prazno=prazno_dana %}
+
+<section class="mod-karta" aria-labelledby="mod-linkovi">
+  <h2 id="mod-linkovi" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg>{% translate "Подељени линкови" %}</h2>
+
+  {# Pretraga linka: POST, da token ne ostane u URL-u ni u logu. Uneto se ne vraca u polje. #}
+  <form method="post" action="{% url 'moderator' %}" class="mod-forma" novalidate>
+    {% csrf_token %}
+    <div class="mod-grupa">
+      <label class="mod-oznaka" for="mod-token">{% translate "Пронађи линк" %}</label>
+      <input type="text" class="form-control mod-polje" name="token" id="mod-token" autocomplete="off" spellcheck="false" autocapitalize="off" aria-describedby="mod-token-pomoc">
+      <div class="form-text mod-pomoc" id="mod-token-pomoc">{% translate "Налепите линк који је играч поделио." %}</div>
+    </div>
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Пронађи" %}</button>
+  </form>
+
+  {# pronadjen: red kad je link nadjen, False kad je trazen a nije nadjen, None kad pretrage nije bilo. #}
+  {% if pronadjen %}
+  <h3 class="odeljak-naslov">{% translate "Пронађен линк" %}</h3>
+  <ul class="list-group mod-spisak">
+    <li class="list-group-item mod-stavka">
+      <div class="mod-stavka-tekst">
+        <p class="mod-stavka-ime">{% if pronadjen.ime %}<bdi>{{ pronadjen.ime }}</bdi>{% else %}<span class="mod-bez">{% translate "(без имена)" %}</span>{% endif %}</p>
+        <dl class="mod-meta">
+          <div><dt>{% translate "Поени" %}</dt><dd>{{ pronadjen.poeni }}</dd></div>
+          <div><dt>{% translate "Оцена" %}</dt><dd>{{ pronadjen.ocena }}</dd></div>
+          <div><dt>{% translate "Настао" %}</dt><dd>{{ pronadjen.nastao }}</dd></div>
+          <div><dt>{% translate "Истиче" %}</dt><dd>{{ pronadjen.istice }}</dd></div>
+        </dl>
+      </div>
+      <a class="btn dugme dugme-sporedno mod-radnja mod-obrisi" href="{% url 'moderator_link' pronadjen.id %}">{% translate "Обриши" %}</a>
+    </li>
+  </ul>
+  {% elif pronadjen is False %}
+  <p class="mod-poruka mod-poruka-info" role="status">{% translate "Тај линк не постоји или више није доступан." %}</p>
+  {% endif %}
+
+  <h3 class="odeljak-naslov">{% translate "Најновији линкови" %}</h3>
+  {% if deljeni %}
+  <ul class="list-group mod-spisak">
+    {% for d in deljeni %}
+    <li class="list-group-item mod-stavka">
+      <div class="mod-stavka-tekst">
+        <p class="mod-stavka-ime">{% if d.ime %}<bdi>{{ d.ime }}</bdi>{% else %}<span class="mod-bez">{% translate "(без имена)" %}</span>{% endif %}</p>
+        <dl class="mod-meta">
+          <div><dt>{% translate "Поени" %}</dt><dd>{{ d.poeni }}</dd></div>
+          <div><dt>{% translate "Оцена" %}</dt><dd>{{ d.ocena }}</dd></div>
+          <div><dt>{% translate "Настао" %}</dt><dd>{{ d.nastao }}</dd></div>
+          <div><dt>{% translate "Истиче" %}</dt><dd>{{ d.istice }}</dd></div>
+        </dl>
+      </div>
+      <a class="btn dugme dugme-sporedno mod-radnja mod-obrisi" href="{% url 'moderator_link' d.id %}">{% translate "Обриши" %}{% if d.ime %}<span class="visually-hidden">: <bdi>{{ d.ime }}</bdi></span>{% endif %}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="rang-prazno">{% translate "Нема подељених линкова." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "enabledPlugins": {
+    "diplomski@skills-dir": true,
+    "brain@skills-dir": false
+  },
+  "permissions": {
+    "allow": [
+      "Read(//c/poredjenje-orkestrator/plugin/config/skills/diplomski/**)"
+    ]
+  }
+}

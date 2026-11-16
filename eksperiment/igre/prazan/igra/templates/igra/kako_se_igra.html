@@ -1,0 +1,105 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% comment %}
+Pravila i primer jednog kruga. Svi brojevi dolaze iz parametara (servis.kontekst_pravila).
+Stranica ne sme da otkrije sansu, bonuse, tezinu ni koji su zadaci tihi (pravilo 1), pa primer
+koristi izmisljen zadatak, a pravi zadaci se ovde ne navode.
+{% endcomment %}
+{% block sadrzaj %}
+<header class="zaglavlje">
+  <h1 class="logo"><svg class="ikona" aria-hidden="true"><use href="#ik-pitanje"/></svg>{% translate "Како се игра" %}</h1>
+</header>
+
+<section id="cilj" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-palica"/></svg>{% translate "Циљ" %}</h2>
+  <p>{% blocktranslate %}Водиш израду веб апликације у {{ broj_krugova }} кругова. У сваком кругу AI агент ради један задатак, а ти бираш како ће га урадити.{% endblocktranslate %}</p>
+  <p class="mb-0">{% blocktranslate %}Циљ је да завршиш са што више поена, у буџету од {{ budzet }} $ и року од {{ rok }} мин. Задаци нису исти, па ни најбољи избор није увек исти.{% endblocktranslate %}</p>
+</section>
+
+<section id="jedan-krug" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-krug"/></svg>{% translate "Један круг" %}</h2>
+  <ol class="koraci">
+    <li>{% translate "Прочиташ назив задатка." %}</li>
+    <li>{% translate "Изабереш по једну опцију у све четири групе. Уз модел пише његова цена по милиону токена, а уз остале опције колико мењају токене и време. Више токена значи већу цену." %}</li>
+    <li>{% translate "Потврдиш потез. Видиш исход, цену и минуте тог круга и колико је остало од буџета и рока." %}</li>
+  </ol>
+  <div class="pravila-opcije">
+    {% for grupa in opcije %}
+    <div class="pravila-grupa">
+      <h3 class="grupa-naslov">{{ grupa.naslov }}</h3>
+      <ul class="pravila-lista">
+        {% for opcija in grupa.opcije %}<li><svg class="pravila-ikona" aria-hidden="true"><use href="#ik-{{ grupa.polje }}-{{ opcija.kljuc }}"/></svg><span><strong>{{ opcija.naziv }}</strong> <span class="pravila-detalji">{{ opcija.detalji|join:" · " }}</span></span></li>{% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="ishodi" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-gotovo"/></svg>{% translate "Исход круга" %}</h2>
+  <ul class="lista-kartica">
+    <li class="kartica-ishoda ishod-gotovo"><svg class="kartica-znak" aria-hidden="true"><use href="#ik-gotovo"/></svg><span><strong class="status status-gotovo">{{ status_gotovo }}</strong> {% translate "Задатак је урађен." %}</span></li>
+    <li class="kartica-ishoda ishod-dorada"><svg class="kartica-znak" aria-hidden="true"><use href="#ik-dorada"/></svg><span><strong class="status status-dorada">{{ status_dorada }}</strong> {% blocktranslate %}Грешка се види одмах. Цена и минути тог круга се множе са {{ dorada_puta }}, а на крају губиш {{ dorada_poeni }} поена. Игра иде на следећи круг.{% endblocktranslate %}</span></li>
+    <li class="kartica-ishoda kartica-greske"><svg class="kartica-znak" aria-hidden="true"><use href="#ik-greska"/></svg><span><strong>{% translate "Тиха грешка" %}</strong> {% blocktranslate %}Неке грешке се не виде одмах: круг пише „{{ status_gotovo }}“, исто као када успе. Открива их завршна провера после последњег круга. Тада се укупној цени додаје цена тог задатка ×{{ tihi_cena_puta }}, укупним минутима његови минути ×{{ tihi_minuti_puta }}, и губиш {{ tihi_poeni }} поена.{% endblocktranslate %}</span></li>
+  </ul>
+</section>
+
+<section id="primer" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-knjiga"/></svg>{% translate "Пример једног круга" %}</h2>
+  <p class="pravila-napomena">{% translate "Задатак је измишљен и није у игри. Бројеви су израчунати по правилима игре." %}</p>
+  <div class="kartica-zadatka mb-3">
+    <span class="znak-zadatka" aria-hidden="true"><svg class="ikona"><use href="#ik-dnevnik"/></svg></span>
+    <div class="kartica-zadatka-tekst">
+      <h3 class="oznaka-zadatka">{% translate "Задатак" %}</h3>
+      <p id="primer-zadatak" class="zadatak">{{ primer.zadatak }}</p>
+    </div>
+  </div>
+  <p class="mb-3">{% translate "Избор" %}: <strong id="primer-izbor">{{ primer.izbori|join:" · " }}</strong></p>
+
+  <div id="primer-gotovo" class="primer-ishod ishod-gotovo">
+    <p class="mb-1"><span class="status status-gotovo">{{ status_gotovo }}</span> <span class="ms-2 trosak">{{ primer.cena }} $ · {{ primer.minuti }} {% translate "мин" %}</span></p>
+    <p class="primer-stanje mb-0">{% translate "Преостали буџет" %}: <strong>{{ primer.budzet_posle }} $</strong> · {% translate "Преостали рок" %}: <strong>{{ primer.rok_posle }} {% translate "мин" %}</strong></p>
+  </div>
+  <p class="mt-3 mb-2">{% translate "Ако би исти круг био враћен на дораду:" %}</p>
+  <div id="primer-dorada" class="primer-ishod ishod-dorada">
+    <p class="mb-1"><span class="status status-dorada">{{ status_dorada }}</span> <span class="ms-2 trosak">{{ primer.cena_dorade }} $ · {{ primer.minuti_dorade }} {% translate "мин" %}</span></p>
+    <p class="primer-stanje mb-0">{% translate "Преостали буџет" %}: <strong>{{ primer.budzet_posle_dorade }} $</strong> · {% translate "Преостали рок" %}: <strong>{{ primer.rok_posle_dorade }} {% translate "мин" %}</strong></p>
+  </div>
+  <p class="mt-3 mb-0">{% blocktranslate %}Да је грешка тиха, круг би изгледао као први: „{{ status_gotovo }}“, са истом ценом и минутима. Трошак и казна стижу тек на завршној провери.{% endblocktranslate %}</p>
+</section>
+
+<section id="poeni-i-ocena" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-zvezda"/></svg>{% translate "Поени и оцена" %}</h2>
+  <ul class="pravila-stavke">
+    <li>{% blocktranslate %}Почињеш са {{ pocetni_poeni }} поена. Поени не падају испод {{ najmanje_poena }}.{% endblocktranslate %}</li>
+    <li>{% translate "Прекорачење буџета или рока не прекида игру. Рачуна се на крају, после трошкова тихих грешака." %}</li>
+    {% if korak_budzeta %}
+    <li>{% blocktranslate %}Прекорачен буџет: −{{ kazna_budzet }} поена за сваких започетих {{ korak_budzeta }} процената прекорачења ({{ korak_budzeta_iznos }} $), највише −{{ kazna_budzet_max }}.{% endblocktranslate %}</li>
+    {% else %}
+    <li>{% blocktranslate %}Прекорачен буџет: −{{ kazna_budzet }} поена.{% endblocktranslate %}</li>
+    {% endif %}
+    <li>{% blocktranslate %}Прекорачен рок: −{{ kazna_rok }} поена.{% endblocktranslate %}</li>
+  </ul>
+  <table id="ocene" class="tabela-pravila">
+    <thead><tr><th scope="col">{% translate "Поени" %}</th><th scope="col">{% translate "Оцена" %}</th></tr></thead>
+    <tbody>
+      {% for red in ocene %}<tr><td>{{ red.od }}–{{ red.do }}</td><td>{{ red.ocena }}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section id="posle-igre" class="panel mb-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>{% translate "После игре" %}</h2>
+  <ul class="pravila-stavke mb-0">
+    <li>{% translate "Завршни екран показује поене, оцену, тихе грешке и лекције." %}</li>
+    <li>{% translate "Резултат можеш да сачуваш на ранг листи под својим именом, а линком за дељење да га покажеш другима." %}</li>
+    <li>{% translate "Дневни изазов је исти за све играче тог дана, игра се једном дневно и има своју ранг листу." %}</li>
+    <li>{% blocktranslate %}Почетни екран показује твојих последњих {{ broj_u_istoriji }} завршених партија у овом прегледачу.{% endblocktranslate %}</li>
+    <li>{% translate "Звук исхода круга укључујеш и искључујеш дугметом на екрану игре." %}</li>
+  </ul>
+</section>
+
+<p id="napomena" class="napomena">{{ napomena }}</p>
+
+<a id="nazad" class="btn btn-lg dugme-glavno w-100" href="{% url 'pocetna' %}">{% translate "Назад" %}</a>
+{% endblock %}

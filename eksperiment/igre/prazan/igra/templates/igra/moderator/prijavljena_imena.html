@@ -1,0 +1,32 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="prijavljena-imena" class="panel">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-zastavica"/></svg>{% translate "Пријављена имена" %}</h1>
+  {% if redovi %}
+  <ol class="rang-lista">
+    {% for red in redovi %}
+    <li class="rang-red moderator-red" id="prijavljeno-{{ red.pk }}">
+      <span class="rang-tekst">
+        <span class="rang-ime">{{ red.ime }}</span>
+        <span class="rang-detalji">{{ red.ocena }} · {{ red.datum }}</span>
+        <span class="rang-detalji">{% blocktranslate with vreme=red.prijavljeno %}пријављено {{ vreme }}{% endblocktranslate %}</span>
+      </span>
+      <span class="rang-poeni"><strong>{{ red.poeni }}</strong><small>{% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}</small></span>
+      <div class="moderator-radnje">
+        <form method="post" action="{% url 'moderator_zadrzi_rezultat' red.pk %}" data-jednom>
+          {% csrf_token %}
+          <button type="submit" class="btn dugme-sporedno">{% translate "Задржи" %}</button>
+        </form>
+        <a class="btn dugme-opasno" href="{% url 'moderator_obrisi_rezultat' red.pk %}?odakle=prijave">{% translate "Обриши резултат" %}</a>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+  {% include "igra/moderator/_strane.html" %}
+  <p class="napomena text-start mt-3 mb-0">{% translate "Пријављено име остаје на ранг листи док не одлучиш. Задржан резултат играчи више не могу да пријаве, а брисање је коначно." %}</p>
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Нема пријављених имена." %}</p>
+  {% endif %}
+</section>
+{% endblock %}

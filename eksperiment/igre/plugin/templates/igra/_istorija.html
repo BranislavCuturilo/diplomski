@@ -1,0 +1,26 @@
+{% load i18n %}{# Moje partije: poslednjih 10 zavrsenih partija ovog pregledaca (sesija na serveru). Iscrtava server pri ucitavanju strane; skripta ga ne dira. Bez semena, oznake, hesa i sanse: samo ono sto je vec javno na zavrsnom ekranu. #}
+      <section id="istorija" class="rang" aria-labelledby="istorija-naslov">
+        <h2 id="istorija-naslov" class="rang-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% translate "Моје партије" %}</h2>
+{% if istorija %}
+        <div class="table-responsive">
+          <table id="istorija-tabela" class="table table-sm istorija-tabela" aria-labelledby="istorija-naslov">
+            <thead>
+              <tr>
+                <th scope="col">{% translate "Датум" %}</th>
+                <th scope="col">{% translate "Врста" %}</th>
+                <th scope="col" class="rang-broj">{% translate "Поени" %}</th>
+                <th scope="col">{% translate "Оцена" %}</th>
+                <th scope="col" class="rang-broj">{% translate "Цена" %}</th>
+                <th scope="col" class="rang-broj">{% translate "Минути" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+{% for red in istorija %}              <tr><td class="rang-datum">{{ red.datum }}</td><td>{% if red.dnevna %}{% translate "Дневни изазов" %}{% if red.dan %} <span class="rang-datum">({{ red.dan }})</span>{% endif %}{% else %}{% translate "Обична игра" %}{% endif %}</td><td class="rang-broj">{{ red.poeni }}</td><td class="rang-ocena">{{ red.ocena }}</td><td class="rang-broj rang-datum">{{ red.cena }}</td><td class="rang-broj rang-datum">{{ red.minuti }}</td></tr>
+{% endfor %}            </tbody>
+          </table>
+        </div>
+{% else %}
+        <p id="istorija-prazno" class="rang-prazno">{% translate "Још нема завршених партија у овом прегледачу." %}</p>
+{% endif %}
+        <p class="rang-legenda">{% translate "Листа се чува само у овом прегледачу и нестаје после 14 дана без игре или брисањем колачића." %}</p>
+      </section>

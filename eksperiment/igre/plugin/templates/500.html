@@ -1,0 +1,32 @@
+{% load i18n %}{% get_current_language as JEZIK %}<!doctype html>
+<html lang="{{ JEZIK|default:"sr" }}">{# Django crta 500 bez konteksta zahteva: nema request, nema context processora. Zato ovde nema {% url %}, {% csrf_token %}, forme ni skripte, a veza na pocetnu je putanja "/" (rute mozda i jesu uzrok greske). Jezik je onaj koji je LocaleMiddleware vec postavio, inace LANGUAGE_CODE; {% translate %} bez prevoda daje izvorni tekst. #}
+{% translate "Грешка · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}<body class="igra-telo">
+
+{% include "igra/_ikone.html" %}
+
+<div class="container igra-okvir">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+
+      <header class="vrh">
+        <div class="vrh-naslov">
+          <span class="znak"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg></span>
+          <div class="vrh-tekst">
+            <p class="naslov">{% translate "Оркестратор" %}</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="nedostupno">
+          <h1 class="nedostupno-naslov">{% translate "Нешто је пошло по злу." %}</h1>
+          <p class="nedostupno-pomoc">{% translate "Грешка је на нашој страни. Покушајте поново за који тренутак." %}</p>
+        </section>
+        <a class="btn dugme dugme-glavno" href="/">{% translate "На почетну страну" %}</a>
+      </main>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

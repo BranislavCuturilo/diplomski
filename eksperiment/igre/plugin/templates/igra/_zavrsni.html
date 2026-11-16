@@ -1,0 +1,60 @@
+{% load i18n %}<section id="zavrsni" class="zavrsni" hidden>
+        <h2 class="zavrsni-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% translate "Контролни скуп" %}</h2>
+
+        <dl class="hero">
+          <div class="poeni-krug"><dt>{% translate "Поени" %}</dt><dd data-mesto="poeni"></dd></div>
+          <div class="ocena-blok">
+            <dt>{% translate "Оцена" %}</dt>
+            <dd><span class="ocena-znak"><svg class="ik" data-mesto="ocena-ikona" aria-hidden="true" focusable="false"><use href="#oc-solidan"/></svg></span><span class="ocena-tekst" data-mesto="ocena"></span></dd>
+          </div>
+        </dl>
+
+        <dl class="zbir">
+          <div class="mala-mera"><dt>{% translate "Укупна цена" %}</dt><dd data-mesto="cena"></dd></div>
+          <div class="mala-mera"><dt>{% translate "Укупно минута" %}</dt><dd data-mesto="minuti"></dd></div>
+        </dl>
+{% if not samo_citanje %}
+        {# Cuvanje rezultata: forma je samo ovde (zavrsni ekran); salje je skripta, pa nema method ni action. #}
+        <form id="rang-forma" class="rang-forma" novalidate data-url-sacuvaj="{{ adrese.sacuvaj }}">
+          <label for="rang-ime" class="rang-oznaka">{% translate "Име за ранг листу" %}</label>
+          <input type="text" id="rang-ime" name="ime" class="form-control rang-ime" maxlength="20" autocomplete="nickname" aria-describedby="rang-pomoc rang-greska">
+          <div id="rang-greska" class="invalid-feedback rang-greska" role="alert" hidden></div>
+          <div id="rang-pomoc" class="rang-pomoc">{% blocktranslate count n=brojevi.ime_maks trimmed %}Од 1 до {{ n }} знак.{% plural %}Од 1 до {{ n }} знакова.{% endblocktranslate %}</div>
+          <button type="submit" id="rang-sacuvaj" class="btn dugme dugme-glavno" disabled><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-pehar"/></svg>{% translate "Сачувај резултат" %}</button>
+        </form>
+        <p id="rang-poruka" class="rang-poruka" role="status" tabindex="-1" hidden></p>
+        {# Deljenje: samo igra (zavrsni ekran bez samo_citanje); link stize iz odgovora servera i ide samo u value polja, nikad u HTML. #}
+        <div id="deli" class="deli" data-url-podeli="{{ adrese.podeli }}">
+          <button type="button" id="deli-dugme" class="btn dugme dugme-sporedno"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg>{% translate "Подели резултат" %}</button>
+          <div id="deli-blok" class="deli-blok" hidden>
+            <label for="deli-link" class="rang-oznaka">{% translate "Линк за дељење" %}</label>
+            <input type="text" id="deli-link" class="form-control rang-ime deli-link" readonly autocomplete="off" spellcheck="false">
+            <p id="deli-rok" class="rang-pomoc"></p>
+            <div class="d-flex flex-wrap gap-2 deli-akcije">
+              <button type="button" id="deli-kopiraj" class="btn dugme dugme-sporedno">{% translate "Копирај линк" %}</button>
+              <button type="button" id="deli-posalji" class="btn dugme dugme-sporedno" hidden>{% translate "Пошаљи" %}</button>
+            </div>
+          </div>
+          <p id="deli-poruka" class="rang-poruka deli-poruka" role="status" hidden></p>
+        </div>
+{% endif %}
+        <p class="prekoracenje" data-mesto="budzet-prekoracen" hidden><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-upozorenje"/></svg><span data-mesto="budzet-osnovno">{% translate "Буџет је прекорачен." %}</span><span data-mesto="budzet-iznos" hidden></span></p>
+        <p class="prekoracenje" data-mesto="rok-prekoracen" hidden><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-upozorenje"/></svg>{% translate "Рок је прекорачен." %}</p>
+
+        <h3 class="odeljak-naslov odeljak-tihe"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-upozorenje"/></svg>{% translate "Тихе грешке" %}</h3>
+        <p class="bez-tihih" data-mesto="nema-tihih" hidden><svg class="ik" aria-hidden="true" focusable="false"><use href="#ish-gotovo"/></svg>{% translate "Нема тихих грешака." %}</p>
+        <ul class="spisak" data-mesto="tihe"></ul>
+
+        <div data-mesto="lekcije-blok" hidden>
+          <h3 class="odeljak-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-lekcija"/></svg>{% translate "Лекције" %}</h3>
+          <ul class="spisak" data-mesto="lekcije"></ul>
+        </div>
+
+        <div class="napomena"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-info"/></svg><p data-mesto="napomena"></p></div>
+      </section>
+<template id="sablon-tiha">
+  <li class="stavka stavka-tiha"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-upozorenje"/></svg><span><span data-mesto="tekst"></span></span></li>
+</template>
+<template id="sablon-lekcija">
+  <li class="stavka stavka-lekcija"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-lekcija"/></svg><span><span data-mesto="tekst"></span> <span class="odeljak" data-mesto="odeljak"></span></span></li>
+</template>

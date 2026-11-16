@@ -1,0 +1,25 @@
+{% extends "igra/moderator/osnova.html" %}{% load i18n %}
+{% block glava %}{% translate "Пријава модератора · Оркестратор" as naslov %}{% include "igra/_glava.html" with naslov=naslov robots=True %}{% endblock %}
+{# Pre prijave nema menija. #}
+{% block meni %}{% endblock %}
+{% block sadrzaj %}
+<section class="mod-karta" aria-labelledby="mod-naslov">
+  <h1 id="mod-naslov" class="mod-naslov"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg>{% translate "Пријава модератора" %}</h1>
+
+  {% if blokirano %}
+  <p class="mod-poruka mod-poruka-greska" role="alert">{% blocktranslate count n=blokirano trimmed %}Превише неуспешних покушаја. Покушајте поново за {{ n }} минут.{% plural %}Превише неуспешних покушаја. Покушајте поново за {{ n }} минута.{% endblocktranslate %}</p>
+  {% endif %}
+
+  {# Lozinka se nikad ne vraca u strani, ni posle greske (_polje.html ne upisuje value za password). #}
+  <form method="post" class="mod-forma" novalidate>
+    {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    {% for greska in form.non_field_errors %}
+    <p class="mod-poruka mod-poruka-greska" role="alert">{{ greska }}</p>
+    {% endfor %}
+    {% include "igra/_polje.html" with polje=form.username oznaka=_("Корисничко име") autocomplete="username" %}
+    {% include "igra/_polje.html" with polje=form.password oznaka=_("Лозинка") autocomplete="current-password" %}
+    <button type="submit" class="btn dugme dugme-glavno">{% translate "Пријави се" %}</button>
+  </form>
+</section>
+{% endblock %}

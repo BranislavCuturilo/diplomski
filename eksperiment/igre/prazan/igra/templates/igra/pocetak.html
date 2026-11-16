@@ -1,0 +1,108 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block sadrzaj %}
+<section class="panel panel-pocetak">
+  <svg class="scena" viewBox="0 0 320 170" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="reflektor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f5b841" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#f5b841" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <polygon points="160,0 92,170 228,170" fill="url(#reflektor)"/>
+    <g class="scena-veze">
+      <path d="M160 108 62 58M160 108 52 138M160 108 258 58M160 108 268 138"/>
+    </g>
+    <g class="scena-agent"><circle cx="62" cy="58" r="17"/><use href="#ik-model-haiku" x="50" y="46" width="24" height="24"/></g>
+    <g class="scena-agent"><circle cx="52" cy="138" r="17"/><use href="#ik-model-sonnet" x="40" y="126" width="24" height="24"/></g>
+    <g class="scena-agent"><circle cx="258" cy="58" r="17"/><use href="#ik-model-opus" x="246" y="46" width="24" height="24"/></g>
+    <g class="scena-agent"><circle cx="268" cy="138" r="17"/><use href="#ik-podela-3_agenta" x="256" y="126" width="24" height="24"/></g>
+    <g class="scena-dirigent"><circle cx="160" cy="108" r="32"/><use href="#ik-palica" x="140" y="88" width="40" height="40"/></g>
+  </svg>
+  <h1 class="naslov">{% translate "Оркестратор" %}</h1>
+  <p class="lead">{% translate "Водиш израду веб апликације и за сваки задатак бираш како ће га AI агент урадити." %}</p>
+  <p class="podnaslov">{% translate "Циљ је да завршиш са што више поена, у буџету и року." %}</p>
+  <div class="row g-2 my-3">
+    <div class="col-4"><div class="pokazatelj pokazatelj-mali"><svg class="ikona ikona-novac" aria-hidden="true"><use href="#ik-novac"/></svg><span>{% translate "Буџет" %}</span><strong>{{ budzet }} $</strong></div></div>
+    <div class="col-4"><div class="pokazatelj pokazatelj-mali"><svg class="ikona ikona-vreme" aria-hidden="true"><use href="#ik-vreme"/></svg><span>{% translate "Рок" %}</span><strong>{{ rok }} {% translate "мин" %}</strong></div></div>
+    <div class="col-4"><div class="pokazatelj pokazatelj-mali"><svg class="ikona ikona-krug" aria-hidden="true"><use href="#ik-krug"/></svg><span>{% translate "Кругова" %}</span><strong>{{ broj_krugova }}</strong></div></div>
+  </div>
+  <form method="post" action="{% url 'nova' %}" data-jednom>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-lg dugme-glavno w-100">{% translate "Нова игра" %}<svg class="ikona" aria-hidden="true"><use href="#ik-strelica"/></svg></button>
+  </form>
+  {% if dnevni_dostupan %}
+  <form method="post" action="{% url 'dnevna' %}" data-jednom>
+    {% csrf_token %}
+    <button id="dnevni-izazov" type="submit" class="btn dugme-sporedno w-100 mt-2">{% translate "Дневни изазов" %} · {{ dnevni_datum }}</button>
+  </form>
+  {% else %}
+  <p id="dnevni-odigran" class="podnaslov mt-2 mb-0">{% translate "Данашњи изазов је већ одигран." %}</p>
+  {% endif %}
+  {% if kraj_dostupan %}
+  <a id="nazad-na-rezultat" class="btn dugme-sporedno w-100 mt-2" href="{% url 'kraj' %}">{% translate "Погледај резултат последње партије" %}</a>
+  {% endif %}
+  <a id="kako-se-igra" class="btn dugme-sporedno w-100 mt-2" href="{% url 'kako_se_igra' %}"><svg class="ikona" aria-hidden="true"><use href="#ik-pitanje"/></svg> {% translate "Како се игра" %}</a>
+</section>
+
+<section id="rang-lista" class="panel mt-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>{% translate "Ранг листа" %}</h2>
+  {% if rang_lista %}
+  <ol class="rang-lista">
+    {% for red in rang_lista %}
+    <li class="rang-red rang-mesto-{{ red.mesto }}{% if red.istaknut %} rang-istaknut{% endif %}"{% if red.istaknut %} aria-current="true"{% endif %}>
+      <span class="rang-mesto">{{ red.mesto }}</span>
+      <span class="rang-tekst">
+        <span class="rang-ime">{{ red.ime }}</span>
+        <span class="rang-detalji"><span class="rang-ocena">{{ red.ocena }}</span> · <span class="rang-datum">{{ red.datum }}</span></span>
+      </span>
+      <span class="rang-poeni"><strong>{{ red.poeni }}</strong><small>{% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}</small></span>
+      {% include "igra/_prijavi_ime.html" %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Још нема сачуваних резултата." %}</p>
+  {% endif %}
+</section>
+
+<section id="dnevna-lista" class="panel mt-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-pehar"/></svg>{% translate "Ранг листа дана" %} · {{ dnevni_datum }}</h2>
+  {% if dnevna_lista %}
+  <ol class="rang-lista">
+    {% for red in dnevna_lista %}
+    <li class="rang-red rang-mesto-{{ red.mesto }}{% if red.istaknut %} rang-istaknut{% endif %}"{% if red.istaknut %} aria-current="true"{% endif %}>
+      <span class="rang-mesto">{{ red.mesto }}</span>
+      <span class="rang-tekst">
+        <span class="rang-ime">{{ red.ime }}</span>
+        <span class="rang-detalji"><span class="rang-ocena">{{ red.ocena }}</span></span>
+      </span>
+      <span class="rang-poeni"><strong>{{ red.poeni }}</strong><small>{% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}</small></span>
+      {% include "igra/_prijavi_ime.html" %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <p class="mb-0 prazna-lista">{% translate "Данас још нико није сачувао резултат." %}</p>
+  {% endif %}
+</section>
+
+{% if moje_partije %}
+<section id="moje-partije" class="panel mt-3">
+  <h2 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-istorija"/></svg>{% translate "Моје партије" %}</h2>
+  <ol class="rang-lista">
+    {% for red in moje_partije %}
+    <li>
+      {% if red.kod %}<a class="rang-red moja-partija" href="{% url 'podeljeno' red.kod %}">{% else %}<span class="rang-red moja-partija">{% endif %}
+        <span class="rang-tekst">
+          <span class="rang-ime moja-vreme">{{ red.vreme }}</span>
+          <span class="rang-detalji"><span class="rang-ocena">{{ red.ocena }}</span>{% if red.dnevna %} · {% translate "дневни изазов" %}{% endif %}{% if red.ime %} · „{{ red.ime }}“{% endif %}</span>
+        </span>
+        <span class="rang-poeni"><strong>{{ red.poeni }}</strong><small>{% blocktranslate count broj=red.poeni %}поена{% plural %}поена{% endblocktranslate %}</small></span>
+      {% if red.kod %}</a>{% else %}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,112 @@
+{
+ "strana": "prazan",
+ "prolazi": 21,
+ "ukupno": 21,
+ "provere": [
+  {
+   "provera": "nedovrsena partija nema link",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "zavrsena partija dobija link",
+   "ok": true,
+   "detalj": "http://127.0.0.1:8803/partija/HNZHo0LmhlYjd3KeiyQDeg/"
+  },
+  {
+   "provera": "ponovno trazenje daje isti link",
+   "ok": true,
+   "detalj": "('http://127.0.0.1:8803/partija/HNZHo0LmhlYjd3KeiyQDeg/', 'http://127.0.0.1:8803/partija/HNZHo0LmhlYjd3KeiyQDeg/')"
+  },
+  {
+   "provera": "token ima bar 128 bita (>= 22 znaka base64url ili 32 hex)",
+   "ok": true,
+   "detalj": "22 znakova"
+  },
+  {
+   "provera": "link ne sadrzi kljuc sesije",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "server cuva isto sto vlasnik vidi na zavrsnom ekranu",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "link se otvara (200) bez JS gresaka",
+   "ok": true,
+   "detalj": "(200, [])"
+  },
+  {
+   "provera": "prikazani poeni, ocena, tihe greske, lekcije",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "broj tihih gresaka i lekcija vidljiv (nije prazno samo zato sto nema)",
+   "ok": true,
+   "detalj": "tihe=2 lekcije=5"
+  },
+  {
+   "provera": "seme i oznaka partije nisu u stranici",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "na deljenoj strani nema kontrola igre",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "otvaranje linka ne daje posetiocu vlasnikovu sesiju",
+   "ok": true,
+   "detalj": "set()"
+  },
+  {
+   "provera": "posle poteza posetioca deljeni rezultat je isti",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "posle \"Nova igra\" stari link vazi i pokazuje istu partiju",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "druga partija dobija drugi link",
+   "ok": true,
+   "detalj": "http://127.0.0.1:8803/partija/ypxzgfed0eCGW77NhoVINQ/"
+  },
+  {
+   "provera": "pogresan token (izmenjen jedan znak): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "pogresan token (kratak): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "pogresan token (5000 znakova): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "pogresan token (cirilica): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "pogresan token (SQL): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  },
+  {
+   "provera": "pogresan token (id partije): 404 bez tehnicke strane",
+   "ok": true,
+   "detalj": "404"
+  }
+ ]
+}

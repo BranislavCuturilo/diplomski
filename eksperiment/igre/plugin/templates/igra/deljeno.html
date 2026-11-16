@@ -1,0 +1,67 @@
+{% load i18n static %}{% get_current_language as JEZIK %}<!doctype html>
+<html lang="{{ JEZIK }}">{# _glava.html se zavrsava novim redom, pa <body> stoji odmah iza include-a (izlaz je bajt-u-bajt isti kao pre izdvajanja). #}
+{% if deljeno %}{% translate "Подељени резултат · Оркестратор" as naslov %}{% else %}{% translate "Резултат није доступан · Оркестратор" as naslov %}{% endif %}{% include "igra/_glava.html" with naslov=naslov robots=True %}<body class="igra-telo">
+
+{# Strana samo za citanje: bez forme, bez CSRF tokena i bez kontrola igre. Ime stize samo kroz json_script i upisuje se samo kroz textContent. #}
+{% include "igra/_ikone.html" %}
+
+<div class="container igra-okvir">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+
+      <header class="vrh">
+        <div class="vrh-naslov">
+          <span class="znak"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-znak"/></svg></span>
+          <div class="vrh-tekst">
+            <h1 class="naslov">{% translate "Оркестратор" %}</h1>
+            {% if deljeno %}<p class="krug">{% translate "Подељени резултат" %}</p>{% endif %}
+          </div>
+          {# Jezik ove strane menja samo link ?jezik= (bez kolacica i bez upisa): POST forma bi trazila CSRF token, a on pravi kolacic. Link ne ponavlja ostale parametre. #}
+          <nav class="jezik" aria-label="{% translate 'Језик' %}">
+            {% if JEZIK == "sr" %}
+            <a id="jezik-link" class="btn jezik-dugme dugme-sporedno" href="?jezik=en" hreflang="en" lang="en">English</a>
+            {% else %}
+            <a id="jezik-link" class="btn jezik-dugme dugme-sporedno" href="?jezik=sr" hreflang="sr" lang="sr">Српски</a>
+            {% endif %}
+          </nav>
+        </div>
+      </header>
+
+      {% if deljeno %}
+      <div id="poruka" class="alert alert-info poruka" role="alert" hidden></div>
+      {# Skriveno dok skripta ne ustanovi da mapa tekstova nije procitana; tada je ovo jedini tekst koji se prikazuje. #}
+      <div id="tekstovi-greska" class="alert alert-danger poruka" role="alert" hidden>{% translate "Резултат није могао да се прочита." %}</div>
+
+      {# Podaci su skriveni dok ih skripta ne upise; ime i datum su prazni u HTML-u. #}
+      <div id="deljeno-podaci" class="deljeno-podaci" hidden>
+        <p id="deljeno-ime-red" hidden>{% translate "Играч:" %} <bdi id="deljeno-ime"></bdi></p>
+        <p>{% translate "Датум:" %} <span id="deljeno-datum"></span></p>
+      </div>
+
+      {% include "igra/_zavrsni.html" with samo_citanje=True %}
+
+      <p class="deljeno-napomena">{% translate "Ово је завршена партија; овде се не може играти." %}</p>
+      <div class="nova">
+        <a id="igraj-i-ti" class="btn dugme dugme-glavno" href="{% url 'pocetna' %}"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-nova"/></svg>{% translate "Играј и ти" %}</a>
+      </div>
+      {% else %}
+      <section id="nedostupno" class="nedostupno" role="status">
+        <h2 class="nedostupno-naslov">{% translate "Овај резултат више није доступан." %}</h2>
+        <p class="nedostupno-pomoc">{% blocktranslate count n=dana trimmed %}Линк за дељење важи {{ n }} дан.{% plural %}Линк за дељење важи {{ n }} дана.{% endblocktranslate %}</p>
+      </section>
+      <div class="nova">
+        <a id="igraj-i-ti" class="btn dugme dugme-glavno" href="{% url 'pocetna' %}"><svg class="ik" aria-hidden="true" focusable="false"><use href="#ik-nova"/></svg>{% translate "Играј и ти" %}</a>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% if deljeno %}
+{{ deljeno|json_script:"deljeni-rezultat" }}
+{{ tekstovi|json_script:"tekstovi" }}
+<script src="{% static 'igra/igra.js' %}"></script>
+{% endif %}
+</body>
+</html>

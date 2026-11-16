@@ -1,0 +1,25 @@
+{% extends "igra/osnova.html" %}
+{% load i18n %}
+{% block glava %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block sadrzaj %}
+<section id="prijava-imena" class="panel panel-potvrde">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-zastavica"/></svg>{% translate "Пријава имена" %}</h1>
+  <p id="prijavljeno-ime" class="rang-ime fs-5 mb-1">{{ ime }}</p>
+  <p class="rang-detalji mb-3">{{ poeni }} {% blocktranslate count broj=poeni %}поена{% plural %}поена{% endblocktranslate %} · {{ ocena }}</p>
+  {% if stanje == "slobodno" %}
+  <p class="mb-3">{% translate "Ако је ово име неприкладно, пријави га. Модератор ће га прегледати и одлучити да ли резултат остаје на ранг листи. До тада се име и даље види." %}</p>
+  <form id="forma-prijave-imena" method="post" action="{% url 'prijavi_ime' pk %}" class="red-potvrde" data-jednom>
+    {% csrf_token %}
+    <a id="odustani" class="btn dugme-sporedno" href="{% url 'pocetna' %}#{{ lista }}">{% translate "Одустани" %}</a>
+    <button id="prijavi" type="submit" class="btn dugme-opasno">{% translate "Пријави" %}</button>
+  </form>
+  {% else %}
+  {% if stanje == "prijavljeno" %}
+  <p id="ime-prijavljeno" class="bez-gresaka mb-3" role="status"><svg class="ikona" aria-hidden="true"><use href="#ik-gotovo"/></svg><span>{% translate "Име је пријављено. Модератор ће га прегледати и одлучити да ли резултат остаје на ранг листи." %}</span></p>
+  {% else %}
+  <p id="ime-pregledano" class="prazna-lista mb-3">{% translate "Модератор је прегледао ово име и оставио резултат на ранг листи." %}</p>
+  {% endif %}
+  <a id="nazad-na-listu" class="btn dugme-sporedno w-100" href="{% url 'pocetna' %}#{{ lista }}">{% translate "Назад на ранг листу" %}</a>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,137 @@
+{
+ "strana": "plugin",
+ "prolazi": 24,
+ "ukupno": 26,
+ "provere": [
+  {
+   "provera": "cuvanje pre kraja partije odbijeno",
+   "ok": true,
+   "detalj": "409"
+  },
+  {
+   "provera": "poeni i ocena od klijenta ne ulaze u bazu",
+   "ok": true,
+   "detalj": "400, red=None"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: prazno ime",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: samo razmaci",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: bez polja ime",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: predugo ime (5000)",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: ime od 21 znakova",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: NUL znak",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: obrtanje smera U+202E",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: nevidljivi U+200B",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: prelom reda",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "odbijeno ili ocisceno: tab",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "[nalaz plugina] odbijeno: nevidljivo ime (hangul popunjivac U+3164)",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "[nalaz plugina] odbijeno: naslagani znaci (a + 12 x U+0301)",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "ime od tacno 20 cirilicnih znakova prihvaceno",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "XSS ime prikazano izbegnuto",
+   "ok": false,
+   "detalj": ""
+  },
+  {
+   "provera": "drugo cuvanje iste partije odbijeno",
+   "ok": true,
+   "detalj": "(200, 409)"
+  },
+  {
+   "provera": "posle \"Nova igra\" stara partija se ne cuva",
+   "ok": true,
+   "detalj": "409"
+  },
+  {
+   "provera": "cuvanje bez CSRF tokena odbijeno (403)",
+   "ok": true,
+   "detalj": "403"
+  },
+  {
+   "provera": "neispravno telo zahteva daje 4xx, ne 500",
+   "ok": true,
+   "detalj": "400"
+  },
+  {
+   "provera": "GET na adresu cuvanja ne pise (405)",
+   "ok": true,
+   "detalj": "405"
+  },
+  {
+   "provera": "pocetni ekran nove posete prikazuje tacno 10",
+   "ok": true,
+   "detalj": "10"
+  },
+  {
+   "provera": "redosled: vise poena iznad, kod jednakih raniji",
+   "ok": true,
+   "detalj": "prikaz=['Igrac03', 'Igrac05', 'Igrac06', 'Igrac00', 'Igrac10', 'Igrac01', 'Igrac02', 'Igrac04', 'Igrac07', 'Igrac08'] ocekivano=['Igrac03', 'Igrac05', 'Igrac06', 'Igrac00', 'Igrac10', 'Igrac01', 'Igrac02', 'Igrac04', 'Igrac07', 'Igrac08'] poeni=[20, 20, 20, 15, 15, 0, 0, 0, 0, 0, 0, 0]"
+  },
+  {
+   "provera": "datum u obliku dd.mm.gggg",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "ocena vidljiva u listi",
+   "ok": false,
+   "detalj": ""
+  },
+  {
+   "provera": "seme ni oznaka partije nisu u pocetnoj strani",
+   "ok": true,
+   "detalj": ""
+  }
+ ]
+}

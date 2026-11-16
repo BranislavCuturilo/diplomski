@@ -1,0 +1,42 @@
+{
+ "strana": "plugin",
+ "prolazi": 6,
+ "ukupno": 7,
+ "provere": [
+  {
+   "provera": "2000 partija, nova pravila: poeni = moja formula",
+   "ok": true,
+   "detalj": "0 razlika, npr. []"
+  },
+  {
+   "provera": "2000 partija, stara pravila: poeni = moja formula",
+   "ok": true,
+   "detalj": "0 razlika, npr. []"
+  },
+  {
+   "provera": "provera je pogodila granice",
+   "ok": false,
+   "detalj": "prekoracenja 1483, tacno na granici 10/20/30/40 % 0, tihih gresaka 3762"
+  },
+  {
+   "provera": "migracija prolazi nad bazom sa starim podacima",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "rang lista: stari rezultat zadrzava stare poene",
+   "ok": true,
+   "detalj": "staro=15 novo=0"
+  },
+  {
+   "provera": "stari deljeni link: status 200 i stari poeni, ne novi",
+   "ok": true,
+   "detalj": "status 200, nadjeno ['15'], staro=15, novo=0"
+  },
+  {
+   "provera": "partija zapoceta pre izmene zavrsava po starim pravilima (odluka obe strane)",
+   "ok": true,
+   "detalj": "nadjeno ['15'], staro=15, novo=0"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+Klijent trazi rang listu: posle zavrsene partije igrac moze da upise ime i sacuva rezultat, a pocetni ekran prikazuje 10 najboljih rezultata (ime, poeni, ocena, datum). Ovo menja MVP: cuvanje rezultata i rang lista vise nisu van opsega.

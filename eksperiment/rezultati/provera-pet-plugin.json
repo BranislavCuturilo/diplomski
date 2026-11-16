@@ -1,0 +1,117 @@
+{
+ "strana": "plugin",
+ "prolazi": 22,
+ "ukupno": 22,
+ "provere": [
+  {
+   "provera": "\"Kako se igra\": strana radi",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "\"Kako se igra\": link sa pocetnog ekrana",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "\"Kako se igra\": tekuca pravila (35 za tihu gresku, najvise 50 za budzet)",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "\"Kako se igra\" na engleskom bez cirilice",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "istorija: najvise 10 zavrsenih partija",
+   "ok": true,
+   "detalj": "10"
+  },
+  {
+   "provera": "istorija drugog igraca: samo njegova zavrsena partija",
+   "ok": true,
+   "detalj": "1"
+  },
+  {
+   "provera": "istorija ne otkriva seme",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "statistika bez prijave nije dostupna",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "statistika za nalog bez uloge nije dostupna",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "moderator vidi statistiku",
+   "ok": true,
+   "detalj": "200"
+  },
+  {
+   "provera": "statistika ima 7 dana",
+   "ok": true,
+   "detalj": "7"
+  },
+  {
+   "provera": "12.11: 13 zavrsenih partija",
+   "ok": true,
+   "detalj": "13"
+  },
+  {
+   "provera": "partija u 23:30 UTC broji se za 13.11 (Beograd)",
+   "ok": true,
+   "detalj": "1"
+  },
+  {
+   "provera": "dan bez partija je 0",
+   "ok": true,
+   "detalj": "0"
+  },
+  {
+   "provera": "JSON: 200 i application/json",
+   "ok": true,
+   "detalj": "(200, 'application/json')"
+  },
+  {
+   "provera": "JSON: ne postavlja kolacice",
+   "ok": true,
+   "detalj": "[]"
+  },
+  {
+   "provera": "JSON: dozvoljen sa drugog sajta (CORS)",
+   "ok": true,
+   "detalj": "*"
+  },
+  {
+   "provera": "JSON: kesira se kratko",
+   "ok": true,
+   "detalj": "public, max-age=60"
+  },
+  {
+   "provera": "JSON: bez internih kljuceva (seme, partija, id, token, sesija)",
+   "ok": true,
+   "detalj": "['dan', 'danas', 'glavna', 'redovi', 'verzija']"
+  },
+  {
+   "provera": "JSON: bez semena partija",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "JSON: POST nije dozvoljen",
+   "ok": true,
+   "detalj": ""
+  },
+  {
+   "provera": "nginx ogranicava broj zahteva za /api/rang-lista/",
+   "ok": true,
+   "detalj": ""
+  }
+ ]
+}

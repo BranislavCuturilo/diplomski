@@ -1,0 +1,48 @@
+{% extends "igra/moderator/osnova.html" %}
+{% load i18n %}
+{% block moderacija %}
+<section id="nalozi" class="panel mb-3">
+  <h1 class="oznaka-zadatka"><svg class="ikona" aria-hidden="true"><use href="#ik-stit"/></svg>{% translate "Модератори" %}</h1>
+  <ul class="rang-lista">
+    {% for nalog in nalozi %}
+    <li class="rang-red moderator-red" id="nalog-{{ nalog.pk }}">
+      <span class="rang-tekst">
+        <span class="rang-ime">{{ nalog.get_username }}{% if nalog.pk == moderator.pk %} <small class="rang-detalji d-inline">({% translate "ти" %})</small>{% endif %}</span>
+        <span class="rang-detalji">{% if nalog.is_active %}{% translate "активан" %}{% else %}{% translate "искључен" %}{% endif %}</span>
+      </span>
+      {% if nalog.pk != moderator.pk %}
+      <form method="post" class="moderator-radnje" action="{% if nalog.is_active %}{% url 'moderator_iskljuci' nalog.pk %}{% else %}{% url 'moderator_ukljuci' nalog.pk %}{% endif %}" data-jednom>
+        {% csrf_token %}
+        {% if nalog.is_active %}
+        <button type="submit" class="btn dugme-opasno">{% translate "Искључи" %}</button>
+        {% else %}
+        <button type="submit" class="btn dugme-sporedno">{% translate "Укључи" %}</button>
+        {% endif %}
+      </form>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="napomena text-start mt-3 mb-0">{% translate "Искључен модератор не може да се пријави, а већ отворена сесија губи приступ одмах." %}</p>
+</section>
+
+<section id="novi-moderator" class="panel panel-cuvanja">
+  <h2 class="oznaka-zadatka">{% translate "Додај модератора" %}</h2>
+  {% if greske %}
+  <ul id="greske-naloga" class="poruka-greske mb-3" role="alert">
+    {% for greska in greske %}<li>{{ greska }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <form id="forma-naloga" method="post" action="{% url 'moderator_nalozi' %}" data-jednom>
+    {% csrf_token %}
+    <label for="ime" class="oznaka-imena">{% translate "Име налога" %}</label>
+    <input id="ime" name="ime" type="text" class="form-control polje-imena mb-3" required maxlength="30" autocomplete="off" autocapitalize="none" spellcheck="false" value="{{ uneto_ime|default:'' }}">
+    <label for="lozinka" class="oznaka-imena">{% translate "Лозинка" %}</label>
+    <input id="lozinka" name="lozinka" type="password" class="form-control polje-imena mb-2" required autocomplete="new-password" aria-describedby="pravila-lozinke">
+    <p id="pravila-lozinke" class="napomena text-start mb-3">{% translate "Најмање 10 знакова; не сме бити честа лозинка, ни само од цифара, ни слична имену." %}</p>
+    <label for="lozinka_ponovo" class="oznaka-imena">{% translate "Поново лозинка" %}</label>
+    <input id="lozinka_ponovo" name="lozinka_ponovo" type="password" class="form-control polje-imena mb-3" required autocomplete="new-password">
+    <button id="dodaj" type="submit" class="btn dugme-glavno w-100">{% translate "Додај" %}</button>
+  </form>
+</section>
+{% endblock %}

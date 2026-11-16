@@ -1,0 +1,1 @@
+Klijent trazi englesku verziju igre: igrac bira srpski ili engleski, izbor se pamti, a ceo tekst na ekranu, ukljucujuci lekcije i napomenu, postoji na oba jezika.
